@@ -1,0 +1,418 @@
+[
+  {
+    "slug": "iftar-party-2026",
+    "sourceId": "Graphic Design 8",
+    "sourceFilename": "Graphic Design 8.jpg",
+    "batch": "Phase 2B validation",
+    "title": "ইফতার পার্টি ২০২৬",
+    "language": "bn",
+    "titleSupplied": true,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Poster",
+      "Dawah"
+    ],
+    "status": "Supplied project",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-08.jpg",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-01",
+    "sourceId": "Graphic Design 1",
+    "sourceFilename": "Graphic Design 1.png",
+    "title": "",
+    "displayTitle": "Graphic Design 01",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-01.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false,
+    "batch": "Batch 1"
+  },
+  {
+    "slug": "graphic-design-02",
+    "sourceId": "Graphic Design 2",
+    "sourceFilename": "Graphic Design 2.png",
+    "title": "",
+    "displayTitle": "Graphic Design 02",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-02.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false,
+    "batch": "Batch 1"
+  },
+  {
+    "slug": "graphic-design-03",
+    "sourceId": "Graphic Design 3",
+    "sourceFilename": "Graphic Design 3.png",
+    "title": "",
+    "displayTitle": "Graphic Design 03",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-03.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false,
+    "batch": "Batch 1"
+  },
+  {
+    "slug": "graphic-design-04",
+    "sourceId": "Graphic Design 4",
+    "sourceFilename": "Graphic Design 4.png",
+    "title": "",
+    "displayTitle": "Graphic Design 04",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-04.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false,
+    "batch": "Batch 1"
+  },
+  {
+    "slug": "graphic-design-05",
+    "sourceId": "Graphic Design 5",
+    "sourceFilename": "Graphic Design 5.jpeg",
+    "title": "",
+    "displayTitle": "Graphic Design 05",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-05.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false,
+    "batch": "Batch 1"
+  },
+  {
+    "slug": "graphic-design-06",
+    "sourceId": "Graphic Design 6",
+    "sourceFilename": "Graphic Design 6.png",
+    "batch": "Batch 2",
+    "title": "",
+    "displayTitle": "Graphic Design 06",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Poster"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab",
+      "Infinite Painter"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-06.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-07",
+    "sourceId": "Graphic Design 7",
+    "sourceFilename": "Graphic Design 7.jpg",
+    "batch": "Batch 2",
+    "title": "",
+    "displayTitle": "Graphic Design 07",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab",
+      "Infinite Painter"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-07.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-09",
+    "sourceId": "Graphic Design 9",
+    "sourceFilename": "Graphic Design 9.png",
+    "batch": "Batch 2",
+    "title": "",
+    "displayTitle": "Graphic Design 09",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab",
+      "Infinite Painter"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-09.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-10",
+    "sourceId": "Graphic Design 10",
+    "sourceFilename": "Graphic Design 10.jpg",
+    "batch": "Batch 2",
+    "title": "",
+    "displayTitle": "Graphic Design 10",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab",
+      "Infinite Painter"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-10.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-11",
+    "sourceId": "Graphic Design 11",
+    "sourceFilename": "Graphic Design 11.png",
+    "batch": "Batch 2",
+    "title": "",
+    "displayTitle": "Graphic Design 11",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab",
+      "Infinite Painter"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-11.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-12",
+    "sourceId": "Graphic Design 12",
+    "sourceFilename": "Graphic Design 12.jpg",
+    "batch": "Batch 3",
+    "title": "",
+    "displayTitle": "Graphic Design 12",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Poster"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-12.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-13",
+    "sourceId": "Graphic Design 13",
+    "sourceFilename": "Graphic Design 13.jpg",
+    "batch": "Batch 3",
+    "title": "",
+    "displayTitle": "Graphic Design 13",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Poster"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-13.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-14",
+    "sourceId": "Graphic Design 14",
+    "sourceFilename": "Graphic Design 14.jpg",
+    "batch": "Batch 3",
+    "title": "",
+    "displayTitle": "Graphic Design 14",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Poster"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-14.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-15",
+    "sourceId": "Graphic Design 15",
+    "sourceFilename": "Graphic Design 15.jpg",
+    "batch": "Batch 3",
+    "title": "",
+    "displayTitle": "Graphic Design 15",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Poster"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-15.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  },
+  {
+    "slug": "graphic-design-16",
+    "sourceId": "Graphic Design 16",
+    "sourceFilename": "Graphic Design 16.jpg",
+    "batch": "Batch 3",
+    "title": "",
+    "displayTitle": "Graphic Design 16",
+    "titleSupplied": false,
+    "label": "Graphic Design",
+    "visual": "poster",
+    "categories": [
+      "graphic-design"
+    ],
+    "tags": [
+      "Cover"
+    ],
+    "status": "Supplied image",
+    "summary": "",
+    "tools": [
+      "Photoshop",
+      "Pixellab"
+    ],
+    "imageSrc": "assets/graphic-design/graphic-design-16.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "featured": false
+  }
+]

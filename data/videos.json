@@ -1,0 +1,839 @@
+[
+  {
+    "slug": "video-01",
+    "sourceId": "VIDEO 01",
+    "title": "শুধু একটি ওয়েবসাইট তৈরি করাই যথেষ্ট নয়—তৈরি করুন এমন একটি ব্র্যান্ড...",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "motion-animation"
+    ],
+    "tags": [
+      "Animation Reels"
+    ],
+    "category": "Animation Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "20 sec",
+    "durationSeconds": 20,
+    "platform": "YouTube",
+    "videoType": "Animation Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/fLQB8PC1KUQ?feature=share",
+    "videoId": "fLQB8PC1KUQ",
+    "posterImage": "assets/video-posters/video-01.webp",
+    "imageSrc": "assets/video-posters/video-01.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-02",
+    "sourceId": "VIDEO 02",
+    "title": "Motion and Animation",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "motion-animation"
+    ],
+    "tags": [
+      "Animation Reels"
+    ],
+    "category": "Animation Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "17 sec",
+    "durationSeconds": 17,
+    "platform": "YouTube",
+    "videoType": "Animation Reels",
+    "aspectRatio": "3:4",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/t-EGTUtpfpI?feature=share",
+    "videoId": "t-EGTUtpfpI",
+    "posterImage": "assets/video-posters/video-02.webp",
+    "imageSrc": "assets/video-posters/video-02.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-03",
+    "sourceId": "VIDEO 03",
+    "title": "Subedar Squad Official Jersey Reveal 2026 | Team Sports Jersey Design",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "motion-animation"
+    ],
+    "tags": [
+      "Animation Reels"
+    ],
+    "category": "Animation Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "16 sec",
+    "durationSeconds": 16,
+    "platform": "YouTube",
+    "videoType": "Animation Reels",
+    "aspectRatio": "1:1",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/STPkXbqavVw?feature=share",
+    "videoId": "STPkXbqavVw",
+    "posterImage": "assets/video-posters/video-03.webp",
+    "imageSrc": "assets/video-posters/video-03.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-04",
+    "sourceId": "VIDEO 04",
+    "title": "Eid Al-Adha 2026 Animated Greetings | Eid Mubarak",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "motion-animation"
+    ],
+    "tags": [
+      "Animation Reels"
+    ],
+    "category": "Animation Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "17 sec",
+    "durationSeconds": 17,
+    "platform": "YouTube",
+    "videoType": "Animation Reels",
+    "aspectRatio": "3:4",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/l3v-xK5Qi1M?feature=share",
+    "videoId": "l3v-xK5Qi1M",
+    "posterImage": "assets/video-posters/video-04.webp",
+    "imageSrc": "assets/video-posters/video-04.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-05",
+    "sourceId": "VIDEO 05",
+    "title": "অক্ষর যখন কথা বলে, আর টাইপোগ্রাফি রূপ নেয় চরিত্রে!",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "motion-animation"
+    ],
+    "tags": [
+      "Animation"
+    ],
+    "category": "Animation",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "21 sec",
+    "durationSeconds": 21,
+    "platform": "YouTube",
+    "videoType": "Animation",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/4lltRHmVmMg",
+    "videoId": "4lltRHmVmMg",
+    "posterImage": "assets/video-posters/video-05.webp",
+    "imageSrc": "assets/video-posters/video-05.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-06",
+    "sourceId": "VIDEO 06",
+    "title": "ভ্লাদ ড্রাকুলার শেষ পরিণতি ও উসমানীয়দের ভয়ংকর প্রতিশোধ",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "editorial-storytelling"
+    ],
+    "tags": [
+      "Storytelling Reels"
+    ],
+    "category": "Storytelling Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "52 sec",
+    "durationSeconds": 52,
+    "platform": "YouTube",
+    "videoType": "Storytelling Reels",
+    "aspectRatio": "3:4",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/vyN0xgrHyqg?feature=share",
+    "videoId": "vyN0xgrHyqg",
+    "posterImage": "assets/video-posters/video-06.webp",
+    "imageSrc": "assets/video-posters/video-06.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-07",
+    "sourceId": "VIDEO 07",
+    "title": "জ্ঞানের নেশায় কিংবা ক্ষমতার লোভে আমরা কি নিজেদের বিবেকের কাছেই হেরে যাচ্ছি?",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "editorial-storytelling"
+    ],
+    "tags": [
+      "Storytelling Reels"
+    ],
+    "category": "Storytelling Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "57 sec",
+    "durationSeconds": 57,
+    "platform": "YouTube",
+    "videoType": "Storytelling Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/nB0vEmBFtys?feature=share",
+    "videoId": "nB0vEmBFtys",
+    "posterImage": "assets/video-posters/video-07.webp",
+    "imageSrc": "assets/video-posters/video-07.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-08",
+    "sourceId": "VIDEO 08",
+    "title": "যা আমরা অপছন্দ করি, তাতেই হয়তো কল্যাণ লুকিয়ে আছে! - Ibn Arabi | Surah Baqarah",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Voiceover Reels"
+    ],
+    "category": "Islamic Voiceover Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "24 sec",
+    "durationSeconds": 24,
+    "platform": "YouTube",
+    "videoType": "Islamic Voiceover Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/QvNIu3QBuVI?feature=share",
+    "videoId": "QvNIu3QBuVI",
+    "posterImage": "assets/video-posters/video-08.webp",
+    "imageSrc": "assets/video-posters/video-08.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-09",
+    "sourceId": "VIDEO 09",
+    "title": "Ertugrul & Ibn Arabi Emotional Scene | Bangla Voice Dubbing | Emdads Visual",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Dawah Videos"
+    ],
+    "category": "Dawah Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "3 min 3 sec",
+    "durationSeconds": 183,
+    "platform": "YouTube",
+    "videoType": "Dawah Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/VLNf7V1GcYg",
+    "videoId": "VLNf7V1GcYg",
+    "posterImage": "assets/video-posters/video-09.webp",
+    "imageSrc": "assets/video-posters/video-09.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-10",
+    "sourceId": "VIDEO 10",
+    "title": "The Rime of the Ancient Mariner - Bangla Summary & Theme | English Literature 🕊️",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "editorial-storytelling"
+    ],
+    "tags": [
+      "Literary Storytelling"
+    ],
+    "category": "Literary Storytelling",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "3 min 52 sec",
+    "durationSeconds": 232,
+    "platform": "YouTube",
+    "videoType": "Literary Storytelling",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/xIIw2TEnoFI",
+    "videoId": "xIIw2TEnoFI",
+    "posterImage": "assets/video-posters/video-10.webp",
+    "imageSrc": "assets/video-posters/video-10.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-11",
+    "sourceId": "VIDEO 11",
+    "title": "শৈশবে যারা ছিল ভাইয়ের মতো, তারাই কীভাবে হয়ে উঠলো সবচেয়ে চরম শত্রু? Vlad and Mehmed | Emdads Visual",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "editorial-storytelling"
+    ],
+    "tags": [
+      "Historical Storytelling"
+    ],
+    "category": "Historical Storytelling",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "Video Editor",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 17 sec",
+    "durationSeconds": 77,
+    "platform": "YouTube",
+    "videoType": "Historical Storytelling",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/7L65UNyTI2s",
+    "videoId": "7L65UNyTI2s",
+    "posterImage": "assets/video-posters/video-11.webp",
+    "imageSrc": "assets/video-posters/video-11.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": true,
+    "legacySlug": "video 01"
+  },
+  {
+    "slug": "video-12",
+    "sourceId": "VIDEO 12",
+    "title": "সূরা হাশরের শেষ তিন আয়াত | বাংলা অনুবাদ সহ | চমৎকার তেলাওয়াত",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 26 sec",
+    "durationSeconds": 86,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/TW61YcXNDY4",
+    "videoId": "TW61YcXNDY4",
+    "posterImage": "assets/video-posters/video-12.webp",
+    "imageSrc": "assets/video-posters/video-12.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-13",
+    "sourceId": "VIDEO 13",
+    "title": "সবর– আল্লাহ ধৈর্যশীলদের সাথেই আছেন | Patience in Light of the Qur’an",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "48 sec",
+    "durationSeconds": 48,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/SVEHbcQydfo",
+    "videoId": "SVEHbcQydfo",
+    "posterImage": "assets/video-posters/video-13.webp",
+    "imageSrc": "assets/video-posters/video-13.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-14",
+    "sourceId": "VIDEO 14",
+    "title": "তাকবীরে তাশরিক | Takbeer e Tashreeq | Lyrics in Arabic, Bangla and English",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 13 sec",
+    "durationSeconds": 73,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/DGNQbVDqGms",
+    "videoId": "DGNQbVDqGms",
+    "posterImage": "assets/video-posters/video-14.webp",
+    "imageSrc": "assets/video-posters/video-14.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-15",
+    "sourceId": "VIDEO 15",
+    "title": "Surah Fatihaa | verse: 1-7 | Arabic Calligraphy with Bangla translation | Abu Bakr",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 9 sec",
+    "durationSeconds": 69,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/ez3bufGb1SM",
+    "videoId": "ez3bufGb1SM",
+    "posterImage": "assets/video-posters/video-15.webp",
+    "imageSrc": "assets/video-posters/video-15.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-16",
+    "sourceId": "VIDEO 16",
+    "title": "Surah Kafirun with Bangla subtitle || Chapter: 109",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "57 sec",
+    "durationSeconds": 57,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/RmsyRTy_n_4",
+    "videoId": "RmsyRTy_n_4",
+    "posterImage": "assets/video-posters/video-16.webp",
+    "imageSrc": "assets/video-posters/video-16.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-17",
+    "sourceId": "VIDEO 17",
+    "title": "গুনাহে জারিয়া | Think before sharing any post on social media",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 2 sec",
+    "durationSeconds": 62,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "1:1",
+    "video": true,
+    "videoUrl": "https://youtu.be/jDG74YsWlmU",
+    "videoId": "jDG74YsWlmU",
+    "posterImage": "assets/video-posters/video-17.webp",
+    "imageSrc": "assets/video-posters/video-17.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-18",
+    "sourceId": "VIDEO 18",
+    "title": "Surah Ankabut 56-58 | With bangla translation | Abdul Rahman Mossad",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 1 sec",
+    "durationSeconds": 61,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "4:5",
+    "video": true,
+    "videoUrl": "https://youtu.be/i-GND8SQiBU",
+    "videoId": "i-GND8SQiBU",
+    "posterImage": "assets/video-posters/video-18.webp",
+    "imageSrc": "assets/video-posters/video-18.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-19",
+    "sourceId": "VIDEO 19",
+    "title": "বলুন ! আমার রবের কথা লিপিবদ্ধ করার জন্য সমুদ্র যদি কালি হয় | সূরা কাহফ: ১০৭-১১০",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Videos"
+    ],
+    "category": "Islamic Videos",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "1 min 31 sec",
+    "durationSeconds": 91,
+    "platform": "YouTube",
+    "videoType": "Islamic Videos",
+    "aspectRatio": "16:9",
+    "video": true,
+    "videoUrl": "https://youtu.be/yPPJHDB0aeg",
+    "videoId": "yPPJHDB0aeg",
+    "posterImage": "assets/video-posters/video-19.webp",
+    "imageSrc": "assets/video-posters/video-19.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-20",
+    "sourceId": "VIDEO 20",
+    "title": "আরাফার রোজার ফজিলত ও দোয়া",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Reels"
+    ],
+    "category": "Islamic Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "31 sec",
+    "durationSeconds": 31,
+    "platform": "YouTube",
+    "videoType": "Islamic Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/u_eIZk-viEU?feature=share",
+    "videoId": "u_eIZk-viEU",
+    "posterImage": "assets/video-posters/video-20.webp",
+    "imageSrc": "assets/video-posters/video-20.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-21",
+    "sourceId": "VIDEO 21",
+    "title": "Sura Saf: Ayah- 13",
+    "language": "en",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Reels"
+    ],
+    "category": "Islamic Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "10 sec",
+    "durationSeconds": 10,
+    "platform": "YouTube",
+    "videoType": "Islamic Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/wF1Ul8slgAY?feature=share",
+    "videoId": "wF1Ul8slgAY",
+    "posterImage": "assets/video-posters/video-21.webp",
+    "imageSrc": "assets/video-posters/video-21.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  },
+  {
+    "slug": "video-22",
+    "sourceId": "VIDEO 22",
+    "title": "কোরবানির পশুর প্রতিটি পশমের বদলে সওয়াব !",
+    "language": "bn",
+    "label": "Video Editing",
+    "visual": "video",
+    "categories": [
+      "video-editing",
+      "islamic-corner"
+    ],
+    "tags": [
+      "Islamic Reels"
+    ],
+    "category": "Islamic Reels",
+    "status": "Supplied project",
+    "summary": "",
+    "role": "",
+    "tools": [
+      "Premiere Pro",
+      "CapCut"
+    ],
+    "duration": "38 sec",
+    "durationSeconds": 38,
+    "platform": "YouTube",
+    "videoType": "Islamic Reels",
+    "aspectRatio": "9:16",
+    "video": true,
+    "videoUrl": "https://youtube.com/shorts/2i9edLQDbEg?feature=share",
+    "videoId": "2i9edLQDbEg",
+    "posterImage": "assets/video-posters/video-22.webp",
+    "imageSrc": "assets/video-posters/video-22.webp",
+    "imageAlt": "",
+    "altTextSupplied": false,
+    "captionsUrl": null,
+    "credits": "",
+    "featured": false
+  }
+]

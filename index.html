@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
+    <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
+    <link rel="stylesheet" href="styles.css?v=new?v=999" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Protest+Revolution&display=swap');
+
+      :root {
+        --canvas: #ffffff !important;
+        --text: #0a0a0a !important;
+        --accent: #05a88a !important;
+        --bg-color: #ffffff !important;
+        --text-color: #0a0a0a !important;
+        --ink: #1a1a1a !important;
+        --ink-soft: #262626 !important;
+        --paper: #ffffff !important;
+        --paper-light: #ffffff !important;
+        --surface: #f5f7f7 !important;
+        --surface-strong: #edf2f1 !important;
+        --acid: #05a88a !important;
+        --orange: #05a88a !important;
+        --orange-deep: #047b68 !important;
+        --coral: #05a88a !important;
+        --gold: #087a68 !important;
+        --line: rgba(10, 10, 10, 0.13) !important;
+        --line-dark: rgba(255, 255, 255, 0.18) !important;
+        --font-ui: 'Noto Sans', 'Noto Sans Bengali', Arial, sans-serif !important;
+        --font-display: 'Protest Revolution', 'Noto Sans', sans-serif !important;
+        --font-bengali: 'Noto Sans Bengali', 'Noto Sans', sans-serif !important;
+      }
+
+      html,
+      body {
+        background: #ffffff !important;
+        color: #0a0a0a !important;
+      }
+
+      body,
+      body p,
+      body a,
+      body button,
+      body input,
+      body textarea,
+      body label,
+      body li,
+      body dt,
+      body dd,
+      body div,
+      body span {
+        font-family: 'Noto Sans', 'Noto Sans Bengali', Arial, sans-serif !important;
+      }
+
+      body p,
+      body a,
+      body button,
+      body input,
+      body textarea,
+      body label,
+      body li,
+      body dt,
+      body dd,
+      body div,
+      body span {
+        color: #0a0a0a !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .brand,
+      .brand-name,
+      .hero-title,
+      .feature-title,
+      .section-title,
+      .story-copy h2,
+      .callout h2,
+      .about-lead,
+      .contact-title,
+      .modal-panel__body h2,
+      .drawer-heading p,
+      .promo-card h3 {
+        font-family: 'Protest Revolution', 'Noto Sans', sans-serif !important;
+        font-weight: 400 !important;
+        color: #0a0a0a !important;
+      }
+
+      [lang="bn"],
+      .bengali-text,
+      .bengali-text * {
+        font-family: 'Noto Sans Bengali', 'Noto Sans', sans-serif !important;
+        letter-spacing: 0 !important;
+      }
+
+      .site-header {
+        background: rgba(255, 255, 255, 0.94) !important;
+        border-bottom-color: rgba(10, 10, 10, 0.12) !important;
+        box-shadow: 0 8px 24px rgba(10, 10, 10, 0.05) !important;
+      }
+
+      .profile-avatar {
+        border-color: #05a88a !important;
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 0 5px rgba(5, 168, 138, 0.13) !important;
+      }
+
+      .profile-avatar span,
+      .brand-name {
+        color: #ffffff !important;
+      }
+
+      .brand-role,
+      .header-index,
+      .eyebrow,
+      .hero-topline,
+      .section-topline,
+      .feature-topline,
+      .page-header__intro,
+      .section-heading__side,
+      .project-meta,
+      .card-meta,
+      .hero-support p,
+      .practice-item__desc,
+      .about-body,
+      .contact-copy,
+      .form-note,
+      .archive-count {
+        color: #5e6262 !important;
+      }
+
+      .menu-toggle,
+      .menu-toggle__label,
+      .menu-toggle__icon i {
+        color: #0a0a0a !important;
+        background-color: transparent !important;
+      }
+
+      .menu-toggle__icon i {
+        background: #0a0a0a !important;
+      }
+
+      .hero-title span,
+      .feature-title span,
+      .section-title span,
+      .hero-support p strong,
+      .story-copy h2 span,
+      .contact-title span,
+      .about-lead em,
+      .promo-card h3 em,
+      .footer-title em,
+      .drawer-heading em {
+        color: #05a88a !important;
+      }
+
+      .hero-support__line,
+      .scroll-cue::before {
+        background: #05a88a !important;
+      }
+
+      .hero-mark,
+      .visual-placeholder,
+      .category-hero-mark,
+      .contact-form,
+      .prompt-modal__prompt {
+        background: #f5f7f7 !important;
+        border-color: rgba(10, 10, 10, 0.13) !important;
+        box-shadow: 0 8px 24px rgba(10, 10, 10, 0.06) !important;
+      }
+
+      .hero-mark__label,
+      .placeholder-index,
+      .project-card__arrow,
+      .practice-item__arrow,
+      .archive-entry__arrow,
+      .story-aside__number,
+      .project-spine__index,
+      .promo-card__bottom span:last-child,
+      .archive-entry__index {
+        color: #05a88a !important;
+      }
+
+      .feature-grid,
+      .project-card,
+      .project-card__button,
+      .project-card__anchor,
+      .media-asset,
+      .promo-card,
+      .archive-entry,
+      .project-spine__item {
+        background: #ffffff !important;
+        color: #0a0a0a !important;
+        border-color: rgba(10, 10, 10, 0.13) !important;
+      }
+
+      .project-grid {
+        display: grid !important;
+        grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+        gap: 1rem !important;
+        background: transparent !important;
+      }
+
+      .project-card,
+      .project-card:nth-child(3n) {
+        grid-column: span 6 !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(10, 10, 10, 0.13) !important;
+        border-radius: 1.2rem !important;
+        box-shadow: 0 8px 22px rgba(10, 10, 10, 0.07) !important;
+        transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease !important;
+      }
+
+      .project-card:hover {
+        border-color: rgba(5, 168, 138, 0.55) !important;
+        box-shadow: 0 18px 36px rgba(10, 10, 10, 0.13) !important;
+        transform: translateY(-5px) !important;
+      }
+
+      .project-card__info {
+        background: #ffffff !important;
+      }
+
+      .project-card__title,
+      .project-card__title span,
+      .archive-entry__title,
+      .project-spine__title,
+      .project-spine__detail,
+      .practice-item__title {
+        color: #0a0a0a !important;
+      }
+
+      .button-link,
+      .button-quiet,
+      .filter-button,
+      .modal-panel__close {
+        border-radius: 999px !important;
+        border-color: #0a0a0a !important;
+        background: #ffffff !important;
+        color: #0a0a0a !important;
+        box-shadow: 0 5px 14px rgba(10, 10, 10, 0.07) !important;
+      }
+
+      .button-link--filled,
+      .button-link--warm,
+      .filter-button[aria-pressed="true"] {
+        border-color: #05a88a !important;
+        background: #05a88a !important;
+        color: #ffffff !important;
+        box-shadow: 0 9px 20px rgba(5, 168, 138, 0.22) !important;
+      }
+
+      .button-link:hover,
+      .button-quiet:hover,
+      .button-link--filled:hover,
+      .button-link--warm:hover,
+      .filter-button:hover,
+      .filter-button[aria-pressed="true"] {
+        border-color: #047b68 !important;
+        background: #047b68 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+      }
+
+      .drawer-backdrop,
+      .modal-backdrop {
+        background: rgba(10, 10, 10, 0.56) !important;
+      }
+
+      .site-drawer,
+      .site-drawer .drawer-inner,
+      .site-drawer .drawer-heading,
+      .site-drawer .drawer-nav,
+      .site-drawer .drawer-footer,
+      .site-drawer .drawer-subnav {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+
+      .site-drawer .drawer-topline,
+      .site-drawer .drawer-footer {
+        border-color: rgba(255, 255, 255, 0.18) !important;
+      }
+
+      .site-drawer .eyebrow,
+      .site-drawer .drawer-link,
+      .site-drawer .drawer-link span,
+      .site-drawer .drawer-footer span {
+        color: rgba(255, 255, 255, 0.66) !important;
+      }
+
+      .site-drawer .drawer-heading p,
+      .site-drawer .drawer-link--primary,
+      .site-drawer .drawer-link--feature,
+      .site-drawer .drawer-link--feature strong,
+      .site-drawer .drawer-link--feature small,
+      .site-drawer .drawer-close {
+        color: #ffffff !important;
+      }
+
+      .site-drawer .drawer-link:hover,
+      .site-drawer .drawer-link[aria-current="page"] {
+        color: #05a88a !important;
+      }
+
+      .site-drawer .drawer-link--feature,
+      .site-drawer .drawer-link--feature:hover,
+      .site-drawer .drawer-link--feature[aria-current="page"] {
+        background: #05a88a !important;
+        color: #ffffff !important;
+        border-radius: 0.9rem !important;
+      }
+
+      .callout,
+      .callout h2,
+      .callout .callout__copy,
+      .callout .callout__copy p {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+
+      .callout .button-link,
+      .callout .button-link--filled {
+        background: #05a88a !important;
+        border-color: #05a88a !important;
+        color: #ffffff !important;
+      }
+
+      .site-footer,
+      .site-footer .footer-grid,
+      .site-footer .footer-rule,
+      .site-footer .footer-title,
+      .site-footer .footer-links,
+      .site-footer .footer-note,
+      .site-footer .eyebrow,
+      .site-footer a,
+      .site-footer span {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+      }
+
+      .site-footer .footer-rule {
+        background: rgba(255, 255, 255, 0.18) !important;
+      }
+
+      .site-footer .footer-links a:hover,
+      .site-footer .footer-links a span {
+        color: #05a88a !important;
+      }
+
+      .modal-panel {
+        background: #ffffff !important;
+        border-color: rgba(10, 10, 10, 0.18) !important;
+        border-radius: 1.25rem !important;
+        box-shadow: 0 26px 70px rgba(10, 10, 10, 0.22) !important;
+      }
+
+      .modal-panel__body h2,
+      .modal-panel__body p,
+      .modal-detail-list__row dd,
+      .modal-detail-list__row dt,
+      .modal-panel__top .eyebrow {
+        color: #0a0a0a !important;
+      }
+
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr) !important;
+        gap: clamp(2rem, 7vw, 8rem) !important;
+      }
+
+      .hero-title {
+        max-width: 12ch !important;
+        font-size: clamp(3.9rem, 10vw, 10rem) !important;
+        line-height: 0.88 !important;
+      }
+
+      .hero-support {
+        max-width: 23rem !important;
+      }
+
+      .hero-bio {
+        max-width: 22rem !important;
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem) !important;
+        line-height: 1.2 !important;
+      }
+
+      .hero-support__meta {
+        margin-top: 1rem !important;
+        color: #5e6262 !important;
+        font-size: 0.66rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.1em !important;
+        text-transform: uppercase !important;
+      }
+
+      .project-grid {
+        align-items: stretch !important;
+      }
+
+      .project-card__visual,
+      .project-card__visual .media-asset {
+        min-height: 21rem !important;
+      }
+
+      .site-drawer {
+        width: min(100%, 27rem) !important;
+      }
+
+      @media (max-width: 900px) {
+        .project-card,
+        .project-card:nth-child(3n) {
+          grid-column: span 12 !important;
+        }
+      }
+
+      @media (max-width: 650px) {
+        .project-grid {
+          gap: 0.75rem !important;
+        }
+      }
+    </style>
+  <style id="force-styles">
+.site-header .brand-name, .site-header .profile-avatar span { color: #05a88a !important; font-family: "Protest Revolution", sans-serif !important; visibility: visible !important; }
+.site-header .brand-role { color: #0a0a0a !important; }
+.project-card--video .project-card__visual { position: relative !important; min-height: 21rem !important; overflow: hidden !important; }
+.project-card--video .project-card__visual::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%) !important; pointer-events: none; z-index: 1 !important; }
+.project-card--video .project-card__visual .media-asset { height: 21rem !important; min-height: 21rem !important; }
+.project-card--video .project-card__info { background: transparent !important; position: absolute !important; left: 0 !important; right: 0 !important; bottom: 0 !important; z-index: 2 !important; }
+.project-card--video .project-card__title span { color: #ffffff !important; text-shadow: 0px 2px 8px rgba(0,0,0,0.9) !important; }
+.project-card--video .project-meta span { color: #e0e0e0 !important; text-shadow: 0px 1px 4px rgba(0,0,0,0.9) !important; }
+</style>
+<style>
+.site-header .brand-name, .site-header .profile-avatar span { color: #05a88a !important; visibility: visible !important; opacity: 1 !important; display: inline-block !important; }
+.project-card--video .project-card__title span, .project-card--video .project-meta span, .project-card--video .project-meta { color: #ffffff !important; text-shadow: 0px 2px 10px rgba(0,0,0,1) !important; position: relative; z-index: 5 !important; }
+.project-card--video .project-card__visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 80%) !important; z-index: 1 !important; pointer-events: none; }
+</style>
+<style>
+/* Fix Large Video Facade Text */
+.video-facade__title, .video-facade__hint, .video-facade__top span, .video-facade__title span { color: #ffffff !important; text-shadow: 0px 2px 12px rgba(0,0,0,1) !important; position: relative; z-index: 5 !important; }
+.video-facade__visual::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 80%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%) !important; pointer-events: none; z-index: 1 !important; }
+.video-facade__bottom, .video-facade__top, .video-facade__play { position: relative !important; z-index: 2 !important; }
+</style>
+<style>
+/* Make Header Sticky */
+.site-header { 
+    position: sticky !important; 
+    top: 0 !important; 
+    z-index: 9999 !important; 
+    backdrop-filter: blur(12px) !important; 
+    -webkit-backdrop-filter: blur(12px) !important; 
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+</style>
+<style id="smart-header-css">
+.site-header { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: rgba(255, 255, 255, 0.95) !important; }
+.site-header.header-hidden { transform: translateY(-100%) !important; }
+html { scroll-behavior: smooth !important; }
+::selection { background: #05a88a !important; color: #ffffff !important; }
+::-moz-selection { background: #05a88a !important; color: #ffffff !important; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(5,168,138,0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(5,168,138,0.8); }
+</style>
+</head>
+  <body>
+    <div class="site-ambience" aria-hidden="true">
+      <span class="ambient-wave ambient-wave--one"></span>
+      <span class="ambient-wave ambient-wave--two"></span>
+      <span class="ambient-wave ambient-wave--three"></span>
+    </div>
+
+    <header class="site-header" data-site-header>
+      <a class="brand" href="#/" aria-label="Emdadul Hoque Emon, home">
+        <span class="profile-avatar" aria-hidden="true">
+          <span>EH</span>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">Emdadul Hoque Emon</span>
+          <span class="brand-role">Visual Designer · Video Editor</span>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <span class="header-index" aria-hidden="true">Portfolio / 01</span>
+        <button class="menu-toggle" type="button" data-open-drawer aria-controls="site-drawer" aria-expanded="false">
+          <span class="menu-toggle__label">Menu</span>
+          <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <aside class="site-drawer" id="site-drawer" aria-label="Primary navigation" aria-hidden="true">
+      <div class="drawer-inner">
+        <div class="drawer-topline">
+          <span class="eyebrow">Navigation / Index</span>
+          <button class="drawer-close" type="button" data-close-drawer aria-label="Close navigation menu">Close <span aria-hidden="true">×</span></button>
+        </div>
+
+        <div class="drawer-heading">
+          <p>Move through the<br /><em>visual practice.</em></p>
+        </div>
+
+        <nav class="drawer-nav" aria-label="Portfolio sections">
+          <a href="#/" data-route="/" class="drawer-link drawer-link--primary"><span>01</span><strong>Home</strong></a>
+          <a href="#/work" data-route="/work" class="drawer-link drawer-link--primary"><span>02</span><strong>Work</strong></a>
+          <div class="drawer-subnav" aria-label="Work categories">
+            <a href="#/category/graphic-design" data-route="/category/graphic-design" class="drawer-link"><span>—</span><span>Graphic Design</span></a>
+            <a href="#/category/video-editing" data-route="/category/video-editing" class="drawer-link"><span>—</span><span>Video Editing</span></a>
+            <a href="#/category/thumbnail-design" data-route="/category/thumbnail-design" class="drawer-link"><span>—</span><span>Thumbnail Design</span></a>
+            <a href="#/category/motion-animation" data-route="/category/motion-animation" class="drawer-link"><span>—</span><span>Motion &amp; Animation</span></a>
+            <a href="#/category/social-media-design" data-route="/category/social-media-design" class="drawer-link"><span>—</span><span>Social Media Design</span></a>
+            <a href="#/category/calligraphy-namelipi" data-route="/category/calligraphy-namelipi" class="drawer-link"><span>—</span><span>Calligraphy / Namelipi</span></a>
+            <a href="#/category/editorial-storytelling" data-route="/category/editorial-storytelling" class="drawer-link"><span>—</span><span>Editorial / Visual Storytelling</span></a>
+          </div>
+          <a href="#/project/fath-makkah" data-route="/project/fath-makkah" class="drawer-link drawer-link--feature"><span>03</span><strong>Fath Makkah <small>Flagship</small></strong></a>
+          <a href="#/islamic-corner" data-route="/islamic-corner" class="drawer-link drawer-link--primary"><span>04</span><strong>Islamic Corner</strong></a>
+          <a href="#/prompt-archive" data-route="/prompt-archive" class="drawer-link drawer-link--primary"><span>05</span><strong>Prompt Archive</strong></a>
+          <a href="#/about" data-route="/about" class="drawer-link drawer-link--primary"><span>06</span><strong>About</strong></a>
+          <a href="#/contact" data-route="/contact" class="drawer-link drawer-link--primary"><span>07</span><strong>Contact</strong></a>
+        </nav>
+
+        <div class="drawer-footer">
+          <span>Personal portfolio / Visual practice</span>
+          <span>Content system ready to expand</span>
+        </div>
+      </div>
+    </aside>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-footer">
+      <div class="footer-rule"></div>
+      <div class="footer-grid">
+        <div>
+          <span class="eyebrow">Emdadul Hoque Emon</span>
+          <p class="footer-title">Still images.<br /><em>Moving ideas.</em></p>
+        </div>
+        <div class="footer-links">
+          <a href="#/work">Explore work <span aria-hidden="true">↗</span></a>
+          <a href="#/contact">Contact <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="footer-note">
+          <span>Visual Designer · Video Editor · Creative Content Creator</span>
+          <span>Built as an evolving archive.</span>
+        </div>
+      </div>
+    </footer>
+
+    <div id="modal-root"></div>
+
+    <script src="data/graphic-design.js"></script>
+    <script src="data/thumbnails.js"></script>
+    <script src="data/videos.js"></script>
+    <script src="app.js?v=999"></script>
+  </body>
+</html>
