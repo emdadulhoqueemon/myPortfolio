@@ -6,7 +6,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%201.jpg"
@@ -18,7 +19,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%2010.jpg"
@@ -30,7 +32,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%2011.jpg"
@@ -42,7 +45,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%2012.jpg"
@@ -54,7 +58,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%2013.jpg"
@@ -66,7 +71,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%202.jpg"
@@ -78,7 +84,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%203.jpg"
@@ -90,7 +97,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%204.jpg"
@@ -102,7 +110,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%205.jpg"
@@ -114,7 +123,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%206.jpg"
@@ -126,7 +136,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%207.jpg"
@@ -138,7 +149,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%208.jpg"
@@ -150,7 +162,8 @@ window.arabicCalligraphyArchive = [
     "visual": "archive",
     "categories": [
       "islamic-corner",
-      "calligraphy"
+      "calligraphy",
+      "calligraphy-namelipi"
     ],
     "status": "Published",
     "imageSrc": "assets/arabic-calligraphy/Calligraphy%209.jpg"
