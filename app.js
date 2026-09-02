@@ -9,6 +9,11 @@
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
   const banglaCount = document.getElementById('bangla-namelipi-count');
   const banglaEmpty = document.getElementById('bangla-namelipi-empty');
+  // Static Arabic Calligraphy section (rendered by data/arabic-calligraphy.js).
+  const arabicSection = document.getElementById('arabic-calligraphy');
+  const arabicGrid = document.getElementById('arabic-calligraphy-grid');
+  const arabicCount = document.getElementById('arabic-calligraphy-count');
+  const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
 
   const state = {
     drawerOpen: false,
@@ -88,6 +93,7 @@
   const thumbnailArchive = Array.isArray(window.thumbnailArchive) ? window.thumbnailArchive : [];
   const videoArchive = Array.isArray(window.videoArchive) ? window.videoArchive : [];
   const banglaNamelipiArchive = Array.isArray(window.banglaNamelipiArchive) ? window.banglaNamelipiArchive : [];
+  const arabicCalligraphyArchive = Array.isArray(window.arabicCalligraphyArchive) ? window.arabicCalligraphyArchive : [];
 
   const baseProjects = [
     {
@@ -111,7 +117,7 @@
   ];
 
   // Content archives live in their own data files so new work can be added without changing UI components.
-  const projects = [...baseProjects, ...graphicDesignArchive, ...thumbnailArchive, ...videoArchive, ...banglaNamelipiArchive];
+  const projects = [...baseProjects, ...graphicDesignArchive, ...thumbnailArchive, ...videoArchive, ...banglaNamelipiArchive, ...arabicCalligraphyArchive];
 
   const fathMakkah = {
     slug: 'fath-makkah',
@@ -150,6 +156,7 @@
     '/project/fath-makkah': 'Fath Makkah',
     '/islamic-corner': 'Islamic Corner',
     '/bangla-namelipi': 'Bangla Namelipi',
+    '/arabic-calligraphy': 'Arabic Calligraphy',
     '/prompt-archive': 'Prompt Archive',
     '/about': 'About',
     '/contact': 'Contact'
@@ -665,11 +672,23 @@
     if (banglaEmpty) banglaEmpty.hidden = total > 0;
   }
 
+  function renderArabicCalligraphy() {
+    const cards = arabicCalligraphyArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const total = arabicCalligraphyArchive.length;
+    if (arabicGrid) arabicGrid.innerHTML = cards;
+    if (arabicCount) {
+      arabicCount.textContent = `${total} ${total === 1 ? 'piece' : 'pieces'}`;
+    }
+    if (arabicEmpty) arabicEmpty.hidden = total > 0;
+  }
+
   function render() {
     const path = currentPath();
     const isBanglaNamelipi = path === '/bangla-namelipi';
+    const isArabicCalligraphy = path === '/arabic-calligraphy';
+    const isStaticSection = isBanglaNamelipi || isArabicCalligraphy;
     let output;
-    if (isBanglaNamelipi) output = '';
+    if (isStaticSection) output = '';
     else if (path === '/') output = renderHome();
     else if (path === '/work') output = renderWork();
     else if (path === '/project/fath-makkah') output = renderFathMakkah();
@@ -681,11 +700,14 @@
     else output = renderNotFound();
 
     app.innerHTML = output;
-    // The Bangla Namelipi section is static markup outside #app, so the router
-    // swaps between the rendered page and that section instead of overwriting it.
-    app.hidden = isBanglaNamelipi;
+    // The Bangla Namelipi and Arabic Calligraphy sections are static markup
+    // outside #app, so the router swaps between the rendered page and those
+    // sections instead of overwriting them.
+    app.hidden = isStaticSection;
     banglaSection?.classList.toggle('is-active', isBanglaNamelipi);
+    arabicSection?.classList.toggle('is-active', isArabicCalligraphy);
     if (isBanglaNamelipi) renderBanglaNamelipi();
+    if (isArabicCalligraphy) renderArabicCalligraphy();
     syncNavigation(path);
     document.title = `${routeTitles[path] || 'Portfolio'} — Emdadul Hoque Emon`;
     window.scrollTo(0, 0);
