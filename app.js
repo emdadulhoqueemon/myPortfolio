@@ -4,6 +4,11 @@
   const drawer = document.getElementById('site-drawer');
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
+  // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
+  const banglaSection = document.getElementById('bangla-namelipi');
+  const banglaGrid = document.getElementById('bangla-namelipi-grid');
+  const banglaCount = document.getElementById('bangla-namelipi-count');
+  const banglaEmpty = document.getElementById('bangla-namelipi-empty');
 
   const state = {
     drawerOpen: false,
@@ -82,6 +87,7 @@
   const graphicDesignArchive = Array.isArray(window.graphicDesignArchive) ? window.graphicDesignArchive : [];
   const thumbnailArchive = Array.isArray(window.thumbnailArchive) ? window.thumbnailArchive : [];
   const videoArchive = Array.isArray(window.videoArchive) ? window.videoArchive : [];
+  const banglaNamelipiArchive = Array.isArray(window.banglaNamelipiArchive) ? window.banglaNamelipiArchive : [];
 
   const baseProjects = [
     {
@@ -105,7 +111,7 @@
   ];
 
   // Content archives live in their own data files so new work can be added without changing UI components.
-  const projects = [...baseProjects, ...graphicDesignArchive, ...thumbnailArchive, ...videoArchive];
+  const projects = [...baseProjects, ...graphicDesignArchive, ...thumbnailArchive, ...videoArchive, ...banglaNamelipiArchive];
 
   const fathMakkah = {
     slug: 'fath-makkah',
@@ -143,6 +149,7 @@
     '/work': 'Work',
     '/project/fath-makkah': 'Fath Makkah',
     '/islamic-corner': 'Islamic Corner',
+    '/bangla-namelipi': 'Bangla Namelipi',
     '/prompt-archive': 'Prompt Archive',
     '/about': 'About',
     '/contact': 'Contact'
@@ -648,10 +655,22 @@
     `;
   }
 
+  function renderBanglaNamelipi() {
+    const cards = banglaNamelipiArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const total = banglaNamelipiArchive.length;
+    if (banglaGrid) banglaGrid.innerHTML = cards;
+    if (banglaCount) {
+      banglaCount.textContent = `${total} ${total === 1 ? 'piece' : 'pieces'}`;
+    }
+    if (banglaEmpty) banglaEmpty.hidden = total > 0;
+  }
+
   function render() {
     const path = currentPath();
+    const isBanglaNamelipi = path === '/bangla-namelipi';
     let output;
-    if (path === '/') output = renderHome();
+    if (isBanglaNamelipi) output = '';
+    else if (path === '/') output = renderHome();
     else if (path === '/work') output = renderWork();
     else if (path === '/project/fath-makkah') output = renderFathMakkah();
     else if (path === '/islamic-corner') output = renderIslamicCorner();
@@ -662,6 +681,11 @@
     else output = renderNotFound();
 
     app.innerHTML = output;
+    // The Bangla Namelipi section is static markup outside #app, so the router
+    // swaps between the rendered page and that section instead of overwriting it.
+    app.hidden = isBanglaNamelipi;
+    banglaSection?.classList.toggle('is-active', isBanglaNamelipi);
+    if (isBanglaNamelipi) renderBanglaNamelipi();
     syncNavigation(path);
     document.title = `${routeTitles[path] || 'Portfolio'} — Emdadul Hoque Emon`;
     window.scrollTo(0, 0);
