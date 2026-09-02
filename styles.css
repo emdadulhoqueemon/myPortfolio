@@ -1001,6 +1001,35 @@ body.drawer-open .site-drawer {
   object-position: center;
 }
 
+/* Video thumbnail support: show a poster image (imageSrc / posterImage) with a
+   centered play affordance, mirroring the look of the static image cards. */
+.media-asset__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.42);
+  color: var(--paper);
+  font-size: 1.1rem;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(26, 26, 26, 0.32);
+  backdrop-filter: blur(2px);
+}
+
+.media-asset--video img {
+  transition: transform 280ms var(--ease);
+}
+
+.media-asset--video:hover img {
+  transform: scale(1.04);
+}
+
 .feature-visual .media-asset {
   min-height: 100%;
 }
@@ -1440,6 +1469,25 @@ body.drawer-open .site-drawer {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 8vw, 7.5rem);
   line-height: 0.8;
+}
+
+.story-aside__avatar {
+  display: block;
+  margin-top: 1.3rem;
+  width: clamp(7rem, 14vw, 11rem);
+  height: clamp(7rem, 14vw, 11rem);
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.11);
+}
+
+.story-aside__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .story-copy h2 {
@@ -2111,6 +2159,11 @@ body.drawer-open .site-drawer {
   }
 
   .story-aside__number {
+    display: inline-block;
+    margin: 0.8rem 0 0;
+  }
+
+  .story-aside__avatar {
     display: inline-block;
     margin: 0.8rem 0 0;
   }

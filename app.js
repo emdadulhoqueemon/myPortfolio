@@ -72,10 +72,10 @@
     {
       slug: 'calligraphy-namelipi',
       index: '06',
-      title: 'Calligraphy / Namelipi',
-      label: 'Letterform / Handwork',
+      title: 'Arabic Calligraphy',
+      label: 'Arabic Calligraphy',
       intro: 'A dedicated route for calligraphy and Namelipi work, with captions and language information to be added per piece.',
-      mark: 'Calligraphy\nNamelipi',
+      mark: 'Arabic\nCalligraphy',
       tone: 'gold'
     },
     {
@@ -223,13 +223,16 @@
 
   function mediaVisual(project, index = '') {
     const displayTitle = projectDisplayTitle(project);
-    if (!project.imageSrc) return visualPlaceholder(project.visual, displayTitle, index);
-    const alt = project.imageAlt || '';
+    const thumbSrc = project.imageSrc || project.posterImage;
+    if (!thumbSrc) return visualPlaceholder(project.visual, displayTitle, index);
+    const alt = project.imageAlt || displayTitle;
     const loading = project.featured ? 'eager' : 'lazy';
     const fetchPriority = project.featured ? ' fetchpriority="high"' : '';
+    const playBadge = project.video ? '<span class="media-asset__play" aria-hidden="true">▶</span>' : '';
     return `
-      <figure class="media-asset media-asset--${escapeHtml(project.visual || 'archive')}">
-        <img src="${escapeHtml(project.imageSrc)}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="async"${fetchPriority} />
+      <figure class="media-asset media-asset--${escapeHtml(project.visual || 'archive')}${project.video ? ' media-asset--video' : ''}">
+        <img src="${escapeHtml(thumbSrc)}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="async"${fetchPriority} />
+        ${playBadge}
       </figure>
     `;
   }
@@ -260,18 +263,18 @@
 
   function videoFacade(id, title = 'Short-form video placeholder', portrait = false) {
     const sourceProject = getProject(id);
-    const poster = sourceProject?.posterImage || sourceProject?.imageSrc;
+    const poster = sourceProject?.imageSrc || sourceProject?.posterImage;
     const posterStyle = poster
       ? ` style="background-image: linear-gradient(135deg, rgba(33, 26, 17, 0.16), rgba(33, 26, 17, 0.74)), url('${escapeHtml(poster)}'); background-size: cover; background-position: center;"`
       : '';
     return `
       <button class="video-facade${portrait ? ' video-facade--portrait' : ''}${poster ? ' video-facade--poster' : ''}" type="button" data-open-video="${escapeHtml(id)}" aria-label="Open video facade for ${escapeHtml(title)}">
         <span class="video-facade__visual"${posterStyle} aria-hidden="true"></span>
-        <span class="video-facade__top"><span>Video facade</span><span>${poster ? 'YouTube poster' : 'External link'}</span></span>
+        <span class="video-facade__top"><span>Video facade</span><span>${poster ? 'Poster image' : 'External link'}</span></span>
         <span class="video-facade__play" aria-hidden="true">▶</span>
         <span class="video-facade__bottom">
           <span class="video-facade__title">${escapeHtml(title)}</span>
-          <span class="video-facade__hint">${poster ? 'Supplied YouTube poster frame. Open to watch.' : 'Link and poster image will be supplied later.'}</span>
+          <span class="video-facade__hint">${poster ? 'Supplied poster frame. Open to watch.' : 'Link and poster image will be supplied later.'}</span>
         </span>
       </button>
     `;
@@ -534,7 +537,7 @@
 
         <section class="page-section reveal">
           <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__number">MH</span></aside>
+            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
             <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>
@@ -543,10 +546,6 @@
   }
 
   function renderIslamicCorner() {
-    const islamicProjects = projects.filter((project) => project.categories.includes('islamic-corner'));
-    const islamicCards = islamicProjects.map((project, index) => projectCard(project, index + 1)).join('');
-    const placeholderCard = `<article class="project-card reveal reveal-delay-2"><button class="project-card__button" type="button" data-open-project="islamic-content-placeholder" aria-label="Open Islamic visual content placeholder details"><div class="project-card__visual">${visualPlaceholder('fath', 'Dawah / Islamic visual placeholder', '03')}</div><div class="project-card__info">${metaLine(['Dawah / Islamic visual content', 'Placeholder content'])}<h3 class="project-card__title"><span>Dawah visual content placeholder</span><span class="project-card__arrow" aria-hidden="true">→</span></h3></div></button></article>`;
-
     const verseCard = (entry, position) => {
       const delayClass = position % 3 === 1 ? ' reveal-delay-1' : (position % 3 === 2 ? ' reveal-delay-2' : '');
       const arabic = entry.arabic ? `<p class="verse-card__arabic arabic-text" lang="ar" dir="rtl">${escapeHtml(entry.arabic)}</p>` : '';
@@ -561,48 +560,30 @@
 
     const ayatSection = ayats.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
           ${verseGrid(ayats)}
         </section>` : '';
 
     const hadithSection = hadiths.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
           ${verseGrid(hadiths)}
         </section>` : '';
 
     const reminderSection = reminders.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
           ${verseGrid(reminders)}
         </section>` : '';
 
     const masalahSection = masalah.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 05</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
           <div class="guideline-list">${masalah.map((entry, index) => `<article class="guideline-item reveal${index % 2 === 1 ? ' reveal-delay-1' : ''}"><span class="guideline-item__index">${String(index + 1).padStart(2, '0')}</span><div class="guideline-item__body"><p class="bengali-text" lang="bn">${escapeHtml(entry.bengali)}</p><p class="guideline-item__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</p></div></article>`).join('')}</div>
         </section>` : '';
 
     return `
       <div class="page">
-        ${pageHeader('04 / Dedicated section', 'Islamic<br /><span style="color: var(--acid);">Corner.</span>', 'A respectful editorial space for Dawah / Islamic visual content, calligraphy, Namelipi, and related visual storytelling.', 'Curated section / Supplied work + placeholders')}
-        <section class="page-section reveal">
-          <div class="media-grid">
-            ${visualPlaceholder('archive', 'Islamic Corner / curated visual placeholder', '01')}
-            <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
-              <span class="eyebrow">Editorial principle</span>
-              <h2 style="margin-top: 1.4rem;">Make space for <span style="color: var(--acid);">meaning.</span></h2>
-              <p>The section presents Islamic visual work and supplied texts with clarity, context, source information, and respectful pacing. Every ayat, hadith, reminder, and masalah below carries its stated source.</p>
-              <div class="note-box">Each entry keeps its original language, Bengali rendering, and reference so the artwork and its source material stay clearly distinguished.</div>
-            </div>
-          </div>
-        </section>
-        <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span>Initial index</span></div><h2 class="section-title">A quiet<br /><span>archive.</span></h2></div><p class="section-heading__side">The archive will grow from supplied Dawah visuals, Islamic design, calligraphy, Namelipi, and related work.</p></div>
-          <div class="project-grid">
-            ${islamicCards}${placeholderCard}
-          </div>
-        </section>
         ${ayatSection}
         ${hadithSection}
         ${reminderSection}
