@@ -9,7 +9,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 1.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%201.jpg"
   },
   {
     "slug": "arabic-calligraphy-2",
@@ -21,7 +21,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 10.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%2010.jpg"
   },
   {
     "slug": "arabic-calligraphy-3",
@@ -33,7 +33,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 11.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%2011.jpg"
   },
   {
     "slug": "arabic-calligraphy-4",
@@ -45,7 +45,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 12.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%2012.jpg"
   },
   {
     "slug": "arabic-calligraphy-5",
@@ -57,7 +57,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 13.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%2013.jpg"
   },
   {
     "slug": "arabic-calligraphy-6",
@@ -69,7 +69,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 2.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%202.jpg"
   },
   {
     "slug": "arabic-calligraphy-7",
@@ -81,7 +81,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 3.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%203.jpg"
   },
   {
     "slug": "arabic-calligraphy-8",
@@ -93,7 +93,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 4.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%204.jpg"
   },
   {
     "slug": "arabic-calligraphy-9",
@@ -105,7 +105,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 5.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%205.jpg"
   },
   {
     "slug": "arabic-calligraphy-10",
@@ -117,7 +117,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 6.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%206.jpg"
   },
   {
     "slug": "arabic-calligraphy-11",
@@ -129,7 +129,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 7.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%207.jpg"
   },
   {
     "slug": "arabic-calligraphy-12",
@@ -141,7 +141,7 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 8.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%208.jpg"
   },
   {
     "slug": "arabic-calligraphy-13",
@@ -153,6 +153,6 @@ window.arabicCalligraphyArchive = [
       "calligraphy"
     ],
     "status": "Published",
-    "imageSrc": "assets/arabic-calligraphy/Calligraphy 9.jpg"
+    "imageSrc": "assets/arabic-calligraphy/Calligraphy%209.jpg"
   }
 ];
