@@ -94,6 +94,8 @@
   const videoArchive = Array.isArray(window.videoArchive) ? window.videoArchive : [];
   const banglaNamelipiArchive = Array.isArray(window.banglaNamelipiArchive) ? window.banglaNamelipiArchive : [];
   const arabicCalligraphyArchive = Array.isArray(window.arabicCalligraphyArchive) ? window.arabicCalligraphyArchive : [];
+  const islamicCornerContent = window.islamicCornerContent && typeof window.islamicCornerContent === 'object' ? window.islamicCornerContent : {};
+  const promptLibrary = Array.isArray(window.promptLibrary) ? window.promptLibrary : [];
 
   const baseProjects = [
     {
@@ -544,6 +546,43 @@
     const islamicProjects = projects.filter((project) => project.categories.includes('islamic-corner'));
     const islamicCards = islamicProjects.map((project, index) => projectCard(project, index + 1)).join('');
     const placeholderCard = `<article class="project-card reveal reveal-delay-2"><button class="project-card__button" type="button" data-open-project="islamic-content-placeholder" aria-label="Open Islamic visual content placeholder details"><div class="project-card__visual">${visualPlaceholder('fath', 'Dawah / Islamic visual placeholder', '03')}</div><div class="project-card__info">${metaLine(['Dawah / Islamic visual content', 'Placeholder content'])}<h3 class="project-card__title"><span>Dawah visual content placeholder</span><span class="project-card__arrow" aria-hidden="true">→</span></h3></div></button></article>`;
+
+    const verseCard = (entry, position) => {
+      const delayClass = position % 3 === 1 ? ' reveal-delay-1' : (position % 3 === 2 ? ' reveal-delay-2' : '');
+      const arabic = entry.arabic ? `<p class="verse-card__arabic arabic-text" lang="ar" dir="rtl">${escapeHtml(entry.arabic)}</p>` : '';
+      return `<figure class="verse-card${entry.arabic ? '' : ' verse-card--reminder'} reveal${delayClass}">${arabic}<blockquote class="verse-card__bengali bengali-text" lang="bn">${escapeHtml(entry.bengali)}</blockquote><figcaption class="verse-card__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</figcaption></figure>`;
+    };
+    const verseGrid = (entries) => `<div class="verse-grid">${entries.map((entry, index) => verseCard(entry, index)).join('')}</div>`;
+
+    const ayats = Array.isArray(islamicCornerContent.ayats) ? islamicCornerContent.ayats : [];
+    const hadiths = Array.isArray(islamicCornerContent.hadiths) ? islamicCornerContent.hadiths : [];
+    const reminders = Array.isArray(islamicCornerContent.reminders) ? islamicCornerContent.reminders : [];
+    const masalah = Array.isArray(islamicCornerContent.masalah) ? islamicCornerContent.masalah : [];
+
+    const ayatSection = ayats.length ? `
+        <section class="page-section reveal">
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
+          ${verseGrid(ayats)}
+        </section>` : '';
+
+    const hadithSection = hadiths.length ? `
+        <section class="page-section reveal">
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
+          ${verseGrid(hadiths)}
+        </section>` : '';
+
+    const reminderSection = reminders.length ? `
+        <section class="page-section reveal">
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
+          ${verseGrid(reminders)}
+        </section>` : '';
+
+    const masalahSection = masalah.length ? `
+        <section class="page-section reveal">
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 05</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
+          <div class="guideline-list">${masalah.map((entry, index) => `<article class="guideline-item reveal${index % 2 === 1 ? ' reveal-delay-1' : ''}"><span class="guideline-item__index">${String(index + 1).padStart(2, '0')}</span><div class="guideline-item__body"><p class="bengali-text" lang="bn">${escapeHtml(entry.bengali)}</p><p class="guideline-item__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</p></div></article>`).join('')}</div>
+        </section>` : '';
+
     return `
       <div class="page">
         ${pageHeader('04 / Dedicated section', 'Islamic<br /><span style="color: var(--acid);">Corner.</span>', 'A respectful editorial space for Dawah / Islamic visual content, calligraphy, Namelipi, and related visual storytelling.', 'Curated section / Supplied work + placeholders')}
@@ -553,8 +592,8 @@
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Editorial principle</span>
               <h2 style="margin-top: 1.4rem;">Make space for <span style="color: var(--acid);">meaning.</span></h2>
-              <p>The section is designed to present Islamic visual work with clarity, context, source information, and respectful pacing. No religious text, translation, source, or interpretation is being invented in this phase.</p>
-              <div class="note-box">Per-entry fields can later include source, translation, transliteration, language, credits, caption, and related project links.</div>
+              <p>The section presents Islamic visual work and supplied texts with clarity, context, source information, and respectful pacing. Every ayat, hadith, reminder, and masalah below carries its stated source.</p>
+              <div class="note-box">Each entry keeps its original language, Bengali rendering, and reference so the artwork and its source material stay clearly distinguished.</div>
             </div>
           </div>
         </section>
@@ -564,7 +603,11 @@
             ${islamicCards}${placeholderCard}
           </div>
         </section>
-        <section class="page-section reveal"><div class="callout"><h2>Context<br /><em>matters.</em></h2><div class="callout__copy"><p>Every future entry can carry the information needed to distinguish the artwork from its source material and to keep presentation accurate.</p><div class="button-row">${routeLink('/project/fath-makkah', 'Visit Fath Makkah', 'button-link button-link--filled')}</div></div></div></section>
+        ${ayatSection}
+        ${hadithSection}
+        ${reminderSection}
+        ${masalahSection}
+        <section class="page-section reveal"><div class="callout"><h2>Context<br /><em>matters.</em></h2><div class="callout__copy"><p>Every entry carries the information needed to distinguish the artwork from its source material and to keep presentation accurate.</p><div class="button-row">${routeLink('/project/fath-makkah', 'Visit Fath Makkah', 'button-link button-link--filled')}</div></div></div></section>
       </div>
     `;
   }
@@ -582,17 +625,41 @@
       </button>
     `).join('');
 
+    const hasBengali = (text) => /[\u0980-\u09FF]/.test(text);
+    const noteBlock = (text) => `<p class="prompt-group__note${hasBengali(text) ? ' bengali-text' : ''}"${hasBengali(text) ? ' lang="bn"' : ''}>${escapeHtml(text)}</p>`;
+    const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip">${escapeHtml(command)}</span>`).join('')}</div>`;
+    const comboBlock = (text) => `<code class="command-combo">${escapeHtml(text)}</code>`;
+    const groupCard = (group) => {
+      const commandCount = group.blocks.filter((block) => block.type === 'commands').reduce((sum, block) => sum + block.items.length, 0);
+      const comboCount = group.blocks.filter((block) => block.type === 'combo').length;
+      const countLabel = [commandCount ? `${commandCount} command${commandCount === 1 ? '' : 's'}` : '', comboCount ? `${comboCount} combo${comboCount === 1 ? '' : 's'}` : ''].filter(Boolean).join(' / ');
+      const body = group.blocks.map((block) => {
+        if (block.type === 'commands') return commandBlock(block.items);
+        if (block.type === 'combo') return comboBlock(block.text);
+        return noteBlock(block.text);
+      }).join('');
+      return `<article class="prompt-group reveal" id="prompt-group-${escapeHtml(group.index)}"><header class="prompt-group__head"><span class="prompt-group__index">${escapeHtml(group.index)}</span><h3 class="prompt-group__title${hasBengali(group.title) ? ' bengali-text' : ''}"${hasBengali(group.title) ? ' lang="bn"' : ''}>${escapeHtml(group.title)}</h3><span class="prompt-group__count">${escapeHtml(countLabel)}</span></header><div class="prompt-group__body">${body}</div></article>`;
+    };
+
+    const totalCommands = promptLibrary.reduce((sum, group) => sum + group.blocks.filter((block) => block.type === 'commands').reduce((groupSum, block) => groupSum + block.items.length, 0), 0);
+    const librarySection = promptLibrary.length ? `
+        <section class="page-section reveal">
+          <div class="section-heading"><div><div class="section-topline"><span>Prompt Archive / 02</span><span>Slash-command library</span></div><h2 class="section-title">A working<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">vocabulary.</span></h2></div><p class="section-heading__side">${promptLibrary.length} command groups and ${totalCommands}+ slash commands for AI-assisted image work — style, camera, light, composition, era, and constraint controls, with tested combinations.</p></div>
+          <div class="prompt-library">${promptLibrary.map((group) => groupCard(group)).join('')}</div>
+        </section>
+        <section class="page-section reveal"><div class="callout"><h2>Stack the<br /><em>commands.</em></h2><div class="callout__copy"><p>A slash prompt reads as a sentence: Subject → Purpose → Era → Composition → Camera → Light → Style → Detail → Constraints. Groups 41–45 show combinations, short magic prompts, and a personal custom vocabulary built from the same system.</p></div></div></section>` : '';
+
     return `
       <div class="page">
-        ${pageHeader('05 / Process archive', 'Prompt<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">Archive.</span>', 'A process-led archive for AI-assisted creative work: intent, prompt, iteration, output, and the human design decisions around them.', 'Initial entries / Placeholders only')}
+        ${pageHeader('05 / Process archive', 'Prompt<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">Archive.</span>', 'A process-led archive for AI-assisted creative work: intent, prompt, iteration, output, and the human design decisions around them.', 'Slash-command library / 45 groups')}
         <section class="page-section reveal">
           <div class="media-grid">
             ${visualPlaceholder('motion', 'Prompt Archive / process placeholder', '01')}
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Process over spectacle</span>
               <h2 style="margin-top: 1.4rem;">Prompt →<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">decision.</span></h2>
-              <p>The archive will document how an idea moves through tools, iterations, editing, and final creative choices. Private or sensitive prompts can remain redacted.</p>
-              <div class="note-box">No actual prompts, models, tools, outputs, clients, or confidential material have been added here.</div>
+              <p>The archive documents how an idea moves through tools, iterations, editing, and final creative choices. The slash-command library below is the working vocabulary behind that process.</p>
+              <div class="note-box">Commands are grouped by purpose — creative direction, photography, lighting, composition, historical reconstruction, education, and more — exactly as they are used in practice.</div>
             </div>
           </div>
         </section>
@@ -600,6 +667,7 @@
           <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive"><button class="filter-button" type="button" data-archive-filter="all" aria-pressed="${state.archiveFilter === 'all'}">All</button><button class="filter-button" type="button" data-archive-filter="process" aria-pressed="${state.archiveFilter === 'process'}">Process</button><button class="filter-button" type="button" data-archive-filter="ai-assisted" aria-pressed="${state.archiveFilter === 'ai-assisted'}">AI-assisted</button><button class="filter-button" type="button" data-archive-filter="iteration" aria-pressed="${state.archiveFilter === 'iteration'}">Iteration</button></div><span class="archive-count">${filtered.length} placeholder entries</span></div>
           <div class="archive-list">${entries || '<p class="note-box">No placeholder entries match this filter.</p>'}</div>
         </section>
+        ${librarySection}
       </div>
     `;
   }
