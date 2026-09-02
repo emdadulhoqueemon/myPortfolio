@@ -523,6 +523,47 @@ body.drawer-open .site-drawer {
   padding: 0 var(--gutter);
 }
 
+/* Static view sections live outside #app so the router can show them without
+   overwriting them. They stay hidden unless the matching route activates them. */
+.view-section {
+  display: none;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.view-section.is-active {
+  display: block;
+}
+
+/* The router hides #app while a static view section is on screen. */
+#app[hidden] {
+  display: none;
+}
+
+.view-section code {
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.86em;
+}
+
+.archive-note {
+  margin-top: 1.4rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.archive-note[hidden] {
+  display: none;
+}
+
 .page {
   padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(5rem, 11vw, 10rem);
 }

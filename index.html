@@ -518,6 +518,7 @@ html { scroll-behavior: smooth !important; }
             <a href="#/category/motion-animation" data-route="/category/motion-animation" class="drawer-link"><span>—</span><span>Motion &amp; Animation</span></a>
             <a href="#/category/social-media-design" data-route="/category/social-media-design" class="drawer-link"><span>—</span><span>Social Media Design</span></a>
             <a href="#/category/calligraphy-namelipi" data-route="/category/calligraphy-namelipi" class="drawer-link"><span>—</span><span>Calligraphy / Namelipi</span></a>
+            <a href="#/bangla-namelipi" data-route="/bangla-namelipi" class="drawer-link"><span>—</span><span>Bangla Namelipi</span></a>
             <a href="#/category/editorial-storytelling" data-route="/category/editorial-storytelling" class="drawer-link"><span>—</span><span>Editorial / Visual Storytelling</span></a>
           </div>
           <a href="#/project/fath-makkah" data-route="/project/fath-makkah" class="drawer-link drawer-link--feature"><span>03</span><strong>Fath Makkah <small>Flagship</small></strong></a>
@@ -534,8 +535,30 @@ html { scroll-behavior: smooth !important; }
       </div>
     </aside>
 
-    <main id="app" tabindex="-1"><section id="bangla-namelipi" class="view-section" style="display: none;"><div class="section-header"><h2>Bangla Namelipi</h2></div><div class="project-grid" id="bangla-namelipi-grid"></div></section>
-</main>
+    <main id="app" tabindex="-1"></main>
+
+    <section id="bangla-namelipi" class="view-section" aria-labelledby="bangla-namelipi-title">
+      <div class="page">
+        <section class="page-header reveal">
+          <div class="page-header__label">
+            <span class="eyebrow">Archive / Bangla calligraphy</span>
+            <div class="page-header__note"><span>Dedicated section / Supplied work</span><span aria-hidden="true">↘</span></div>
+          </div>
+          <div class="page-header__copy">
+            <h1 id="bangla-namelipi-title">Bangla<br /><span style="color: var(--acid);">Namelipi.</span></h1>
+            <p class="page-header__intro">A dedicated archive for supplied Bangla Namelipi artwork. Every entry is generated from the supplied image files; no title, caption, or credit has been invented.</p>
+          </div>
+        </section>
+        <section class="page-section reveal">
+          <div class="section-heading">
+            <div><div class="section-topline"><span>Bangla Namelipi / 01</span><span id="bangla-namelipi-count">0 pieces</span></div><h2 class="section-title">Name<br /><span>calligraphy.</span></h2></div>
+            <p class="section-heading__side">Entries are built from <code>assets/bangla-namelipi/</code> by <code>build_bangla_namelipi.py</code>, so new artwork can be published without editing the interface.</p>
+          </div>
+          <div class="project-grid" id="bangla-namelipi-grid"></div>
+          <p class="archive-note" id="bangla-namelipi-empty" hidden>No Bangla Namelipi images are published yet. Add the supplied files to <code>assets/bangla-namelipi/</code> and run <code>python3 build_bangla_namelipi.py</code> to generate this archive.</p>
+        </section>
+      </div>
+    </section>
 
     <footer class="site-footer">
       <div class="footer-rule"></div>
@@ -560,6 +583,7 @@ html { scroll-behavior: smooth !important; }
     <script src="data/graphic-design.js"></script>
     <script src="data/thumbnails.js"></script>
     <script src="data/videos.js"></script>
-    <script src="app.js?v=999"></script>
+    <script src="data/bangla-namelipi.js"></script>
+    <script src="app.js?v=1000"></script>
   </body>
 </html>

@@ -10,6 +10,13 @@ python3 -m http.server 4173 --bind 0.0.0.0
 
 Then open `http://localhost:4173`.
 
+## Publishing Bangla Namelipi artwork
+
+1. Drop the supplied image files (`JPG`, `JPEG`, `PNG`, or `WebP`) into the repository root or into an `uploads/` folder.
+2. Run `python3 build_bangla_namelipi.py`.
+
+The script moves them into `assets/bangla-namelipi/` and rewrites `data/bangla-namelipi.js`, assigning the entries to `window.banglaNamelipiArchive`. Titles are derived from the supplied filenames and are flagged `titleSupplied: false`; nothing else is inferred. Pass `--rebuild` to regenerate the data file without moving anything.
+
 ## Included in this phase
 
 - Global header with a single circular EH profile avatar
@@ -29,6 +36,8 @@ Then open `http://localhost:4173`.
 - Sixteen optimized Graphic Design images from the validation pass and Batches 1–3 in `assets/graphic-design/`
 - Five optimized Thumbnail Design images in `assets/thumbnails/`
 - Twenty-two self-hosted YouTube poster frames in `assets/video-posters/`
+- Dedicated Bangla Namelipi route (`#/bangla-namelipi`) rendering the `id="bangla-namelipi"` section, populated from `data/bangla-namelipi.js` (`window.banglaNamelipiArchive`)
+- `build_bangla_namelipi.py`, which moves supplied Bangla Namelipi images into `assets/bangla-namelipi/` and regenerates that data file
 - Self-hosted Monotes, Saprona, Kohinur Bangla, and Aref Ruqaa font files in `fonts/`
 
 Typography usage hooks are ready for future content:
