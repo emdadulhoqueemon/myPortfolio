@@ -133,8 +133,11 @@
     label: 'Featured / Flagship Case Study',
     visual: 'fath',
     categories: ['graphic-design', 'video-editing', 'motion-animation', 'editorial-storytelling', 'islamic-corner'],
-    status: 'Case study scaffold',
-    summary: 'A dedicated flagship route reserved for the Fath Makkah project. Project context, media, process, and links will be populated from supplied materials.'
+    status: 'Published e-book',
+    featured: true,
+    imageSrc: 'assets/case-study/fath-makkah-ebook-cover.webp',
+    imageAlt: 'Front cover of the Fath Makkah e-book',
+    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Haque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
   };
 
   const promptEntries = [
@@ -236,7 +239,7 @@
     const fetchPriority = project.featured ? ' fetchpriority="high"' : '';
     const playBadge = project.video ? '<span class="media-asset__play" aria-hidden="true">▶</span>' : '';
     return `
-      <figure class="media-asset media-asset--${escapeHtml(project.visual || 'archive')}${project.video ? ' media-asset--video' : ''}">
+      <figure class="media-asset media-asset--${escapeHtml(project.visual || 'archive')}${project.video ? ' media-asset--video' : ''}${project.aspectRatio === '9:16' ? ' media-asset--portrait' : ''}">
         <img src="${escapeHtml(thumbSrc)}" alt="${escapeHtml(alt)}" loading="${loading}" decoding="async"${fetchPriority} />
         ${playBadge}
       </figure>
@@ -250,7 +253,7 @@
       : `<button class="project-card__button" type="button" data-open-project="${escapeHtml(project.slug)}" aria-label="Open ${escapeHtml(displayTitle)} details">`;
     const close = project.slug === 'fath-makkah' ? '</a>' : '</button>';
     return `
-      <article class="project-card${project.video ? ' project-card--video' : ''} reveal reveal-delay-${Math.min(Number(index) || 0, 3)}">
+      <article class="project-card${project.video ? ' project-card--video' : ''}${project.aspectRatio === '9:16' ? ' project-card--portrait' : ''} reveal reveal-delay-${Math.min(Number(index) || 0, 3)}">
         ${action}
           <div class="project-card__visual">
             ${mediaVisual(project, index ? String(index).padStart(2, '0') : '')}
@@ -270,6 +273,7 @@
   function videoFacade(id, title = 'Short-form video placeholder', portrait = false) {
     const sourceProject = getProject(id);
     const poster = sourceProject?.imageSrc || sourceProject?.posterImage;
+    if (sourceProject?.aspectRatio === '9:16') portrait = true;
     const posterStyle = poster
       ? ` style="background-image: linear-gradient(135deg, rgba(33, 26, 17, 0.16), rgba(33, 26, 17, 0.74)), url('${escapeHtml(poster)}'); background-size: cover; background-position: center;"`
       : '';
@@ -280,7 +284,7 @@
         <span class="video-facade__play" aria-hidden="true">▶</span>
         <span class="video-facade__bottom">
           <span class="video-facade__title">${escapeHtml(title)}</span>
-          <span class="video-facade__hint">${poster ? 'Supplied poster frame. Open to watch.' : 'Link and poster image will be supplied later.'}</span>
+          <span class="video-facade__hint">${poster ? 'Open to watch' : 'Link and poster image will be supplied later.'}</span>
         </span>
       </button>
     `;
@@ -302,12 +306,12 @@
   }
 
   function renderHome() {
+    // Curated home: only real, supplied projects. No placeholder blocks.
+    // (Fath Makkah has its own feature block above, so it is not repeated here.)
     const curatedProjects = [
       projects.find((project) => project.slug === 'iftar-party-2026'),
-      projects.find((project) => project.video && project.featured),
-      projects.find((project) => project.slug === 'motion-study-placeholder'),
-      projects.find((project) => project.slug === 'namelipi-placeholder')
-    ].filter(Boolean);
+      projects.find((project) => project.video && project.featured)
+    ].filter((project, index, list) => project && !String(project.slug).includes('placeholder') && list.indexOf(project) === index);
     const selected = curatedProjects.map((project, index) => projectCard(project, index + 1)).join('');
     const practice = categories.slice(0, 5).map((category, index) => `
       <a class="practice-item" href="#/category/${category.slug}">
@@ -352,16 +356,16 @@
           </div>
           <div class="feature-grid">
             <div class="feature-visual">
-              ${visualPlaceholder('fath', 'Fath Makkah / flagship case study placeholder', '01')}
+              <figure class="media-asset media-asset--poster" style="min-height: 100%; background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" fetchpriority="high" style="object-fit: contain;" /></figure>
             </div>
             <div class="feature-copy">
               <div class="feature-copy__top">
-                ${metaLine(['Fath Makkah', 'Case study scaffold'])}
+                ${metaLine(['Fath Makkah', 'E-book / Historical case study'])}
                 <h2 class="feature-title">Fath <span>Makkah</span></h2>
-                <p>The primary featured route for the Fath Makkah project. The page is visually constructed now; project context and media remain intentionally unfilled.</p>
+                <p>An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
               </div>
               <div class="feature-copy__bottom">
-                <span class="eyebrow">Content placeholder / No invented details</span>
+                <span class="eyebrow">Author / Muhammad Emdadul Haque</span>
                 ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled')}
               </div>
             </div>
@@ -371,10 +375,10 @@
         <section class="page-section reveal reveal-delay-2">
           <div class="section-heading">
             <div>
-              <div class="section-topline"><span>Selected work / 02</span><span>Initial visual set</span></div>
+              <div class="section-topline"><span>Selected work / 02</span><span>Featured projects</span></div>
               <h2 class="section-title">A small<br /><span>edit.</span></h2>
             </div>
-            <p class="section-heading__side">The first visual construction uses explicit placeholders. It does not imply clients, outcomes, or completed project facts.</p>
+            <p class="section-heading__side">A short, curated set drawn from the archive — graphic design, video, and the flagship e-book. The full index lives on the work page.</p>
           </div>
           <div class="project-grid">${selected}</div>
           <div class="button-row">
@@ -481,7 +485,7 @@
         ` : ''}
         <section class="page-section reveal">
           <div class="section-heading">
-            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Content<br /><span>placeholder.</span></h2></div>
+            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Category<br /><span>work.</span></h2></div>
             <p class="section-heading__side">The category can later support filters, project metadata, related work, and a full archive without changing its route.</p>
           </div>
           <div class="project-grid">${cards}</div>
@@ -694,7 +698,7 @@
               <p class="contact-copy">The contact route is intentionally clear and lightweight. No email address, social profile, availability statement, or form destination has been invented.</p>
               <div class="note-box">Add the preferred contact method later. The form below is a visual interaction placeholder and does not send a message yet.</div>
             </div>
-            <form class="contact-form" id="contact-form">
+            <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
               <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" /></div>
               <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" /></div>
               <div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="What would you like to say?"></textarea></div>
@@ -956,9 +960,13 @@
 
   document.addEventListener('submit', (event) => {
     if (event.target.id !== 'contact-form') return;
-    event.preventDefault();
+    const form = event.target;
     const status = document.getElementById('form-status');
-    if (status) status.textContent = 'Visual prototype only — no message was sent.';
+    // Until a real Formspree ID is configured, keep the form client-side only.
+    if (!form.action || form.action.includes('YOUR_FORM_ID')) {
+      event.preventDefault();
+      if (status) status.textContent = 'Form backend not connected yet — no message was sent.';
+    }
   });
 
   document.addEventListener('keydown', (event) => {

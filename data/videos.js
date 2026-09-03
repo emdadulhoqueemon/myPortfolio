@@ -19,7 +19,7 @@ window.videoArchive = [
     "posterImage": "assets/video-posters/video-01.webp",
     "imageSrc": "assets/video-posters/video-01.webp",
     "imageAlt": "Poster frame for শুধু একটি ওয়েবসাইট তৈরি করাই যথেষ্ট নয়—তৈরি করুন এমন একটি ব্র্যান্ড...",
-    "aspectRatio": "9:16",
+    "aspectRatio": "16:9",
     "duration": "20 sec"
   },
   {
@@ -134,7 +134,7 @@ window.videoArchive = [
     "posterImage": "assets/video-posters/video-06.webp",
     "imageSrc": "assets/video-posters/video-06.webp",
     "imageAlt": "Poster frame for ভ্লাদ ড্রাকুলার শেষ পরিণতি ও উসমানীয়দের ভয়ংকর প্রতিশোধ",
-    "aspectRatio": "3:4",
+    "aspectRatio": "9:16",
     "duration": "52 sec"
   },
   {
