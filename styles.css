@@ -1,51 +1,13 @@
 @charset "UTF-8";
 
-/* Self-hosted custom type system */
-@font-face {
-  font-family: "Monotes";
-  src: url("fonts/Monotes.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Saprona";
-  src: url("fonts/Saprona.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Kohinur Bangla";
-  src: url("fonts/Kohinur-Bangla.otf") format("opentype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aref Ruqaa";
-  src: url("fonts/aref-ruqaa-regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aref Ruqaa";
-  src: url("fonts/aref-ruqaa-bold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
+/* Type system: Google Fonts loaded via <link> in index.html
+   Merienda (display), Fira Sans (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
 
 :root {
-  --font-ui: "Saprona", Arial, sans-serif;
-  --font-display: "Monotes", Georgia, serif;
-  --font-bengali: "Kohinur Bangla", "Kohinoor Bangla", sans-serif;
-  --font-arabic: "Aref Ruqaa", serif;
+  --font-ui: "Fira Sans", "Noto Sans Bengali", Arial, sans-serif;
+  --font-display: "Merienda", "Fira Sans", Georgia, serif;
+  --font-bengali: "Noto Sans Bengali", "Fira Sans", sans-serif;
+  --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
   --canvas: #ffffff;
   --surface: #f6f7f8;
@@ -2816,4 +2778,100 @@ body.drawer-open .site-drawer {
 .modal-panel__aside,
 .video-modal__panel {
   display: none !important;
+}
+
+/* ---------------------------------------------------------------
+   Google Fonts typography pass
+   Merienda = display/headings, Fira Sans = body/UI,
+   Noto Sans Bengali = Bengali, Amiri = Arabic (Quran / Hadith)
+   --------------------------------------------------------------- */
+
+body,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-ui);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.page-header h1,
+.feature-title,
+.section-title,
+.callout h2,
+.contact-title,
+.about-lead,
+.story-copy h2,
+.modal-panel__body h2,
+.promo-card h3,
+.footer-title,
+.drawer-heading em {
+  font-family: var(--font-display);
+}
+
+/* Merienda is a rounded script face: negative tracking hurts it. */
+.page-header h1,
+.hero-title,
+.feature-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.about-lead,
+.contact-title,
+.modal-panel__body h2 {
+  letter-spacing: -0.01em;
+}
+
+/* Small / supporting text stays on Fira Sans even inside display blocks. */
+.eyebrow,
+.header-index,
+.brand-role,
+.section-topline,
+.feature-topline,
+.hero-topline,
+.project-meta,
+.card-meta,
+.archive-count,
+.form-note,
+.button-link,
+.button-quiet,
+.filter-button,
+.modal-detail-list__row dt,
+.modal-detail-list__row dd,
+.video-facade__title,
+.video-facade__hint,
+p,
+li,
+dd,
+dt,
+label,
+small {
+  font-family: var(--font-ui);
+}
+
+/* Bengali */
+[lang="bn"],
+.bengali-text,
+.bengali-text *,
+.verse-card__bengali,
+.verse-card__source {
+  font-family: var(--font-bengali);
+  font-synthesis: weight;
+  letter-spacing: 0;
+}
+
+/* Arabic — Quran and Hadith */
+[lang="ar"],
+.arabic-text,
+.arabic-text *,
+.verse-card__arabic,
+.hadith-card__arabic {
+  font-family: var(--font-arabic);
+  font-synthesis: none;
 }
