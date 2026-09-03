@@ -26,6 +26,15 @@ videos = [
   {"slug": "vid-22", "title": "কোরবানির পশুর প্রতিটি পশমের বদলে সওয়াব !", "label": "Islamic Reels", "visual": "video", "categories": ["video-editing", "islamic-corner"], "status": "Published", "video": True, "videoUrl": "https://youtube.com/shorts/2i9edLQDbEg?feature=share", "platform": "YouTube", "tools": ["Premiere Pro", "CapCut"]}
 ]
 
+# Attach poster thumbnails (assets/video-posters/video-NN.webp) so cards and the
+# video facade render a real frame instead of a placeholder.
+for i, v in enumerate(videos, start=1):
+    poster = f"assets/video-posters/video-{i:02d}.webp"
+    if os.path.exists(poster):
+        v["posterImage"] = poster
+        v["imageSrc"] = poster
+        v["imageAlt"] = f"Poster frame for {v['title']}"
+
 os.makedirs("data", exist_ok=True)
 js_content = "window.videoArchive = " + json.dumps(videos, indent=2, ensure_ascii=False) + ";"
 
