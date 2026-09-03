@@ -208,10 +208,35 @@ html {
   scroll-behavior: smooth;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(5, 168, 138, 0.4); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(5, 168, 138, 0.8); }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(60, 59, 63, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #605c3c, #3c3b3f);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #4b482f, #232225);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #4f4d3e rgba(60, 59, 63, 0.06);
+}
 
 .brand {
   display: inline-flex;
@@ -3246,4 +3271,186 @@ textarea:focus-visible {
 .site-drawer .drawer-topline,
 .site-drawer .drawer-footer {
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------------------------------------------------------------
+   Refinement pass — avatar ring, header curve, spacing, hero motion
+   --------------------------------------------------------------- */
+
+/* 1. Header avatar: ring strictly OUTSIDE the photo.
+   The masked inner ring is removed; the ring now lives on a wrapper-free
+   outset pseudo-element, and the avatar no longer clips it. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+/* Re-clip only the photo, so the outer ring is never cut off. */
+.profile-avatar__img {
+  border-radius: 50%;
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* Sits fully outside the 2.8rem circle with a transparent breathing gap. */
+  inset: -6px;
+  z-index: 0;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.35;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 1b. Premium curve on the bottom edge of the header bar. */
+.site-header {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+/* 2a. Case-study title reads "Fath Makkah", not "FATH MAKKAH". */
+.page-header h1,
+.hero-title,
+.feature-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.contact-title,
+.footer-title,
+.promo-card h3,
+.modal-panel__body h2 {
+  text-transform: none;
+}
+
+/* 2b. Sidebar heading sits lower and breathes. */
+.site-drawer .drawer-heading {
+  margin-top: 2.4rem;
+}
+
+.site-drawer .drawer-heading p {
+  margin-top: 0.9rem;
+}
+
+/* 2c. Islamic Corner headings clear the topline labels above them. */
+.section-heading .section-title,
+.section-heading h2.section-title {
+  margin-top: 1.1rem;
+}
+
+.section-topline {
+  margin-bottom: 0.35rem;
+}
+
+/* 4a. Hero ambience: lightweight CSS-only drifting shapes, no images. */
+.hero-mark {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-mark::before,
+.hero-mark::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.08;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-mark::before {
+  width: 10rem;
+  height: 10rem;
+  top: -3rem;
+  right: -2.5rem;
+  animation: hero-drift-a 18s ease-in-out infinite alternate;
+}
+
+.hero-mark::after {
+  width: 6.5rem;
+  height: 6.5rem;
+  bottom: -2rem;
+  left: -1.5rem;
+  opacity: 0.06;
+  animation: hero-drift-b 22s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-1.4rem, 1.1rem, 0) scale(1.12); }
+}
+
+@keyframes hero-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(1.2rem, -1rem, 0) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mark::before,
+  .hero-mark::after {
+    animation: none;
+  }
+}
+
+/* 4b. Cap the flagship poster so it stops swallowing the viewport. */
+.feature-visual .media-asset--poster {
+  max-height: 70vh;
+}
+
+.feature-visual .media-asset--poster img {
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* 5. Footer social links inherit the footer's forced-white treatment. */
+.footer-social a {
+  white-space: nowrap;
+}
+
+/* 6. Contact channels — real email and social links */
+.contact-channels {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.contact-channels li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-channels li > span {
+  min-width: 5.5rem;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-channels li > a {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  overflow-wrap: anywhere;
+  transition: color 180ms ease;
+}
+
+.contact-channels li > a:hover {
+  color: var(--accent-solid);
 }

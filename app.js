@@ -134,18 +134,12 @@
   const promptEntries = [
     {
       index: '01',
-      title: 'Prompt archive entry placeholder',
-      tag: 'Process / Placeholder',
-      detail: 'A structured place for prompt, iteration, output, and creative decision notes.'
-    },
-    {
-      index: '02',
       title: 'AI-assisted study placeholder',
       tag: 'AI-assisted / Placeholder',
       detail: 'A future entry for documenting an AI-assisted visual experiment without exposing private material.'
     },
     {
-      index: '03',
+      index: '02',
       title: 'Iteration notes placeholder',
       tag: 'Iteration / Placeholder',
       detail: 'A future entry for recording what worked, what changed, and why the final direction was chosen.'
@@ -575,6 +569,19 @@
     `;
   }
 
+  // Only render a filter tab when entries actually carry that tag, so the
+  // toolbar never shows a dead control that filters to an empty list.
+  function archiveFilterButtons() {
+    const candidates = [
+      { key: 'process', label: 'Process' },
+      { key: 'ai-assisted', label: 'AI-assisted' },
+      { key: 'iteration', label: 'Iteration' }
+    ].filter((option) => promptEntries.some((entry) => entry.tag.toLowerCase().includes(option.key)));
+    const options = [{ key: 'all', label: 'All' }, ...candidates];
+    if (options.length < 2) return '';
+    return options.map((option) => `<button class="filter-button" type="button" data-archive-filter="${escapeHtml(option.key)}" aria-pressed="${state.archiveFilter === option.key}">${escapeHtml(option.label)}</button>`).join('');
+  }
+
   function renderPromptArchive() {
     const filtered = state.archiveFilter === 'all'
       ? promptEntries
@@ -627,7 +634,7 @@
           </div>
         </section>
         <section class="page-section reveal">
-          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive"><button class="filter-button" type="button" data-archive-filter="all" aria-pressed="${state.archiveFilter === 'all'}">All</button><button class="filter-button" type="button" data-archive-filter="process" aria-pressed="${state.archiveFilter === 'process'}">Process</button><button class="filter-button" type="button" data-archive-filter="ai-assisted" aria-pressed="${state.archiveFilter === 'ai-assisted'}">AI-assisted</button><button class="filter-button" type="button" data-archive-filter="iteration" aria-pressed="${state.archiveFilter === 'iteration'}">Iteration</button></div><span class="archive-count">${filtered.length} placeholder entries</span></div>
+          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive">${archiveFilterButtons()}</div><span class="archive-count">${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}</span></div>
           <div class="archive-list">${entries || '<p class="note-box">No placeholder entries match this filter.</p>'}</div>
         </section>
         ${librarySection}
@@ -642,8 +649,8 @@
         <section class="page-section reveal">
           <div class="about-grid">
             <div>
-              <p class="about-lead">Emdadul Hoque Emon is a <em>Visual Designer</em>, Video Editor, and Creative Content Creator.</p>
-              <p class="about-body">The strongest focus is short-form video editing and poster / graphic design, supported by a wider practice across image, type, motion, social content, editorial storytelling, Islamic visual content, calligraphy / Namelipi, and AI-assisted creative work.</p>
+              <p class="about-lead">Emdadul Hoque is a <em>digital creator</em> specializing in video editing, motion graphics, and graphic design.</p>
+              <p class="about-body">Currently pursuing a degree in English Language and Literature at IIUC, he blends literary insights with digital innovation.</p>
             </div>
             <dl class="about-list">
               <div class="about-list__row"><dt>Primary focus</dt><dd>Short-form video editing; poster and graphic design.</dd></div>
@@ -662,13 +669,19 @@
   function renderContact() {
     return `
       <div class="page">
-        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'A simple contact experience is ready for a supplied email address, social links, or a connected form endpoint.', 'Contact details / To be supplied')}
+        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'Email and social links are live below. The message form remains a visual placeholder.', 'Contact details / Email + social')}
         <section class="page-section reveal">
           <div class="contact-layout">
             <div>
               <h2 class="contact-title">Open<br /><span>line.</span></h2>
-              <p class="contact-copy">The contact route is intentionally clear and lightweight. No email address, social profile, availability statement, or form destination has been invented.</p>
-              <div class="note-box">Add the preferred contact method later. The form below is a visual interaction placeholder and does not send a message yet.</div>
+              <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
+              <ul class="contact-channels">
+                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com">emdadulhoqueemon@outlook.com</a></li>
+                <li><span>YouTube</span><a href="https://www.youtube.com/@emdadsvisual" target="_blank" rel="noopener noreferrer">@emdadsvisual</a></li>
+                <li><span>Facebook</span><a href="https://www.facebook.com/emdadulhoqueemo" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+                <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/emdadulhoqueemo/" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+              </ul>
+              <div class="note-box">The form below is a visual interaction placeholder and does not send a message yet — email is the reliable route for now.</div>
             </div>
             <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
               <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" /></div>
