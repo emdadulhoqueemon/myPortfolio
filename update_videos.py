@@ -39,6 +39,8 @@ for i, v in enumerate(videos, start=1):
         v["imageSrc"] = poster
         v["imageAlt"] = f"Poster frame for {v['title']}"
     v["aspectRatio"] = "9:16" if v["slug"] in PORTRAIT else "16:9"
+    # Bengali titles get lang="bn" so the UI applies the Bengali font stack.
+    v["language"] = "bn" if any("\u0980" <= ch <= "\u09FF" for ch in v["title"]) else "en"
 
 os.makedirs("data", exist_ok=True)
 js_content = "window.videoArchive = " + json.dumps(videos, indent=2, ensure_ascii=False) + ";"

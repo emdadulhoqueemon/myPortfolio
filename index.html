@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
     <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
-    <link rel="stylesheet" href="styles.css?v=1001" />
+    <link rel="stylesheet" href="styles.css?v=1002" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Protest+Revolution&display=swap');
 
@@ -467,6 +467,97 @@ html { scroll-behavior: smooth !important; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(5,168,138,0.4); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(5,168,138,0.8); }
+</style>
+<style id="video-typography-fix">
+/* Video card + facade typography. Loaded last so it wins over the earlier
+   !important overrides. Titles on video surfaces are descriptions, not
+   headlines: body font, regular weight, readable line-height, clamped to
+   three lines so they never climb into the play button. */
+.project-card--video .project-card__title,
+.project-card--video .project-card__title span,
+.video-facade__title,
+.video-facade__title span {
+  font-family: 'Noto Sans', 'Noto Sans Bengali', Arial, sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+.project-card--video .project-card__title span[lang="bn"],
+.project-card--video .project-card__title span.bengali-text,
+.video-facade__title[lang="bn"],
+.video-facade__title.bengali-text {
+  font-family: 'Noto Sans Bengali', 'Noto Sans', sans-serif !important;
+}
+
+/* Cards */
+.project-card--video .project-card__info {
+  padding: 0.9rem 1.05rem 1.1rem !important;
+}
+.project-card--video .project-card__title {
+  align-items: flex-end !important;
+  gap: 0.75rem !important;
+  margin: 0.55rem 0 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.45 !important;
+}
+.project-card--video .project-card__title span:first-child {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
+  max-width: 34ch !important;
+  overflow-wrap: anywhere !important;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
+}
+.project-card--video .project-meta {
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+}
+.project-card--video .media-asset__play {
+  top: 40% !important;
+}
+.project-card--portrait .media-asset__play {
+  top: 34% !important;
+}
+
+/* Facade (featured video on category pages and in the project modal) */
+.video-facade__bottom {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0.45rem !important;
+  padding: 1.4rem 1.4rem 1.5rem !important;
+}
+.video-facade__title {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
+  overflow: hidden !important;
+  max-width: 44ch !important;
+  font-size: clamp(1rem, 1.4vw, 1.15rem) !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9) !important;
+}
+.video-facade__hint {
+  max-width: none !important;
+  font-size: 0.7rem !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  text-align: left !important;
+  white-space: normal !important;
+  opacity: 0.85;
+}
+.video-facade__top {
+  padding: 1.1rem 1.4rem !important;
+  font-weight: 600 !important;
+}
+.video-facade__play {
+  margin: auto !important;
+  flex: 0 0 auto !important;
+}
+.video-facade--portrait .video-facade__title {
+  -webkit-line-clamp: 4 !important;
+}
 </style>
 </head>
   <body>

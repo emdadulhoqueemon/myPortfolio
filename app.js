@@ -105,15 +105,6 @@
 
   const baseProjects = [
     {
-      slug: 'motion-study-placeholder',
-      title: 'Motion study placeholder',
-      label: 'Motion / Animation',
-      visual: 'motion',
-      categories: ['motion-animation', 'editorial-storytelling'],
-      status: 'Placeholder content',
-      summary: 'A temporary visual placeholder for motion or animation work. No project details have been fabricated.'
-    },
-    {
       slug: 'namelipi-placeholder',
       title: 'Calligraphy / Namelipi placeholder',
       label: 'Calligraphy / Namelipi',
@@ -283,7 +274,7 @@
         <span class="video-facade__top"><span>Video facade</span><span>${poster ? 'Poster image' : 'External link'}</span></span>
         <span class="video-facade__play" aria-hidden="true">▶</span>
         <span class="video-facade__bottom">
-          <span class="video-facade__title">${escapeHtml(title)}</span>
+          <span class="video-facade__title${sourceProject?.language === 'bn' ? ' bengali-text' : ''}"${sourceProject?.language === 'bn' ? ' lang="bn"' : ''}>${escapeHtml(title)}</span>
           <span class="video-facade__hint">${poster ? 'Open to watch' : 'Link and poster image will be supplied later.'}</span>
         </span>
       </button>
@@ -306,13 +297,6 @@
   }
 
   function renderHome() {
-    // Curated home: only real, supplied projects. No placeholder blocks.
-    // (Fath Makkah has its own feature block above, so it is not repeated here.)
-    const curatedProjects = [
-      projects.find((project) => project.slug === 'iftar-party-2026'),
-      projects.find((project) => project.video && project.featured)
-    ].filter((project, index, list) => project && !String(project.slug).includes('placeholder') && list.indexOf(project) === index);
-    const selected = curatedProjects.map((project, index) => projectCard(project, index + 1)).join('');
     const practice = categories.slice(0, 5).map((category, index) => `
       <a class="practice-item" href="#/category/${category.slug}">
         <span class="practice-item__number">${String(index + 1).padStart(2, '0')}</span>
@@ -327,7 +311,7 @@
         <section class="home-hero page-section reveal">
           <div class="hero-topline">
             <span class="eyebrow">Visual practice / 2026</span>
-            <span>01 — 08 / Curated home</span>
+            <span>01 — 04 / Curated home</span>
           </div>
           <div class="hero-layout">
             <div>
@@ -375,21 +359,7 @@
         <section class="page-section reveal reveal-delay-2">
           <div class="section-heading">
             <div>
-              <div class="section-topline"><span>Selected work / 02</span><span>Featured projects</span></div>
-              <h2 class="section-title">A small<br /><span>edit.</span></h2>
-            </div>
-            <p class="section-heading__side">A short, curated set drawn from the archive — graphic design, video, and the flagship e-book. The full index lives on the work page.</p>
-          </div>
-          <div class="project-grid">${selected}</div>
-          <div class="button-row">
-            ${routeLink('/work', 'Open work index', 'button-link')}
-          </div>
-        </section>
-
-        <section class="page-section reveal">
-          <div class="section-heading">
-            <div>
-              <div class="section-topline"><span>Practice index / 03</span><span>Dedicated category routes</span></div>
+              <div class="section-topline"><span>Practice index / 02</span><span>Dedicated category routes</span></div>
               <h2 class="section-title">Explore<br /><span>by practice.</span></h2>
             </div>
             <p class="section-heading__side">Each route is reusable for future project additions and can cross-index the same project without duplicating it.</p>
@@ -399,12 +369,12 @@
 
         <section class="page-section split-promos reveal">
           <a class="promo-card" href="#/islamic-corner">
-            <div class="promo-card__top"><span class="promo-card__number">04 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
             <h3>Islamic <em>Corner.</em></h3>
             <div class="promo-card__bottom"><span>Dawah / Islamic visual content / Calligraphy</span><span aria-hidden="true">↗</span></div>
           </a>
           <a class="promo-card promo-card--warm" href="#/prompt-archive">
-            <div class="promo-card__top"><span class="promo-card__number">05 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
             <h3>Prompt <em>Archive.</em></h3>
             <div class="promo-card__bottom"><span>AI-assisted creative work / Iteration notes</span><span aria-hidden="true">↗</span></div>
           </a>
