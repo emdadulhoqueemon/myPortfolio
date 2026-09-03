@@ -908,7 +908,10 @@
 
     if (event.target.closest('[data-open-drawer]')) {
       event.preventDefault();
-      openDrawer();
+      // The toggle both opens and closes: clicking it while the drawer is
+      // open must dismiss it rather than re-running openDrawer() as a no-op.
+      if (state.drawerOpen) closeDrawer();
+      else openDrawer();
       return;
     }
 

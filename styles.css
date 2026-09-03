@@ -35,6 +35,10 @@
   --radius-md: 1.15rem;
   --radius-lg: 1.7rem;
   --pill: 999px;
+  --accent-gradient: linear-gradient(to left, #605c3c, #3c3b3f);
+  --accent-gradient-deep: linear-gradient(to left, #4b482f, #232225);
+  --accent-solid: #4f4d3e;
+  --accent-shadow: rgba(60, 59, 63, 0.24);
   --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
@@ -2913,4 +2917,117 @@ h6,
 .video-facade__title[lang="ar"],
 .video-facade__title.arabic-text {
   font-family: var(--font-arabic);
+}
+
+/* ---------------------------------------------------------------
+   Accent gradient pass
+   linear-gradient(to left, #605C3C, #3C3B3F) replaces the solid
+   orange accent across hero type, buttons, and the avatar ring.
+   --------------------------------------------------------------- */
+
+/* 2. Hero headline — the full "Visual Designer & Video Editor." lockup */
+.hero-title,
+.hero-title span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Other display headings keep the gradient on their accented span only. */
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 3. Primary buttons — "View Selected Work" and friends */
+.button-link--filled,
+.button-link--warm,
+.filter-button[aria-pressed="true"],
+.callout .button-link--filled {
+  border-color: transparent;
+  background: var(--accent-gradient);
+  background-origin: border-box;
+  color: var(--paper);
+  box-shadow: 0 8px 18px var(--accent-shadow);
+}
+
+.button-link--filled:hover,
+.button-link--warm:hover,
+.filter-button[aria-pressed="true"]:hover,
+.callout .button-link--filled:hover {
+  border-color: transparent;
+  background: var(--accent-gradient-deep);
+  color: var(--paper);
+}
+
+.button-link:hover,
+.button-quiet:hover {
+  border-color: transparent;
+  background: var(--accent-gradient);
+  color: var(--paper);
+  box-shadow: 0 8px 18px var(--accent-shadow);
+}
+
+/* Accent text and rules that previously used solid orange. */
+.hero-mark__label,
+.placeholder-index,
+.project-card__arrow,
+.practice-item__arrow,
+.archive-entry__arrow,
+.story-aside__number,
+.project-spine__index,
+.archive-entry__index,
+.video-modal__placeholder strong,
+.site-footer .footer-links a span {
+  color: var(--accent-solid);
+}
+
+.hero-support__line,
+.scroll-cue::before {
+  background: var(--accent-gradient);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline-color: var(--accent-solid);
+}
+
+/* 4. Header avatar — subtle low-opacity gradient ring via pseudo-element.
+   The ring is drawn inside the circle (the avatar clips overflow) using a
+   mask so only the 3px band shows, plus a faint outer halo. */
+.profile-avatar {
+  border: 0;
+  /* Soft outer halo of the same gradient's darker stop. */
+  box-shadow: 0 0 0 4px rgba(60, 59, 63, 0.1);
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* inset: 0 — the avatar clips overflow, so the ring must sit inside it. */
+  inset: 0;
+  z-index: 3;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--accent-gradient);
+  opacity: 0.55;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
