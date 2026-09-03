@@ -17,10 +17,12 @@
   --paper: #ffffff;
   --paper-light: #ffffff;
   --paper-deep: #eceef0;
-  --acid: #ff5722;
-  --orange: #ff5722;
-  --orange-deep: #dc4317;
-  --coral: #ff7652;
+  /* Legacy accent names now resolve to the premium gradient's tones,
+     so every remaining var(--orange) reference stops rendering orange. */
+  --acid: #4f4d3e;
+  --orange: #4f4d3e;
+  --orange-deep: #3c3b3f;
+  --coral: #605c3c;
   --gold: #d28a3b;
   --muted: #6c6f73;
   --muted-dark: #4e5155;
@@ -123,7 +125,7 @@ textarea:focus-visible {
   height: 30vw;
   min-width: 38rem;
   min-height: 18rem;
-  border: 1px solid rgba(255, 87, 34, 0.09);
+  border: 1px solid rgba(96, 92, 60, 0.09);
   border-radius: 50%;
   filter: blur(0.5px);
   transform: rotate(-17deg);
@@ -140,7 +142,7 @@ textarea:focus-visible {
 .ambient-wave--one {
   top: 8vh;
   right: -18vw;
-  background: radial-gradient(ellipse at center, rgba(255, 87, 34, 0.05), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.05), transparent 68%);
   animation: ambient-breathe 19s ease-in-out infinite alternate;
 }
 
@@ -158,7 +160,7 @@ textarea:focus-visible {
   width: 56vw;
   height: 24vw;
   transform: rotate(-8deg);
-  background: radial-gradient(ellipse at center, rgba(255, 87, 34, 0.035), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.035), transparent 70%);
   animation: ambient-breathe 25s ease-in-out -8s infinite alternate;
 }
 
@@ -228,7 +230,7 @@ html {
   border-radius: 50%;
   background: var(--ink);
   color: var(--paper);
-  box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.11);
+  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
 }
 
 .profile-avatar span {
@@ -725,7 +727,7 @@ body.drawer-open .site-drawer {
 .hero-mark::after {
   content: "";
   position: absolute;
-  border: 1px solid rgba(255, 87, 34, 0.34);
+  border: 1px solid rgba(96, 92, 60, 0.34);
   border-radius: 50%;
 }
 
@@ -871,7 +873,7 @@ body.drawer-open .site-drawer {
 
 .visual-placeholder::before {
   inset: 12% -10% 15% 32%;
-  border: 1px solid rgba(255, 87, 34, 0.55);
+  border: 1px solid rgba(96, 92, 60, 0.55);
   border-radius: 50%;
   transform: rotate(-21deg);
 }
@@ -881,7 +883,7 @@ body.drawer-open .site-drawer {
   right: 12%;
   width: 34%;
   height: 120%;
-  background: rgba(255, 87, 34, 0.22);
+  background: rgba(96, 92, 60, 0.22);
   transform: rotate(25deg);
 }
 
@@ -912,7 +914,7 @@ body.drawer-open .site-drawer {
   left: 48%;
   width: 13%;
   height: 81%;
-  background: rgba(255, 87, 34, 0.55);
+  background: rgba(96, 92, 60, 0.55);
   transform: rotate(9deg);
 }
 
@@ -957,7 +959,7 @@ body.drawer-open .site-drawer {
 }
 
 .visual-placeholder--archive {
-  background: linear-gradient(90deg, transparent 0 12%, rgba(255, 87, 34, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(255, 87, 34, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
+  background: linear-gradient(90deg, transparent 0 12%, rgba(96, 92, 60, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(96, 92, 60, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
 }
 
 .placeholder-label,
@@ -1154,7 +1156,7 @@ body.drawer-open .site-drawer {
 }
 
 .project-card:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -1234,7 +1236,7 @@ body.drawer-open .site-drawer {
 .video-facade__visual {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, transparent 0 44%, rgba(255, 87, 34, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
+  background: linear-gradient(140deg, transparent 0 44%, rgba(96, 92, 60, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
 }
 
 .video-facade__visual::before {
@@ -1451,7 +1453,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(255, 87, 34, 0.2);
+  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1459,7 +1461,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(255, 87, 34, 0.16);
+  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.16);
 }
 
 .button-link--filled:hover {
@@ -1503,11 +1505,11 @@ body.drawer-open .site-drawer {
 }
 
 .promo-card--warm {
-  background: #fff1ec;
+  background: #f2f1ea;
 }
 
 .promo-card--warm:hover {
-  background: #ffe4da;
+  background: #e9e7dc;
 }
 
 .promo-card__top,
@@ -1583,7 +1585,7 @@ body.drawer-open .site-drawer {
 .practice-item:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(255, 87, 34, 0.055);
+  background: rgba(96, 92, 60, 0.055);
   color: var(--orange);
 }
 
@@ -1654,7 +1656,7 @@ body.drawer-open .site-drawer {
   border-radius: 50%;
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.11);
+  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
 }
 
 .story-aside__avatar img {
@@ -1722,7 +1724,7 @@ body.drawer-open .site-drawer {
   padding: 1rem 1.1rem;
   border-left: 3px solid var(--orange);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: rgba(255, 87, 34, 0.065);
+  background: rgba(96, 92, 60, 0.065);
   color: var(--muted);
   font-size: 0.73rem;
   line-height: 1.45;
@@ -1764,7 +1766,7 @@ body.drawer-open .site-drawer {
 }
 
 .category-hero-mark--warm {
-  background: #fff1ec;
+  background: #f2f1ea;
   color: var(--orange-deep);
 }
 
@@ -1844,7 +1846,7 @@ body.drawer-open .site-drawer {
 .archive-entry:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(255, 87, 34, 0.055);
+  background: rgba(96, 92, 60, 0.055);
   color: var(--orange);
 }
 
@@ -2549,7 +2551,7 @@ body.drawer-open .site-drawer {
 }
 
 .verse-card:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -2604,7 +2606,7 @@ body.drawer-open .site-drawer {
 }
 
 .guideline-item:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
@@ -3030,4 +3032,218 @@ textarea:focus-visible {
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   pointer-events: none;
+}
+
+/* ---------------------------------------------------------------
+   Premium gradient pass — full removal of the legacy orange accent
+   --------------------------------------------------------------- */
+
+/* 1a. Text gradients ------------------------------------------------ */
+.site-header .brand-name,
+.brand-name,
+.hero-support p strong,
+.practice-item:hover .practice-item__title,
+.practice-item:hover .practice-item__number,
+.practice-item:hover .practice-item__arrow,
+.promo-card h3 em,
+.callout h2 em,
+.footer-title em {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Practice list hover: drop the tinted wash, let the type carry the accent. */
+.practice-item:hover {
+  background: rgba(96, 92, 60, 0.06);
+  color: inherit;
+}
+
+/* 1b. Background gradients ------------------------------------------ */
+
+/* Case-study author avatar ring */
+.story-aside__avatar {
+  position: relative;
+  border: 0;
+  padding: 3px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 0 5px rgba(60, 59, 63, 0.1);
+}
+
+.story-aside__avatar img {
+  border-radius: 50%;
+}
+
+/* Islamic Corner + Prompt Archive card symbols */
+.promo-card__symbol {
+  border: 0;
+  background: var(--accent-gradient);
+  opacity: 0.9;
+}
+
+.promo-card--warm .promo-card__symbol {
+  border: 0;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-sm);
+  transform: rotate(45deg);
+}
+
+/* Accent rule beside "Read / Download Ebook" — reduced opacity */
+.note-box {
+  position: relative;
+  border-left: 0;
+  padding-left: 1.4rem;
+  background: rgba(96, 92, 60, 0.07);
+}
+
+.note-box::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent-gradient);
+  opacity: 0.45;
+}
+
+/* 2. Footer blocks — "Made to expand" callout + site footer ---------- */
+.callout,
+.site-footer {
+  background: var(--accent-gradient);
+}
+
+.callout,
+.callout h2,
+.callout .callout__copy,
+.callout .callout__copy p,
+.callout .eyebrow,
+.callout a,
+.callout span,
+.site-footer,
+.site-footer .eyebrow,
+.site-footer .footer-title,
+.site-footer .footer-links a,
+.site-footer .footer-links a span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.site-footer .footer-copyright,
+.site-footer .footer-copyright span,
+.site-footer .footer-social,
+.site-footer .footer-social a,
+.site-footer p,
+.site-footer span,
+.site-footer a {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* The gradient-clipped headings must stay solid white inside these blocks. */
+.callout h2 em,
+.site-footer .footer-title em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+  opacity: 0.82;
+}
+
+.callout .button-link {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+
+.callout .button-link:hover,
+.callout .button-link--filled {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+.site-footer .footer-links a:hover {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  opacity: 0.75;
+}
+
+.footer-rule,
+.site-footer .footer-rule {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Copyright moves to the right edge. */
+.footer-copyright {
+  justify-content: flex-end;
+  border-top-color: rgba(255, 255, 255, 0.18);
+  text-align: right;
+}
+
+/* Social links row */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  opacity: 0.85;
+  transition: opacity 180ms ease;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+/* 3. Sidebar drawer -------------------------------------------------- */
+.site-drawer {
+  background: var(--accent-gradient);
+}
+
+.site-drawer,
+.site-drawer .drawer-inner,
+.site-drawer .drawer-heading,
+.site-drawer .drawer-heading p,
+.site-drawer .drawer-heading em,
+.site-drawer .eyebrow,
+.site-drawer .drawer-link,
+.site-drawer .drawer-link span,
+.site-drawer .drawer-link strong,
+.site-drawer .drawer-link small,
+.site-drawer .drawer-close,
+.site-drawer .drawer-footer,
+.site-drawer .drawer-footer span,
+.site-drawer .drawer-subnav .drawer-link {
+  background-color: transparent;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.site-drawer .drawer-heading em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+}
+
+.site-drawer .drawer-link:hover,
+.site-drawer .drawer-link[aria-current="page"],
+.site-drawer .drawer-link:hover strong,
+.site-drawer .drawer-link[aria-current="page"] strong,
+.site-drawer .drawer-link--feature:hover,
+.site-drawer .drawer-link--feature[aria-current="page"] {
+  background-color: transparent;
+  color: #e6e4d8;
+  -webkit-text-fill-color: #e6e4d8;
+}
+
+.site-drawer .drawer-topline,
+.site-drawer .drawer-footer {
+  border-color: rgba(255, 255, 255, 0.2);
 }
