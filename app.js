@@ -319,7 +319,7 @@
             </div>
             <div class="hero-support">
               <span class="hero-support__line"></span>
-              <p class="hero-bio">Emdadul Hoque Emon is a Creative Content Creator focused on <strong>short-form video editing</strong> and poster / graphic design.</p>
+              <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
               <div class="hero-mark" aria-hidden="true">
                 <span class="hero-mark__label">Still / moving<br />image system</span>
@@ -474,9 +474,9 @@
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Project / Historical e-book</span>
               <h2 style="margin-top: 1.4rem;">An evidence-based<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">history.</span></h2>
-              <p>Fath Makkah is an e-book about the conquest of Makkah. The story starts from the Treaty of Hudaybiyyah and ends with the preparation for the Battle of Hunayn.</p>
-              <p class="bengali-text" lang="bn">ফাতহে মক্কা - একটি প্রমাণভিত্তিক ঐতিহাসিক বিবরণ (ই-বুক)।</p>
-              <div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div>
+              <p>Fath Makkah — An Evidence-Based Historical E-Book. The book uses only real and strong proofs, drawn from the Qur'an, Sahih Hadith, and trusted early sources. It follows the story from the Treaty of Hudaybiyyah to the preparation for the Battle of Hunayn. The main goal of this victory was peace.</p>
+              <p class="bengali-text" lang="bn">ফাতহে মক্কা - একটি প্রমাণভিত্তিক ঐতিহাসিক বিবরণ। বইটিতে কেবল বিশুদ্ধ ও শক্তিশালী প্রমাণ ব্যবহার করা হয়েছে — কুরআন, সহিহ হাদিস এবং নির্ভরযোগ্য প্রাচীন উৎস থেকে। এই বিজয়ের মূল লক্ষ্য ছিল শান্তি।</p>
+              <div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div>
               <div class="note-box">The case study is built from the supplied brief. No client, date, result, or unsupported claim has been added.</div>
             </div>
           </div>
@@ -514,7 +514,7 @@
         <section class="page-section reveal">
           <div class="story-layout">
             <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
-            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div></div>
+            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>
       </div>
@@ -649,8 +649,9 @@
         <section class="page-section reveal">
           <div class="about-grid">
             <div>
-              <p class="about-lead">Emdadul Hoque is a <em>digital creator</em> specializing in video editing, motion graphics, and graphic design.</p>
-              <p class="about-body">Currently pursuing a degree in English Language and Literature at IIUC, he blends literary insights with digital innovation.</p>
+              <p class="about-lead">Hello, I'm <em>Emdad</em>.</p>
+              <p class="about-body">I am currently pursuing my degree in English Language and Literature at IIUC. My journey is uniquely shaped by a deep appreciation for classical literature and a strong passion for the digital creative world.</p>
+              <p class="about-body">As a digital creator I specialize in video editing, motion graphics, and graphic design — blending literary insight with digital innovation.</p>
             </div>
             <dl class="about-list">
               <div class="about-list__row"><dt>Primary focus</dt><dd>Short-form video editing; poster and graphic design.</dd></div>

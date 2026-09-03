@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,400&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=1010" />
+    <link rel="stylesheet" href="styles.css?v=1011" />
 </head>
   <body>
     <div class="site-ambience" aria-hidden="true">
@@ -34,7 +34,10 @@
       </a>
 
       <div class="header-actions">
-        <span class="header-index" aria-hidden="true">Portfolio / 01</span>
+        <nav class="header-nav" aria-label="Quick links">
+          <a href="#/about" data-route="/about" class="header-nav__link">About</a>
+          <a href="#/contact" data-route="/contact" class="header-nav__link">Contact</a>
+        </nav>
         <button class="menu-toggle" type="button" data-open-drawer aria-controls="site-drawer" aria-expanded="false">
           <span class="menu-toggle__label">Menu</span>
           <svg class="menu-toggle__icon" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" focusable="false"><g fill="currentColor"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></g></svg>
@@ -70,8 +73,6 @@
           <a href="#/project/fath-makkah" data-route="/project/fath-makkah" class="drawer-link drawer-link--feature"><span>03</span><strong>Fath Makkah <small>Flagship</small></strong></a>
           <a href="#/islamic-corner" data-route="/islamic-corner" class="drawer-link drawer-link--primary"><span>04</span><strong>Islamic Corner</strong></a>
           <a href="#/prompt-archive" data-route="/prompt-archive" class="drawer-link drawer-link--primary"><span>05</span><strong>Prompt Archive</strong></a>
-          <a href="#/about" data-route="/about" class="drawer-link drawer-link--primary"><span>06</span><strong>About</strong></a>
-          <a href="#/contact" data-route="/contact" class="drawer-link drawer-link--primary"><span>07</span><strong>Contact</strong></a>
         </nav>
 
         <div class="drawer-footer">

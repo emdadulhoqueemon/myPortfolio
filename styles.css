@@ -3454,3 +3454,112 @@ textarea:focus-visible {
 .contact-channels li > a:hover {
   color: var(--accent-solid);
 }
+
+/* ---------------------------------------------------------------
+   Header reorganization + display type scaling
+   --------------------------------------------------------------- */
+
+/* 1. Inline About / Contact links, left of the 9-dot menu toggle. */
+.header-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.header-nav__link {
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.header-nav__link:hover,
+.header-nav__link[aria-current="page"] {
+  color: var(--accent-solid);
+}
+
+/* Subtitle matches the name's size, weight, and visual volume. */
+.brand-role {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+@media (max-width: 650px) {
+  /* Keep the quick links usable but compact on small screens. */
+  .header-nav {
+    gap: 0.9rem;
+  }
+
+  .header-nav__link {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .brand-role {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-nav {
+    display: none;
+  }
+}
+
+/* 2. Global display-type scaling — smaller, more elegant, better on mobile. */
+.hero-title {
+  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+}
+
+.page-header h1 {
+  font-size: clamp(2.4rem, 6.4vw, 5.6rem);
+}
+
+.feature-title {
+  font-size: clamp(2.2rem, 5.4vw, 4.6rem);
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+}
+
+.callout h2 {
+  font-size: clamp(1.9rem, 4.4vw, 3.8rem);
+}
+
+.footer-title {
+  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+}
+
+.promo-card h3 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.contact-title,
+.story-copy h2 {
+  font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+}
+
+.modal-panel__body h2 {
+  font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+}
+
+.site-drawer .drawer-heading p {
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.story-aside__number {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+}
+
+.category-hero-mark {
+  font-size: clamp(1.5rem, 3.4vw, 2.8rem);
+}
