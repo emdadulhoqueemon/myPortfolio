@@ -1172,7 +1172,7 @@ body.drawer-open .site-drawer {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   align-items: stretch;
   gap: 1rem;
 }
@@ -1376,7 +1376,7 @@ body.drawer-open .site-drawer {
   min-width: 0;
   max-width: 40ch;
   font-family: var(--font-ui);
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.55;
@@ -2792,4 +2792,28 @@ body.drawer-open .site-drawer {
   .prompt-group__count {
     flex-basis: 100%;
   }
+}
+
+
+/* Video overlay: full-width player, no empty right-side descriptive panel */
+.modal-panel .modal-media-grid:not(.modal-media-grid--single) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.video-modal__frame {
+  width: 100%;
+}
+
+.video-modal__frame iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 20rem;
+}
+
+.video-modal__aside,
+.video-modal__side,
+.modal-panel__aside,
+.video-modal__panel {
+  display: none !important;
 }
