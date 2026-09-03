@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
     <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
-    <link rel="stylesheet" href="styles.css?v=1002" />
+    <link rel="stylesheet" href="styles.css?v=1003" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Protest+Revolution&display=swap');
 
@@ -309,12 +309,18 @@
         color: #05a88a !important;
       }
 
-      .site-drawer .drawer-link--feature,
-      .site-drawer .drawer-link--feature:hover,
-      .site-drawer .drawer-link--feature[aria-current="page"] {
-        background: #05a88a !important;
+      .site-drawer .drawer-link--feature {
+        background: transparent !important;
         color: #ffffff !important;
-        border-radius: 0.9rem !important;
+        border-radius: 0 !important;
+      }
+
+      .site-drawer .drawer-link--feature:hover,
+      .site-drawer .drawer-link--feature[aria-current="page"],
+      .site-drawer .drawer-link--feature:hover strong,
+      .site-drawer .drawer-link--feature[aria-current="page"] strong {
+        background: transparent !important;
+        color: #05a88a !important;
       }
 
       .callout,
@@ -495,14 +501,19 @@ html { scroll-behavior: smooth !important; }
 .project-card--video .project-card__title {
   align-items: flex-end !important;
   gap: 0.75rem !important;
-  margin: 0.55rem 0 0 !important;
-  font-size: 1rem !important;
-  line-height: 1.45 !important;
+  margin: 0.45rem 0 0 !important;
+  font-size: 0.86rem !important;
+  line-height: 1.5 !important;
+}
+.project-card--video .project-card__title span[lang="bn"],
+.project-card--video .project-card__title span.bengali-text {
+  font-size: 0.8rem !important;
+  line-height: 1.65 !important;
 }
 .project-card--video .project-card__title span:first-child {
   display: -webkit-box !important;
   -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 3 !important;
+  -webkit-line-clamp: 2 !important;
   overflow: hidden !important;
   min-width: 0 !important;
   max-width: 34ch !important;
@@ -510,6 +521,7 @@ html { scroll-behavior: smooth !important; }
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85) !important;
 }
 .project-card--video .project-meta {
+  font-size: 0.56rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.08em !important;
 }
@@ -532,15 +544,20 @@ html { scroll-behavior: smooth !important; }
   -webkit-box-orient: vertical !important;
   -webkit-line-clamp: 3 !important;
   overflow: hidden !important;
-  max-width: 44ch !important;
-  font-size: clamp(1rem, 1.4vw, 1.15rem) !important;
-  line-height: 1.5 !important;
+  max-width: 40ch !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
   overflow-wrap: anywhere !important;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9) !important;
 }
+.video-facade__title[lang="bn"],
+.video-facade__title.bengali-text {
+  font-size: 0.86rem !important;
+  line-height: 1.7 !important;
+}
 .video-facade__hint {
   max-width: none !important;
-  font-size: 0.7rem !important;
+  font-size: 0.64rem !important;
   font-weight: 400 !important;
   line-height: 1.4 !important;
   text-align: left !important;
@@ -556,7 +573,10 @@ html { scroll-behavior: smooth !important; }
   flex: 0 0 auto !important;
 }
 .video-facade--portrait .video-facade__title {
-  -webkit-line-clamp: 4 !important;
+  -webkit-line-clamp: 3 !important;
+}
+.modal-media-grid .video-facade__title {
+  -webkit-line-clamp: 2 !important;
 }
 </style>
 </head>

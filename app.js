@@ -241,7 +241,9 @@
     const displayTitle = projectDisplayTitle(project);
     const action = project.slug === 'fath-makkah'
       ? `<a class="project-card__anchor" href="#/project/fath-makkah" aria-label="Open ${escapeHtml(displayTitle)} case study">`
-      : `<button class="project-card__button" type="button" data-open-project="${escapeHtml(project.slug)}" aria-label="Open ${escapeHtml(displayTitle)} details">`;
+      : project.video
+        ? `<button class="project-card__button" type="button" data-open-video="${escapeHtml(project.slug)}" aria-label="Play ${escapeHtml(displayTitle)}">`
+        : `<button class="project-card__button" type="button" data-open-project="${escapeHtml(project.slug)}" aria-label="Open ${escapeHtml(displayTitle)} details">`;
     const close = project.slug === 'fath-makkah' ? '</a>' : '</button>';
     return `
       <article class="project-card${project.video ? ' project-card--video' : ''}${project.aspectRatio === '9:16' ? ' project-card--portrait' : ''} reveal reveal-delay-${Math.min(Number(index) || 0, 3)}">
@@ -773,7 +775,7 @@
   }
 
   function modalTemplate(content, titleId = 'modal-title') {
-    return `<div class="modal-backdrop" data-close-modal><section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="${titleId}"><div class="modal-panel__top"><span class="eyebrow">Detail / Initial construction</span><button class="modal-panel__close" type="button" data-close-modal>Close ×</button></div>${content}</section></div>`;
+    return `<div class="modal-backdrop" data-close-modal><section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="${titleId}" data-modal-panel><div class="modal-panel__top"><span class="eyebrow">Detail</span><button class="modal-panel__close" type="button" data-close-modal aria-label="Close">Close ×</button></div>${content}</section></div>`;
   }
 
   function openProjectModal(slug) {
@@ -789,9 +791,8 @@
         ${projectMeta(project)}
         <h2 id="modal-title"${localizedAttrs(project)}>${escapeHtml(displayTitle)}</h2>
         <p class="modal-panel__intro">${escapeHtml(project.summary || (project.titleSupplied === false ? 'No project title or summary was supplied.' : 'No summary supplied.'))}</p>
-        <div class="modal-media-grid">
-          ${mediaVisual(project, '01')}
-          ${project.video ? videoFacade(project.slug, displayTitle, true) : visualPlaceholder('archive', 'Additional media placeholder', '02')}
+        <div class="modal-media-grid modal-media-grid--single">
+          ${project.video ? videoFacade(project.slug, displayTitle, project.aspectRatio === '9:16') : mediaVisual(project, '01')}
         </div>
         <dl class="modal-detail-list">
           <div class="modal-detail-list__row"><dt>Categories</dt><dd>${escapeHtml([project.label, ...(project.tags || [])].filter(Boolean).join(' / ') || 'To be supplied')}</dd></div>
@@ -835,7 +836,7 @@
       : '';
     modalRoot.innerHTML = modalTemplate(`
       <div class="modal-panel__body">
-        <span class="eyebrow">Video facade / External source</span>
+        <span class="eyebrow">Video / ${escapeHtml(project.platform || 'External source')}</span>
         <h2 id="modal-title"${localizedAttrs(project)}>${escapeHtml(displayTitle)}</h2>
         <div class="video-modal__frame">${media}</div>
         <p class="modal-panel__intro">${project.videoUrl ? 'The supplied YouTube link is normalized to a privacy-conscious embed and remains available as a direct watch link.' : 'When a real link is supplied, this interaction can load a privacy-conscious player or provide a direct external watch link.'}</p>
@@ -880,6 +881,28 @@
   }
 
   document.addEventListener('click', (event) => {
+    // Modal interactions are handled first and in isolation so that closing a
+    // video/project overlay never touches routing or the drawer.
+    if (state.modalOpen && modalRoot.contains(event.target)) {
+      const closeTrigger = event.target.closest('[data-close-modal]');
+      const insidePanel = event.target.closest('[data-modal-panel]');
+      const isCloseButton = closeTrigger && closeTrigger.classList.contains('modal-panel__close');
+      if (isCloseButton || (closeTrigger && !insidePanel)) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeModal();
+        return;
+      }
+      // Inside the panel: allow external links (target=_blank) and the
+      // nested video facade to work, but nothing else bubbles to routing.
+      const videoButton = event.target.closest('[data-open-video]');
+      if (videoButton) {
+        event.preventDefault();
+        openVideoModal(videoButton.dataset.openVideo);
+      }
+      return;
+    }
+
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
@@ -924,6 +947,7 @@
     }
 
     if (event.target.closest('[data-close-modal]')) {
+      event.preventDefault();
       closeModal();
     }
   });
