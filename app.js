@@ -1,4 +1,10 @@
 (() => {
+  // Image download protection: block the context menu and drag-to-save on images.
+  document.addEventListener('contextmenu', (event) => event.preventDefault());
+  document.addEventListener('dragstart', (event) => {
+    if (event.target && event.target.tagName === 'IMG') event.preventDefault();
+  });
+
   const app = document.getElementById('app');
   const modalRoot = document.getElementById('modal-root');
   const drawer = document.getElementById('site-drawer');
@@ -537,7 +543,7 @@
 
         <section class="page-section reveal">
           <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
+            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.png" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
             <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>

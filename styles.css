@@ -248,6 +248,28 @@ textarea:focus-visible {
   line-height: 1;
 }
 
+/* Header avatar photo: fills the circle; the "EH" initials underneath act as a
+   fallback (the <img> removes itself if the file fails to load). */
+.profile-avatar {
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-avatar__img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
 .brand-copy {
   display: flex;
   min-width: 0;
@@ -995,6 +1017,19 @@ body.drawer-open .site-drawer {
   min-height: inherit;
   object-fit: cover;
   object-position: center;
+}
+
+/* Image download protection: gallery / case-study images cannot be selected,
+   dragged, or targeted directly (clicks fall through to the card control). */
+.media-asset img,
+.story-aside__avatar img,
+.modal-media-grid img,
+.project-card img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  pointer-events: none;
 }
 
 .media-asset--poster img {
