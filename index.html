@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
     <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
-    <link rel="stylesheet" href="styles.css?v=1001" />
+    <link rel="stylesheet" href="styles.css?v=1004" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Protest+Revolution&display=swap');
 
@@ -69,29 +69,6 @@
         color: #0a0a0a !important;
       }
 
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      .brand,
-      .brand-name,
-      .hero-title,
-      .feature-title,
-      .section-title,
-      .story-copy h2,
-      .callout h2,
-      .about-lead,
-      .contact-title,
-      .modal-panel__body h2,
-      .drawer-heading p,
-      .promo-card h3 {
-        font-family: 'Protest Revolution', 'Noto Sans', sans-serif !important;
-        font-weight: 400 !important;
-        color: #0a0a0a !important;
-      }
-
       [lang="bn"],
       .bengali-text,
       .bengali-text * {
@@ -134,17 +111,6 @@
       .form-note,
       .archive-count {
         color: #5e6262 !important;
-      }
-
-      .menu-toggle,
-      .menu-toggle__label,
-      .menu-toggle__icon i {
-        color: #0a0a0a !important;
-        background-color: transparent !important;
-      }
-
-      .menu-toggle__icon i {
-        background: #0a0a0a !important;
       }
 
       .hero-title span,
@@ -200,35 +166,6 @@
         border-color: rgba(10, 10, 10, 0.13) !important;
       }
 
-      .project-grid {
-        display: grid !important;
-        grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-        gap: 1rem !important;
-        background: transparent !important;
-      }
-
-      .project-card,
-      .project-card:nth-child(3n) {
-        grid-column: span 6 !important;
-        overflow: hidden !important;
-        border: 1px solid rgba(10, 10, 10, 0.13) !important;
-        border-radius: 1.2rem !important;
-        box-shadow: 0 8px 22px rgba(10, 10, 10, 0.07) !important;
-        transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease !important;
-      }
-
-      .project-card:hover {
-        border-color: rgba(5, 168, 138, 0.55) !important;
-        box-shadow: 0 18px 36px rgba(10, 10, 10, 0.13) !important;
-        transform: translateY(-5px) !important;
-      }
-
-      .project-card__info {
-        background: #ffffff !important;
-      }
-
-      .project-card__title,
-      .project-card__title span,
       .archive-entry__title,
       .project-spine__title,
       .project-spine__detail,
@@ -309,12 +246,18 @@
         color: #05a88a !important;
       }
 
-      .site-drawer .drawer-link--feature,
-      .site-drawer .drawer-link--feature:hover,
-      .site-drawer .drawer-link--feature[aria-current="page"] {
-        background: #05a88a !important;
+      .site-drawer .drawer-link--feature {
+        background: transparent !important;
         color: #ffffff !important;
-        border-radius: 0.9rem !important;
+        border-radius: 0 !important;
+      }
+
+      .site-drawer .drawer-link--feature:hover,
+      .site-drawer .drawer-link--feature[aria-current="page"],
+      .site-drawer .drawer-link--feature:hover strong,
+      .site-drawer .drawer-link--feature[aria-current="page"] strong {
+        background: transparent !important;
+        color: #05a88a !important;
       }
 
       .callout,
@@ -399,75 +342,11 @@
         text-transform: uppercase !important;
       }
 
-      .project-grid {
-        align-items: stretch !important;
-      }
-
-      .project-card__visual,
-      .project-card__visual .media-asset {
-        min-height: 21rem !important;
-      }
-
       .site-drawer {
         width: min(100%, 27rem) !important;
       }
 
-      @media (max-width: 900px) {
-        .project-card,
-        .project-card:nth-child(3n) {
-          grid-column: span 12 !important;
-        }
-      }
-
-      @media (max-width: 650px) {
-        .project-grid {
-          gap: 0.75rem !important;
-        }
-      }
     </style>
-  <style id="force-styles">
-.site-header .brand-name, .site-header .profile-avatar span { color: #05a88a !important; font-family: "Protest Revolution", sans-serif !important; visibility: visible !important; }
-.site-header .brand-role { color: #0a0a0a !important; }
-.project-card--video .project-card__visual { position: relative !important; min-height: 21rem !important; overflow: hidden !important; }
-.project-card--video .project-card__visual::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%) !important; pointer-events: none; z-index: 1 !important; }
-.project-card--video .project-card__visual .media-asset { height: 21rem !important; min-height: 21rem !important; }
-.project-card--video .project-card__info { background: transparent !important; position: absolute !important; left: 0 !important; right: 0 !important; bottom: 0 !important; z-index: 2 !important; }
-.project-card--video .project-card__title span { color: #ffffff !important; text-shadow: 0px 2px 8px rgba(0,0,0,0.9) !important; }
-.project-card--video .project-meta span { color: #e0e0e0 !important; text-shadow: 0px 1px 4px rgba(0,0,0,0.9) !important; }
-</style>
-<style>
-.site-header .brand-name, .site-header .profile-avatar span { color: #05a88a !important; visibility: visible !important; opacity: 1 !important; display: inline-block !important; }
-.project-card--video .project-card__title span, .project-card--video .project-meta span, .project-card--video .project-meta { color: #ffffff !important; text-shadow: 0px 2px 10px rgba(0,0,0,1) !important; position: relative; z-index: 5 !important; }
-.project-card--video .project-card__visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 80%) !important; z-index: 1 !important; pointer-events: none; }
-</style>
-<style>
-/* Fix Large Video Facade Text */
-.video-facade__title, .video-facade__hint, .video-facade__top span, .video-facade__title span { color: #ffffff !important; text-shadow: 0px 2px 12px rgba(0,0,0,1) !important; position: relative; z-index: 5 !important; }
-.video-facade__visual::after { content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 80%; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 100%) !important; pointer-events: none; z-index: 1 !important; }
-.video-facade__bottom, .video-facade__top, .video-facade__play { position: relative !important; z-index: 2 !important; }
-</style>
-<style>
-/* Make Header Sticky */
-.site-header { 
-    position: sticky !important; 
-    top: 0 !important; 
-    z-index: 9999 !important; 
-    backdrop-filter: blur(12px) !important; 
-    -webkit-backdrop-filter: blur(12px) !important; 
-    background: rgba(255, 255, 255, 0.85) !important;
-}
-</style>
-<style id="smart-header-css">
-.site-header { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; position: sticky !important; top: 0 !important; z-index: 9999 !important; background: rgba(255, 255, 255, 0.95) !important; }
-.site-header.header-hidden { transform: translateY(-100%) !important; }
-html { scroll-behavior: smooth !important; }
-::selection { background: #05a88a !important; color: #ffffff !important; }
-::-moz-selection { background: #05a88a !important; color: #ffffff !important; }
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(5,168,138,0.4); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(5,168,138,0.8); }
-</style>
 </head>
   <body>
     <div class="site-ambience" aria-hidden="true">
@@ -479,6 +358,7 @@ html { scroll-behavior: smooth !important; }
     <header class="site-header" data-site-header>
       <a class="brand" href="#/" aria-label="Emdadul Hoque Emon, home">
         <span class="profile-avatar" aria-hidden="true">
+          <img class="profile-avatar__img" src="assets/profile-main.jpg" alt="" width="56" height="56" decoding="async" draggable="false" onerror="this.remove()" />
           <span>EH</span>
         </span>
         <span class="brand-copy">
@@ -491,7 +371,7 @@ html { scroll-behavior: smooth !important; }
         <span class="header-index" aria-hidden="true">Portfolio / 01</span>
         <button class="menu-toggle" type="button" data-open-drawer aria-controls="site-drawer" aria-expanded="false">
           <span class="menu-toggle__label">Menu</span>
-          <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+          <svg class="menu-toggle__icon" aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" focusable="false"><g fill="currentColor"><circle cx="5" cy="5" r="2.2"/><circle cx="12" cy="5" r="2.2"/><circle cx="19" cy="5" r="2.2"/><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="12" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/></g></svg>
         </button>
       </div>
     </header>
@@ -515,7 +395,6 @@ html { scroll-behavior: smooth !important; }
             <a href="#/category/graphic-design" data-route="/category/graphic-design" class="drawer-link"><span>—</span><span>Graphic Design</span></a>
             <a href="#/category/thumbnail-design" data-route="/category/thumbnail-design" class="drawer-link"><span>—</span><span>Thumbnail Design</span></a>
             <a href="#/category/social-media-design" data-route="/category/social-media-design" class="drawer-link"><span>—</span><span>Social Media Design</span></a>
-            <a href="#/category/calligraphy-namelipi" data-route="/category/calligraphy-namelipi" class="drawer-link"><span>—</span><span>Arabic Calligraphy</span></a>
             <a href="#/bangla-namelipi" data-route="/bangla-namelipi" class="drawer-link"><span>—</span><span>Bangla Namelipi</span></a>
             <a href="#/arabic-calligraphy" data-route="/arabic-calligraphy" class="drawer-link"><span>—</span><span>Arabic Calligraphy</span></a>
             <a href="#/category/video-editing" data-route="/category/video-editing" class="drawer-link"><span>—</span><span>Video Editing</span></a>
@@ -599,6 +478,9 @@ html { scroll-behavior: smooth !important; }
           <span>Visual Designer · Video Editor · Creative Content Creator</span>
           <span>Built as an evolving archive.</span>
         </div>
+      </div>
+      <div class="footer-copyright">
+        <span>© Emdadul Hoque 2026. All rights reserved.</span>
       </div>
     </footer>
 
