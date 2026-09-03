@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 /* Type system: Google Fonts loaded via <link> in index.html
-   Merienda (display), Fira Sans (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
+   Aladin (display), Inter (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
 
 :root {
-  --font-ui: "Fira Sans", "Noto Sans Bengali", Arial, sans-serif;
-  --font-display: "Merienda", "Fira Sans", Georgia, serif;
-  --font-bengali: "Noto Sans Bengali", "Fira Sans", sans-serif;
+  --font-ui: "Inter", "Noto Sans Bengali", Arial, sans-serif;
+  --font-display: "Aladin", "Inter", Georgia, cursive;
+  --font-bengali: "Noto Sans Bengali", "Inter", sans-serif;
   --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
   --canvas: #ffffff;
@@ -2782,7 +2782,7 @@ body.drawer-open .site-drawer {
 
 /* ---------------------------------------------------------------
    Google Fonts typography pass
-   Merienda = display/headings, Fira Sans = body/UI,
+   Aladin = display/headings/facades, Inter = body/UI,
    Noto Sans Bengali = Bengali, Amiri = Arabic (Quran / Hadith)
    --------------------------------------------------------------- */
 
@@ -2815,7 +2815,7 @@ h6,
   font-family: var(--font-display);
 }
 
-/* Merienda is a rounded script face: negative tracking hurts it. */
+/* Aladin is a decorative display face: negative tracking hurts it. */
 .page-header h1,
 .hero-title,
 .feature-title,
@@ -2844,7 +2844,6 @@ h6,
 .filter-button,
 .modal-detail-list__row dt,
 .modal-detail-list__row dd,
-.video-facade__title,
 .video-facade__hint,
 p,
 li,
@@ -2874,4 +2873,44 @@ small {
 .hadith-card__arabic {
   font-family: var(--font-arabic);
   font-synthesis: none;
+}
+
+/* Aladin ships a single 400 weight — avoid faux-bold synthesis on display type. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.page-header h1,
+.feature-title,
+.section-title,
+.callout h2,
+.contact-title,
+.about-lead,
+.story-copy h2,
+.modal-panel__body h2,
+.promo-card h3,
+.footer-title {
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+/* Video facade titles use the display face. */
+.video-facade__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Bengali and Arabic facade titles keep their script-specific faces. */
+.video-facade__title[lang="bn"],
+.video-facade__title.bengali-text {
+  font-family: var(--font-bengali);
+}
+
+.video-facade__title[lang="ar"],
+.video-facade__title.arabic-text {
+  font-family: var(--font-arabic);
 }
