@@ -4316,3 +4316,33 @@ img {
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ---------------------------------------------------------------
+   Category card titles — readable tracking
+   The base rule set letter-spacing: -0.045em, which pulled the letters
+   together and made titles like "Thumbnail Design 01" look squished.
+   Same font and size; only the tracking opens up.
+   --------------------------------------------------------------- */
+.project-card__title,
+.project-card__title span,
+.project-grid .project-card__title,
+.project-grid .project-card__title span {
+  letter-spacing: 0.05em;
+}
+
+/* Video cards use the smaller Inter treatment — give them the same air. */
+.project-card--video .project-card__title,
+.project-card--video .project-card__title span:first-child {
+  letter-spacing: 0.05em;
+}
+
+/* Bengali and Arabic titles must keep natural tracking: added spacing
+   breaks conjunct ligatures and cursive joins in those scripts. */
+.project-card__title span[lang="bn"],
+.project-card__title span.bengali-text,
+.project-card--video .project-card__title span[lang="bn"],
+.project-card--video .project-card__title span.bengali-text,
+.project-card__title span[lang="ar"],
+.project-card__title span.arabic-text {
+  letter-spacing: 0;
+}
