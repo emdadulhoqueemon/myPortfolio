@@ -3992,17 +3992,9 @@ body,
   box-shadow: none;
 }
 
-/* Photo sits inside the padding so the gradient forms a solid ring. */
-.profile-avatar__img {
-  position: absolute;
-  inset: 3px;
-  z-index: 1;
-  width: auto;
-  height: auto;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
-}
+/* (Superseded by the hotfix block at the end of this file — the previous
+   rule used width/height: auto on an absolutely positioned <img>, which
+   resolved to the photo's 2100x2100 intrinsic size and overflowed.) */
 
 /* No pseudo-element ring any more — the wrapper background is the ring. */
 .profile-avatar::after {
