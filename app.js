@@ -10,6 +10,7 @@
   const drawer = document.getElementById('site-drawer');
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
+  const themeToggle = document.querySelector('[data-theme-toggle]');
   // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
   const banglaSection = document.getElementById('bangla-namelipi');
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
@@ -21,7 +22,42 @@
   const arabicCount = document.getElementById('arabic-calligraphy-count');
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
 
+  // ---- Theme (light / dark) -------------------------------------------
+  const THEME_KEY = 'eh-theme';
+
+  function readStoredTheme() {
+    try {
+      return window.localStorage.getItem(THEME_KEY);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function storeTheme(theme) {
+    try {
+      window.localStorage.setItem(THEME_KEY, theme);
+    } catch (error) {
+      /* Storage can be unavailable (private mode); the toggle still works. */
+    }
+  }
+
+  function applyTheme(theme) {
+    const isDark = theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    state.theme = isDark ? 'dark' : 'light';
+  }
+
+  function toggleTheme() {
+    applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+    storeTheme(state.theme);
+  }
+
   const state = {
+    theme: 'light',
     drawerOpen: false,
     modalOpen: false,
     drawerReturnFocus: null,
@@ -920,6 +956,12 @@
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
+    if (event.target.closest('[data-theme-toggle]')) {
+      event.preventDefault();
+      toggleTheme();
+      return;
+    }
+
     if (event.target.closest('[data-open-drawer]')) {
       event.preventDefault();
       // The toggle both opens and closes: clicking it while the drawer is
@@ -1008,6 +1050,9 @@
     closeModal(false);
     render();
   });
+
+  // Honour a stored choice, else follow the OS preference.
+  applyTheme(readStoredTheme() || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
   render();
 

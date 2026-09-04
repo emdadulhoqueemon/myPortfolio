@@ -3563,3 +3563,248 @@ textarea:focus-visible {
 .category-hero-mark {
   font-size: clamp(1.5rem, 3.4vw, 2.8rem);
 }
+
+/* ---------------------------------------------------------------
+   Refinement pass — header type, avatar, drawer, theme toggle
+   --------------------------------------------------------------- */
+
+/* 1. Subtitle: Inter, matched to the name's visual volume/width. */
+.brand-role {
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* 2. Avatar: no hard ring — a faint gradient glow so the photo floats. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow:
+    0 0 0 6px rgba(96, 92, 60, 0.05),
+    0 6px 18px rgba(60, 59, 63, 0.14);
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.14;
+  filter: blur(7px);
+  pointer-events: none;
+  /* No mask: this is a soft halo, not a ring. */
+  -webkit-mask: none;
+  mask: none;
+  padding: 0;
+}
+
+/* 3. Sidebar: narrower, airier links, no footer block. */
+.site-drawer {
+  width: min(100%, 22rem);
+}
+
+.drawer-footer {
+  display: none;
+}
+
+.site-drawer .drawer-link,
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-size: 1.02rem;
+  padding: 0.56rem 0;
+}
+
+.site-drawer .drawer-subnav .drawer-link {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.site-drawer .drawer-link:hover,
+.site-drawer .drawer-link[aria-current="page"],
+.site-drawer .drawer-link:hover strong,
+.site-drawer .drawer-link[aria-current="page"] strong {
+  color: #d8d6cb;
+  -webkit-text-fill-color: #d8d6cb;
+}
+
+.site-drawer .drawer-heading p {
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+}
+
+/* 5. Case-study posters must not swallow the screen. */
+.media-asset--poster,
+.media-grid .media-asset--poster,
+.feature-visual .media-asset--poster {
+  max-height: 68vh;
+}
+
+.media-asset--poster img,
+.media-grid .media-asset--poster img,
+.feature-visual .media-asset--poster img {
+  max-height: 62vh;
+  object-fit: contain;
+}
+
+.page--fath-makkah .media-asset--poster {
+  max-height: 62vh;
+}
+
+/* Title stays "Fath Makkah", never ALL CAPS. */
+.page-header h1,
+.feature-title,
+.hero-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.footer-title,
+.promo-card h3,
+.contact-title,
+.modal-panel__body h2 {
+  text-transform: none;
+}
+
+/* 6. Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-solid);
+  color: var(--accent-solid);
+}
+
+.theme-toggle__icon--moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--moon {
+  display: block;
+}
+
+/* ---------------------------------------------------------------
+   Dark theme — token overrides. Because the site is built on these
+   variables, remapping them re-themes nearly every surface at once.
+   --------------------------------------------------------------- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #16161a;
+  --text-color: #f2f1ec;
+  color-scheme: dark;
+
+  --canvas: #16161a;
+  --surface: #1e1e23;
+  --surface-strong: #26262c;
+  --ink: #f2f1ec;
+  --ink-soft: #d9d7cf;
+  --paper: #16161a;
+  --paper-light: #1e1e23;
+  --paper-deep: #26262c;
+  --muted: #a3a29c;
+  --muted-dark: #c3c2bb;
+  --line: rgba(242, 241, 236, 0.16);
+  --line-dark: rgba(242, 241, 236, 0.2);
+  --accent-solid: #b8b48f;
+  --accent-shadow: rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 18px 45px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] html {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Gradient-clipped display text needs a lighter ramp to stay legible. */
+:root[data-theme="dark"] {
+  --accent-gradient: linear-gradient(to left, #b8b48f, #8f8d80);
+  --accent-gradient-deep: linear-gradient(to left, #cfcba6, #a5a294);
+}
+
+/* Cards and panels that were hard-coded to white. */
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .feature-grid,
+:root[data-theme="dark"] .promo-card,
+:root[data-theme="dark"] .archive-entry,
+:root[data-theme="dark"] .project-spine__item,
+:root[data-theme="dark"] .modal-panel,
+:root[data-theme="dark"] .contact-form,
+:root[data-theme="dark"] .media-asset,
+:root[data-theme="dark"] .visual-placeholder,
+:root[data-theme="dark"] .hero-mark,
+:root[data-theme="dark"] .category-hero-mark,
+:root[data-theme="dark"] .prompt-modal__prompt {
+  background: var(--surface);
+  color: var(--text-color);
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .promo-card--warm {
+  background: #23231f;
+}
+
+:root[data-theme="dark"] .promo-card--warm:hover {
+  background: #2b2b25;
+}
+
+:root[data-theme="dark"] .button-link,
+:root[data-theme="dark"] .button-quiet,
+:root[data-theme="dark"] .filter-button {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-color);
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  border-color: var(--line);
+  color: var(--text-color);
+}
+
+/* The site ambience washes are tuned for a white canvas. */
+:root[data-theme="dark"] .site-ambience {
+  opacity: 0.35;
+}
+
+/* Header keeps its translucent treatment on the dark canvas. */
+:root[data-theme="dark"] .site-header {
+  background: rgba(22, 22, 26, 0.9);
+  border-bottom-color: var(--line);
+}
