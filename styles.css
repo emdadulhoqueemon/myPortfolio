@@ -3968,3 +3968,130 @@ body,
 .footer-social svg {
   display: block;
 }
+
+/* ---------------------------------------------------------------
+   Final refinement pass — avatar fill, dark drawer, header balance
+   These rules are last in the file so they win over earlier passes.
+   --------------------------------------------------------------- */
+
+/* 1. Avatar: solid 100% gradient filling the padding ring.
+   The wrapper carries the gradient; padding creates the band; the photo is
+   inset by that padding so the gradient reads edge-to-edge with no gap. */
+.profile-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+  padding: 3px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  box-shadow: none;
+}
+
+/* Photo sits inside the padding so the gradient forms a solid ring. */
+.profile-avatar__img {
+  position: absolute;
+  inset: 3px;
+  z-index: 1;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* No pseudo-element ring any more — the wrapper background is the ring. */
+.profile-avatar::after {
+  content: none;
+  display: none;
+}
+
+/* 2. Dark mode: the drawer background lightens (the accent ramp inverts),
+   so white text disappears. Paint the links with the dark gradient instead. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em {
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Small meta text stays legible as solid dark ink rather than clipped type. */
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link span:first-child {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 3. Header: name slightly larger; subtitle tightened to match its width.
+   Aladin is wide, Inter is narrow — the subtitle needs a small size and
+   moderate tracking to land on the same total width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.72rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+}
+
+.brand-role {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.615rem;
+  font-weight: 600;
+  letter-spacing: 0.118em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .brand-name {
+    font-size: 1.34rem;
+  }
+
+  .brand-role {
+    font-size: 0.5rem;
+    letter-spacing: 0.104em;
+  }
+}
+
+/* 5. Footer social icons stay on one row, Email beside YouTube. */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  flex: 0 0 auto;
+}
