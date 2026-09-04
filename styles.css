@@ -4095,3 +4095,112 @@ body,
 .footer-social a {
   flex: 0 0 auto;
 }
+
+/* ---------------------------------------------------------------
+   HOTFIX — avatar overflow + subtitle font
+   Last in the file so these win over every earlier pass.
+   --------------------------------------------------------------- */
+
+/* 1. Avatar. The previous rule used `width: auto` on an absolutely
+   positioned <img>; replaced elements resolve `auto` to their INTRINSIC
+   size (this photo is 2100x2100), so it exploded across the page instead
+   of stretching to the inset box. Pin explicit dimensions instead. */
+.profile-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  padding: 3px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.profile-avatar__img {
+  position: static;
+  inset: auto;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  box-sizing: border-box;
+}
+
+/* "EH" initials fallback sits behind the photo. */
+.profile-avatar span {
+  position: absolute;
+  z-index: 0;
+  color: var(--paper);
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.profile-avatar::after,
+.profile-avatar::before {
+  content: none;
+  display: none;
+}
+
+/* 2. Subtitle must use Inter, not the inherited Aladin display face.
+   Earlier passes set --font-display on .brand-* selectors, so this needs
+   !important to win reliably. Sized/tracked to match the name's width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.brand-role,
+.site-header .brand-role,
+.brand-copy .brand-role {
+  display: block;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.108em;
+  line-height: 1.2;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+}
+
+@media (max-width: 650px) {
+  .profile-avatar {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    max-width: 44px;
+    max-height: 44px;
+  }
+
+  .brand-name {
+    font-size: 1.28rem;
+  }
+
+  .brand-role {
+    font-size: 0.49rem;
+    letter-spacing: 0.096em;
+  }
+}
