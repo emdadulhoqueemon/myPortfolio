@@ -4196,3 +4196,123 @@ body,
     letter-spacing: 0.096em;
   }
 }
+
+/* ---------------------------------------------------------------
+   Image protection, footer location, dark-mode drawer, jitter fix
+   Appended last so these win the cascade.
+   --------------------------------------------------------------- */
+
+/* 1. Image security: block dragging and long-press/right-click saving. */
+img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+/* 2. Footer: location bottom-left, copyright right. */
+.footer-copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.2rem;
+  text-align: left;
+}
+
+.footer-location {
+  margin-right: auto;
+}
+
+/* Email icon must share the row with YouTube. */
+.footer-social {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  flex: 0 0 auto;
+}
+
+/* 3 + 4. Dark mode drawer text.
+   The drawer background uses --accent-gradient, which inverts to a LIGHT
+   ramp in dark mode, so white text vanishes. Paint the links with the dark
+   gradient instead.
+   Jitter fix: light mode already sets background-clip/text-fill on these
+   same selectors, so both states carry an identical box model — only the
+   paint changes. Font-weight, letter-spacing, padding, and borders are
+   never redeclared per-theme, which is what caused items to shift. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-subnav .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em {
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Tiny meta text renders as mud when gradient-clipped — keep it solid. */
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link span:first-child {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 4. No layout shift when toggling themes.
+   Metrics are locked identically for both themes, and the drawer is
+   excluded from the colour cross-fade so nothing reflows mid-transition. */
+.drawer-link,
+.drawer-link--primary,
+.drawer-link--feature,
+.drawer-subnav .drawer-link {
+  border: 0;
+  transition: none;
+}
+
+.site-drawer .drawer-link,
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.site-drawer .drawer-subnav .drawer-link {
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+/* Gradient-clipped text can hairline-shift without a stable painting box. */
+.site-drawer .drawer-link,
+.site-drawer .drawer-heading p {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+}

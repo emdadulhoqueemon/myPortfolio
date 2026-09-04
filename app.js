@@ -1046,10 +1046,15 @@
 
   // Clicks on empty space inside the drawer must not close it. Explicit
   // controls (links, [data-close-drawer]) are handled before this fires.
-  drawer?.addEventListener('click', (event) => {
+  // Bound on both the panel and its inner container so a click on either
+  // surface is stopped before it can reach the document-level handler.
+  const stopInsideDrawer = (event) => {
     if (event.target.closest('[data-close-drawer], a[href^="#/"]')) return;
     event.stopPropagation();
-  });
+  };
+
+  drawer?.addEventListener('click', stopInsideDrawer);
+  drawer?.querySelector('.drawer-inner')?.addEventListener('click', stopInsideDrawer);
 
   window.addEventListener('hashchange', () => {
     closeDrawer(false);
