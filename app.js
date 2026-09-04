@@ -10,6 +10,7 @@
   const drawer = document.getElementById('site-drawer');
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
+  const themeToggle = document.querySelector('[data-theme-toggle]');
   // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
   const banglaSection = document.getElementById('bangla-namelipi');
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
@@ -21,7 +22,42 @@
   const arabicCount = document.getElementById('arabic-calligraphy-count');
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
 
+  // ---- Theme (light / dark) -------------------------------------------
+  const THEME_KEY = 'eh-theme';
+
+  function readStoredTheme() {
+    try {
+      return window.localStorage.getItem(THEME_KEY);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function storeTheme(theme) {
+    try {
+      window.localStorage.setItem(THEME_KEY, theme);
+    } catch (error) {
+      /* Storage can be unavailable (private mode); the toggle still works. */
+    }
+  }
+
+  function applyTheme(theme) {
+    const isDark = theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    state.theme = isDark ? 'dark' : 'light';
+  }
+
+  function toggleTheme() {
+    applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+    storeTheme(state.theme);
+  }
+
   const state = {
+    theme: 'light',
     drawerOpen: false,
     modalOpen: false,
     drawerReturnFocus: null,
@@ -134,18 +170,12 @@
   const promptEntries = [
     {
       index: '01',
-      title: 'Prompt archive entry placeholder',
-      tag: 'Process / Placeholder',
-      detail: 'A structured place for prompt, iteration, output, and creative decision notes.'
-    },
-    {
-      index: '02',
       title: 'AI-assisted study placeholder',
       tag: 'AI-assisted / Placeholder',
       detail: 'A future entry for documenting an AI-assisted visual experiment without exposing private material.'
     },
     {
-      index: '03',
+      index: '02',
       title: 'Iteration notes placeholder',
       tag: 'Iteration / Placeholder',
       detail: 'A future entry for recording what worked, what changed, and why the final direction was chosen.'
@@ -325,7 +355,7 @@
             </div>
             <div class="hero-support">
               <span class="hero-support__line"></span>
-              <p class="hero-bio">Emdadul Hoque Emon is a Creative Content Creator focused on <strong>short-form video editing</strong> and poster / graphic design.</p>
+              <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
               <div class="hero-mark" aria-hidden="true">
                 <span class="hero-mark__label">Still / moving<br />image system</span>
@@ -480,9 +510,9 @@
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Project / Historical e-book</span>
               <h2 style="margin-top: 1.4rem;">An evidence-based<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">history.</span></h2>
-              <p>Fath Makkah is an e-book about the conquest of Makkah. The story starts from the Treaty of Hudaybiyyah and ends with the preparation for the Battle of Hunayn.</p>
-              <p class="bengali-text" lang="bn">ফাতহে মক্কা - একটি প্রমাণভিত্তিক ঐতিহাসিক বিবরণ (ই-বুক)।</p>
-              <div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div>
+              <p>Fath Makkah — An Evidence-Based Historical E-Book. The book uses only real and strong proofs, drawn from the Qur'an, Sahih Hadith, and trusted early sources. It follows the story from the Treaty of Hudaybiyyah to the preparation for the Battle of Hunayn. The main goal of this victory was peace.</p>
+              <p class="bengali-text" lang="bn">ফাতহে মক্কা - একটি প্রমাণভিত্তিক ঐতিহাসিক বিবরণ। বইটিতে কেবল বিশুদ্ধ ও শক্তিশালী প্রমাণ ব্যবহার করা হয়েছে — কুরআন, সহিহ হাদিস এবং নির্ভরযোগ্য প্রাচীন উৎস থেকে। এই বিজয়ের মূল লক্ষ্য ছিল শান্তি।</p>
+              <div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div>
               <div class="note-box">The case study is built from the supplied brief. No client, date, result, or unsupported claim has been added.</div>
             </div>
           </div>
@@ -520,7 +550,7 @@
         <section class="page-section reveal">
           <div class="story-layout">
             <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
-            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" download="fath-makkah-ebook.pdf" target="_blank" rel="noopener">Read / Download Ebook ${iconArrow}</a></div></div>
+            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>
       </div>
@@ -575,6 +605,19 @@
     `;
   }
 
+  // Only render a filter tab when entries actually carry that tag, so the
+  // toolbar never shows a dead control that filters to an empty list.
+  function archiveFilterButtons() {
+    const candidates = [
+      { key: 'process', label: 'Process' },
+      { key: 'ai-assisted', label: 'AI-assisted' },
+      { key: 'iteration', label: 'Iteration' }
+    ].filter((option) => promptEntries.some((entry) => entry.tag.toLowerCase().includes(option.key)));
+    const options = [{ key: 'all', label: 'All' }, ...candidates];
+    if (options.length < 2) return '';
+    return options.map((option) => `<button class="filter-button" type="button" data-archive-filter="${escapeHtml(option.key)}" aria-pressed="${state.archiveFilter === option.key}">${escapeHtml(option.label)}</button>`).join('');
+  }
+
   function renderPromptArchive() {
     const filtered = state.archiveFilter === 'all'
       ? promptEntries
@@ -616,8 +659,7 @@
       <div class="page">
         ${pageHeader('05 / Process archive', 'Prompt<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">Archive.</span>', 'A process-led archive for AI-assisted creative work: intent, prompt, iteration, output, and the human design decisions around them.', 'Slash-command library / 45 groups')}
         <section class="page-section reveal">
-          <div class="media-grid">
-            ${visualPlaceholder('motion', 'Prompt Archive / process placeholder', '01')}
+          <div class="media-grid media-grid--single">
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Process over spectacle</span>
               <h2 style="margin-top: 1.4rem;">Prompt →<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">decision.</span></h2>
@@ -627,7 +669,7 @@
           </div>
         </section>
         <section class="page-section reveal">
-          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive"><button class="filter-button" type="button" data-archive-filter="all" aria-pressed="${state.archiveFilter === 'all'}">All</button><button class="filter-button" type="button" data-archive-filter="process" aria-pressed="${state.archiveFilter === 'process'}">Process</button><button class="filter-button" type="button" data-archive-filter="ai-assisted" aria-pressed="${state.archiveFilter === 'ai-assisted'}">AI-assisted</button><button class="filter-button" type="button" data-archive-filter="iteration" aria-pressed="${state.archiveFilter === 'iteration'}">Iteration</button></div><span class="archive-count">${filtered.length} placeholder entries</span></div>
+          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive">${archiveFilterButtons()}</div><span class="archive-count">${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}</span></div>
           <div class="archive-list">${entries || '<p class="note-box">No placeholder entries match this filter.</p>'}</div>
         </section>
         ${librarySection}
@@ -642,8 +684,9 @@
         <section class="page-section reveal">
           <div class="about-grid">
             <div>
-              <p class="about-lead">Emdadul Hoque Emon is a <em>Visual Designer</em>, Video Editor, and Creative Content Creator.</p>
-              <p class="about-body">The strongest focus is short-form video editing and poster / graphic design, supported by a wider practice across image, type, motion, social content, editorial storytelling, Islamic visual content, calligraphy / Namelipi, and AI-assisted creative work.</p>
+              <p class="about-lead">Hello, I'm <em>Emdad</em>.</p>
+              <p class="about-body">I am currently pursuing my degree in English Language and Literature at IIUC. My journey is uniquely shaped by a deep appreciation for classical literature and a strong passion for the digital creative world.</p>
+              <p class="about-body">As a digital creator I specialize in video editing, motion graphics, and graphic design — blending literary insight with digital innovation.</p>
             </div>
             <dl class="about-list">
               <div class="about-list__row"><dt>Primary focus</dt><dd>Short-form video editing; poster and graphic design.</dd></div>
@@ -662,13 +705,19 @@
   function renderContact() {
     return `
       <div class="page">
-        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'A simple contact experience is ready for a supplied email address, social links, or a connected form endpoint.', 'Contact details / To be supplied')}
+        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'Email and social links are live below. The message form remains a visual placeholder.', 'Contact details / Email + social')}
         <section class="page-section reveal">
           <div class="contact-layout">
             <div>
               <h2 class="contact-title">Open<br /><span>line.</span></h2>
-              <p class="contact-copy">The contact route is intentionally clear and lightweight. No email address, social profile, availability statement, or form destination has been invented.</p>
-              <div class="note-box">Add the preferred contact method later. The form below is a visual interaction placeholder and does not send a message yet.</div>
+              <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
+              <ul class="contact-channels">
+                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com">emdadulhoqueemon@outlook.com</a></li>
+                <li><span>YouTube</span><a href="https://www.youtube.com/@emdadsvisual" target="_blank" rel="noopener noreferrer">@emdadsvisual</a></li>
+                <li><span>Facebook</span><a href="https://www.facebook.com/emdadulhoqueemo" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+                <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/emdadulhoqueemo/" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+              </ul>
+              <div class="note-box">The form below is a visual interaction placeholder and does not send a message yet — email is the reliable route for now.</div>
             </div>
             <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
               <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" /></div>
@@ -906,9 +955,18 @@
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
+    if (event.target.closest('[data-theme-toggle]')) {
+      event.preventDefault();
+      toggleTheme();
+      return;
+    }
+
     if (event.target.closest('[data-open-drawer]')) {
       event.preventDefault();
-      openDrawer();
+      // The toggle both opens and closes: clicking it while the drawer is
+      // open must dismiss it rather than re-running openDrawer() as a no-op.
+      if (state.drawerOpen) closeDrawer();
+      else openDrawer();
       return;
     }
 
@@ -986,11 +1044,26 @@
     }
   });
 
+  // Clicks on empty space inside the drawer must not close it. Explicit
+  // controls (links, [data-close-drawer]) are handled before this fires.
+  // Bound on both the panel and its inner container so a click on either
+  // surface is stopped before it can reach the document-level handler.
+  const stopInsideDrawer = (event) => {
+    if (event.target.closest('[data-close-drawer], a[href^="#/"]')) return;
+    event.stopPropagation();
+  };
+
+  drawer?.addEventListener('click', stopInsideDrawer);
+  drawer?.querySelector('.drawer-inner')?.addEventListener('click', stopInsideDrawer);
+
   window.addEventListener('hashchange', () => {
     closeDrawer(false);
     closeModal(false);
     render();
   });
+
+  // Honour a stored choice, else follow the OS preference.
+  applyTheme(readStoredTheme() || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
   render();
 

@@ -1,51 +1,13 @@
 @charset "UTF-8";
 
-/* Self-hosted custom type system */
-@font-face {
-  font-family: "Monotes";
-  src: url("fonts/Monotes.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Saprona";
-  src: url("fonts/Saprona.ttf") format("truetype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Kohinur Bangla";
-  src: url("fonts/Kohinur-Bangla.otf") format("opentype");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aref Ruqaa";
-  src: url("fonts/aref-ruqaa-regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aref Ruqaa";
-  src: url("fonts/aref-ruqaa-bold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
+/* Type system: Google Fonts loaded via <link> in index.html
+   Aladin (display), Inter (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
 
 :root {
-  --font-ui: "Saprona", Arial, sans-serif;
-  --font-display: "Monotes", Georgia, serif;
-  --font-bengali: "Kohinur Bangla", "Kohinoor Bangla", sans-serif;
-  --font-arabic: "Aref Ruqaa", serif;
+  --font-ui: "Inter", "Noto Sans Bengali", Arial, sans-serif;
+  --font-display: "Aladin", "Inter", Georgia, cursive;
+  --font-bengali: "Noto Sans Bengali", "Inter", sans-serif;
+  --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
   --canvas: #ffffff;
   --surface: #f6f7f8;
@@ -55,10 +17,12 @@
   --paper: #ffffff;
   --paper-light: #ffffff;
   --paper-deep: #eceef0;
-  --acid: #ff5722;
-  --orange: #ff5722;
-  --orange-deep: #dc4317;
-  --coral: #ff7652;
+  /* Legacy accent names now resolve to the premium gradient's tones,
+     so every remaining var(--orange) reference stops rendering orange. */
+  --acid: #4f4d3e;
+  --orange: #4f4d3e;
+  --orange-deep: #3c3b3f;
+  --coral: #605c3c;
   --gold: #d28a3b;
   --muted: #6c6f73;
   --muted-dark: #4e5155;
@@ -73,6 +37,10 @@
   --radius-md: 1.15rem;
   --radius-lg: 1.7rem;
   --pill: 999px;
+  --accent-gradient: linear-gradient(to left, #605c3c, #3c3b3f);
+  --accent-gradient-deep: linear-gradient(to left, #4b482f, #232225);
+  --accent-solid: #4f4d3e;
+  --accent-shadow: rgba(60, 59, 63, 0.24);
   --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
@@ -157,7 +125,7 @@ textarea:focus-visible {
   height: 30vw;
   min-width: 38rem;
   min-height: 18rem;
-  border: 1px solid rgba(255, 87, 34, 0.09);
+  border: 1px solid rgba(96, 92, 60, 0.09);
   border-radius: 50%;
   filter: blur(0.5px);
   transform: rotate(-17deg);
@@ -174,7 +142,7 @@ textarea:focus-visible {
 .ambient-wave--one {
   top: 8vh;
   right: -18vw;
-  background: radial-gradient(ellipse at center, rgba(255, 87, 34, 0.05), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.05), transparent 68%);
   animation: ambient-breathe 19s ease-in-out infinite alternate;
 }
 
@@ -192,7 +160,7 @@ textarea:focus-visible {
   width: 56vw;
   height: 24vw;
   transform: rotate(-8deg);
-  background: radial-gradient(ellipse at center, rgba(255, 87, 34, 0.035), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.035), transparent 70%);
   animation: ambient-breathe 25s ease-in-out -8s infinite alternate;
 }
 
@@ -240,10 +208,35 @@ html {
   scroll-behavior: smooth;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(5, 168, 138, 0.4); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(5, 168, 138, 0.8); }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(60, 59, 63, 0.06);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #605c3c, #3c3b3f);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #4b482f, #232225);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #4f4d3e rgba(60, 59, 63, 0.06);
+}
 
 .brand {
   display: inline-flex;
@@ -262,7 +255,7 @@ html {
   border-radius: 50%;
   background: var(--ink);
   color: var(--paper);
-  box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.11);
+  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
 }
 
 .profile-avatar span {
@@ -759,7 +752,7 @@ body.drawer-open .site-drawer {
 .hero-mark::after {
   content: "";
   position: absolute;
-  border: 1px solid rgba(255, 87, 34, 0.34);
+  border: 1px solid rgba(96, 92, 60, 0.34);
   border-radius: 50%;
 }
 
@@ -905,7 +898,7 @@ body.drawer-open .site-drawer {
 
 .visual-placeholder::before {
   inset: 12% -10% 15% 32%;
-  border: 1px solid rgba(255, 87, 34, 0.55);
+  border: 1px solid rgba(96, 92, 60, 0.55);
   border-radius: 50%;
   transform: rotate(-21deg);
 }
@@ -915,7 +908,7 @@ body.drawer-open .site-drawer {
   right: 12%;
   width: 34%;
   height: 120%;
-  background: rgba(255, 87, 34, 0.22);
+  background: rgba(96, 92, 60, 0.22);
   transform: rotate(25deg);
 }
 
@@ -946,7 +939,7 @@ body.drawer-open .site-drawer {
   left: 48%;
   width: 13%;
   height: 81%;
-  background: rgba(255, 87, 34, 0.55);
+  background: rgba(96, 92, 60, 0.55);
   transform: rotate(9deg);
 }
 
@@ -991,7 +984,7 @@ body.drawer-open .site-drawer {
 }
 
 .visual-placeholder--archive {
-  background: linear-gradient(90deg, transparent 0 12%, rgba(255, 87, 34, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(255, 87, 34, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
+  background: linear-gradient(90deg, transparent 0 12%, rgba(96, 92, 60, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(96, 92, 60, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
 }
 
 .placeholder-label,
@@ -1172,7 +1165,7 @@ body.drawer-open .site-drawer {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   align-items: stretch;
   gap: 1rem;
 }
@@ -1188,7 +1181,7 @@ body.drawer-open .site-drawer {
 }
 
 .project-card:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -1268,7 +1261,7 @@ body.drawer-open .site-drawer {
 .video-facade__visual {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, transparent 0 44%, rgba(255, 87, 34, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
+  background: linear-gradient(140deg, transparent 0 44%, rgba(96, 92, 60, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
 }
 
 .video-facade__visual::before {
@@ -1376,7 +1369,7 @@ body.drawer-open .site-drawer {
   min-width: 0;
   max-width: 40ch;
   font-family: var(--font-ui);
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.55;
@@ -1485,7 +1478,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(255, 87, 34, 0.2);
+  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1493,7 +1486,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(255, 87, 34, 0.16);
+  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.16);
 }
 
 .button-link--filled:hover {
@@ -1537,11 +1530,11 @@ body.drawer-open .site-drawer {
 }
 
 .promo-card--warm {
-  background: #fff1ec;
+  background: #f2f1ea;
 }
 
 .promo-card--warm:hover {
-  background: #ffe4da;
+  background: #e9e7dc;
 }
 
 .promo-card__top,
@@ -1617,7 +1610,7 @@ body.drawer-open .site-drawer {
 .practice-item:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(255, 87, 34, 0.055);
+  background: rgba(96, 92, 60, 0.055);
   color: var(--orange);
 }
 
@@ -1688,7 +1681,7 @@ body.drawer-open .site-drawer {
   border-radius: 50%;
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.11);
+  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
 }
 
 .story-aside__avatar img {
@@ -1756,7 +1749,7 @@ body.drawer-open .site-drawer {
   padding: 1rem 1.1rem;
   border-left: 3px solid var(--orange);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: rgba(255, 87, 34, 0.065);
+  background: rgba(96, 92, 60, 0.065);
   color: var(--muted);
   font-size: 0.73rem;
   line-height: 1.45;
@@ -1798,7 +1791,7 @@ body.drawer-open .site-drawer {
 }
 
 .category-hero-mark--warm {
-  background: #fff1ec;
+  background: #f2f1ea;
   color: var(--orange-deep);
 }
 
@@ -1878,7 +1871,7 @@ body.drawer-open .site-drawer {
 .archive-entry:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(255, 87, 34, 0.055);
+  background: rgba(96, 92, 60, 0.055);
   color: var(--orange);
 }
 
@@ -2583,7 +2576,7 @@ body.drawer-open .site-drawer {
 }
 
 .verse-card:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -2638,7 +2631,7 @@ body.drawer-open .site-drawer {
 }
 
 .guideline-item:hover {
-  border-color: rgba(255, 87, 34, 0.45);
+  border-color: rgba(96, 92, 60, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
@@ -2792,4 +2785,1564 @@ body.drawer-open .site-drawer {
   .prompt-group__count {
     flex-basis: 100%;
   }
+}
+
+
+/* Video overlay: full-width player, no empty right-side descriptive panel */
+.modal-panel .modal-media-grid:not(.modal-media-grid--single) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.video-modal__frame {
+  width: 100%;
+}
+
+.video-modal__frame iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 20rem;
+}
+
+.video-modal__aside,
+.video-modal__side,
+.modal-panel__aside,
+.video-modal__panel {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------
+   Google Fonts typography pass
+   Aladin = display/headings/facades, Inter = body/UI,
+   Noto Sans Bengali = Bengali, Amiri = Arabic (Quran / Hadith)
+   --------------------------------------------------------------- */
+
+body,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-ui);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.page-header h1,
+.feature-title,
+.section-title,
+.callout h2,
+.contact-title,
+.about-lead,
+.story-copy h2,
+.modal-panel__body h2,
+.promo-card h3,
+.footer-title,
+.drawer-heading em {
+  font-family: var(--font-display);
+}
+
+/* Aladin is a decorative display face: negative tracking hurts it. */
+.page-header h1,
+.hero-title,
+.feature-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.about-lead,
+.contact-title,
+.modal-panel__body h2 {
+  letter-spacing: -0.01em;
+}
+
+/* Small / supporting text stays on Fira Sans even inside display blocks. */
+.eyebrow,
+.header-index,
+.brand-role,
+.section-topline,
+.feature-topline,
+.hero-topline,
+.project-meta,
+.card-meta,
+.archive-count,
+.form-note,
+.button-link,
+.button-quiet,
+.filter-button,
+.modal-detail-list__row dt,
+.modal-detail-list__row dd,
+.video-facade__hint,
+p,
+li,
+dd,
+dt,
+label,
+small {
+  font-family: var(--font-ui);
+}
+
+/* Bengali */
+[lang="bn"],
+.bengali-text,
+.bengali-text *,
+.verse-card__bengali,
+.verse-card__source {
+  font-family: var(--font-bengali);
+  font-synthesis: weight;
+  letter-spacing: 0;
+}
+
+/* Arabic — Quran and Hadith */
+[lang="ar"],
+.arabic-text,
+.arabic-text *,
+.verse-card__arabic,
+.hadith-card__arabic {
+  font-family: var(--font-arabic);
+  font-synthesis: none;
+}
+
+/* Aladin ships a single 400 weight — avoid faux-bold synthesis on display type. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.page-header h1,
+.feature-title,
+.section-title,
+.callout h2,
+.contact-title,
+.about-lead,
+.story-copy h2,
+.modal-panel__body h2,
+.promo-card h3,
+.footer-title {
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+/* Video facade titles use the display face. */
+.video-facade__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Bengali and Arabic facade titles keep their script-specific faces. */
+.video-facade__title[lang="bn"],
+.video-facade__title.bengali-text {
+  font-family: var(--font-bengali);
+}
+
+.video-facade__title[lang="ar"],
+.video-facade__title.arabic-text {
+  font-family: var(--font-arabic);
+}
+
+/* ---------------------------------------------------------------
+   Accent gradient pass
+   linear-gradient(to left, #605C3C, #3C3B3F) replaces the solid
+   orange accent across hero type, buttons, and the avatar ring.
+   --------------------------------------------------------------- */
+
+/* 2. Hero headline — the full "Visual Designer & Video Editor." lockup */
+.hero-title,
+.hero-title span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Other display headings keep the gradient on their accented span only. */
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 3. Primary buttons — "View Selected Work" and friends */
+.button-link--filled,
+.button-link--warm,
+.filter-button[aria-pressed="true"],
+.callout .button-link--filled {
+  border-color: transparent;
+  background: var(--accent-gradient);
+  background-origin: border-box;
+  color: var(--paper);
+  box-shadow: 0 8px 18px var(--accent-shadow);
+}
+
+.button-link--filled:hover,
+.button-link--warm:hover,
+.filter-button[aria-pressed="true"]:hover,
+.callout .button-link--filled:hover {
+  border-color: transparent;
+  background: var(--accent-gradient-deep);
+  color: var(--paper);
+}
+
+.button-link:hover,
+.button-quiet:hover {
+  border-color: transparent;
+  background: var(--accent-gradient);
+  color: var(--paper);
+  box-shadow: 0 8px 18px var(--accent-shadow);
+}
+
+/* Accent text and rules that previously used solid orange. */
+.hero-mark__label,
+.placeholder-index,
+.project-card__arrow,
+.practice-item__arrow,
+.archive-entry__arrow,
+.story-aside__number,
+.project-spine__index,
+.archive-entry__index,
+.video-modal__placeholder strong,
+.site-footer .footer-links a span {
+  color: var(--accent-solid);
+}
+
+.hero-support__line,
+.scroll-cue::before {
+  background: var(--accent-gradient);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline-color: var(--accent-solid);
+}
+
+/* 4. Header avatar — subtle low-opacity gradient ring via pseudo-element.
+   The ring is drawn inside the circle (the avatar clips overflow) using a
+   mask so only the 3px band shows, plus a faint outer halo. */
+.profile-avatar {
+  border: 0;
+  /* Soft outer halo of the same gradient's darker stop. */
+  box-shadow: 0 0 0 4px rgba(60, 59, 63, 0.1);
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* inset: 0 — the avatar clips overflow, so the ring must sit inside it. */
+  inset: 0;
+  z-index: 3;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--accent-gradient);
+  opacity: 0.55;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------
+   Premium gradient pass — full removal of the legacy orange accent
+   --------------------------------------------------------------- */
+
+/* 1a. Text gradients ------------------------------------------------ */
+.site-header .brand-name,
+.brand-name,
+.hero-support p strong,
+.practice-item:hover .practice-item__title,
+.practice-item:hover .practice-item__number,
+.practice-item:hover .practice-item__arrow,
+.promo-card h3 em,
+.callout h2 em,
+.footer-title em {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Practice list hover: drop the tinted wash, let the type carry the accent. */
+.practice-item:hover {
+  background: rgba(96, 92, 60, 0.06);
+  color: inherit;
+}
+
+/* 1b. Background gradients ------------------------------------------ */
+
+/* Case-study author avatar ring */
+.story-aside__avatar {
+  position: relative;
+  border: 0;
+  padding: 3px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 0 5px rgba(60, 59, 63, 0.1);
+}
+
+.story-aside__avatar img {
+  border-radius: 50%;
+}
+
+/* Islamic Corner + Prompt Archive card symbols */
+.promo-card__symbol {
+  border: 0;
+  background: var(--accent-gradient);
+  opacity: 0.9;
+}
+
+.promo-card--warm .promo-card__symbol {
+  border: 0;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-sm);
+  transform: rotate(45deg);
+}
+
+/* Accent rule beside "Read / Download Ebook" — reduced opacity */
+.note-box {
+  position: relative;
+  border-left: 0;
+  padding-left: 1.4rem;
+  background: rgba(96, 92, 60, 0.07);
+}
+
+.note-box::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent-gradient);
+  opacity: 0.45;
+}
+
+/* 2. Footer blocks — "Made to expand" callout + site footer ---------- */
+.callout,
+.site-footer {
+  background: var(--accent-gradient);
+}
+
+.callout,
+.callout h2,
+.callout .callout__copy,
+.callout .callout__copy p,
+.callout .eyebrow,
+.callout a,
+.callout span,
+.site-footer,
+.site-footer .eyebrow,
+.site-footer .footer-title,
+.site-footer .footer-links a,
+.site-footer .footer-links a span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.site-footer .footer-copyright,
+.site-footer .footer-copyright span,
+.site-footer .footer-social,
+.site-footer .footer-social a,
+.site-footer p,
+.site-footer span,
+.site-footer a {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* The gradient-clipped headings must stay solid white inside these blocks. */
+.callout h2 em,
+.site-footer .footer-title em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+  opacity: 0.82;
+}
+
+.callout .button-link {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+
+.callout .button-link:hover,
+.callout .button-link--filled {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+.site-footer .footer-links a:hover {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  opacity: 0.75;
+}
+
+.footer-rule,
+.site-footer .footer-rule {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Copyright moves to the right edge. */
+.footer-copyright {
+  justify-content: flex-end;
+  border-top-color: rgba(255, 255, 255, 0.18);
+  text-align: right;
+}
+
+/* Social links row */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  opacity: 0.85;
+  transition: opacity 180ms ease;
+}
+
+.footer-social a:hover {
+  opacity: 1;
+}
+
+/* 3. Sidebar drawer -------------------------------------------------- */
+.site-drawer {
+  background: var(--accent-gradient);
+}
+
+.site-drawer,
+.site-drawer .drawer-inner,
+.site-drawer .drawer-heading,
+.site-drawer .drawer-heading p,
+.site-drawer .drawer-heading em,
+.site-drawer .eyebrow,
+.site-drawer .drawer-link,
+.site-drawer .drawer-link span,
+.site-drawer .drawer-link strong,
+.site-drawer .drawer-link small,
+.site-drawer .drawer-close,
+.site-drawer .drawer-footer,
+.site-drawer .drawer-footer span,
+.site-drawer .drawer-subnav .drawer-link {
+  background-color: transparent;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.site-drawer .drawer-heading em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+}
+
+.site-drawer .drawer-link:hover,
+.site-drawer .drawer-link[aria-current="page"],
+.site-drawer .drawer-link:hover strong,
+.site-drawer .drawer-link[aria-current="page"] strong,
+.site-drawer .drawer-link--feature:hover,
+.site-drawer .drawer-link--feature[aria-current="page"] {
+  background-color: transparent;
+  color: #e6e4d8;
+  -webkit-text-fill-color: #e6e4d8;
+}
+
+.site-drawer .drawer-topline,
+.site-drawer .drawer-footer {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------------------------------------------------------------
+   Refinement pass — avatar ring, header curve, spacing, hero motion
+   --------------------------------------------------------------- */
+
+/* 1. Header avatar: ring strictly OUTSIDE the photo.
+   The masked inner ring is removed; the ring now lives on a wrapper-free
+   outset pseudo-element, and the avatar no longer clips it. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+/* Re-clip only the photo, so the outer ring is never cut off. */
+.profile-avatar__img {
+  border-radius: 50%;
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* Sits fully outside the 2.8rem circle with a transparent breathing gap. */
+  inset: -6px;
+  z-index: 0;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.35;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 1b. Premium curve on the bottom edge of the header bar. */
+.site-header {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+/* 2a. Case-study title reads "Fath Makkah", not "FATH MAKKAH". */
+.page-header h1,
+.hero-title,
+.feature-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.contact-title,
+.footer-title,
+.promo-card h3,
+.modal-panel__body h2 {
+  text-transform: none;
+}
+
+/* 2b. Sidebar heading sits lower and breathes. */
+.site-drawer .drawer-heading {
+  margin-top: 2.4rem;
+}
+
+.site-drawer .drawer-heading p {
+  margin-top: 0.9rem;
+}
+
+/* 2c. Islamic Corner headings clear the topline labels above them. */
+.section-heading .section-title,
+.section-heading h2.section-title {
+  margin-top: 1.1rem;
+}
+
+.section-topline {
+  margin-bottom: 0.35rem;
+}
+
+/* 4a. Hero ambience: lightweight CSS-only drifting shapes, no images. */
+.hero-mark {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-mark::before,
+.hero-mark::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.08;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-mark::before {
+  width: 10rem;
+  height: 10rem;
+  top: -3rem;
+  right: -2.5rem;
+  animation: hero-drift-a 18s ease-in-out infinite alternate;
+}
+
+.hero-mark::after {
+  width: 6.5rem;
+  height: 6.5rem;
+  bottom: -2rem;
+  left: -1.5rem;
+  opacity: 0.06;
+  animation: hero-drift-b 22s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-1.4rem, 1.1rem, 0) scale(1.12); }
+}
+
+@keyframes hero-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(1.2rem, -1rem, 0) scale(0.9); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mark::before,
+  .hero-mark::after {
+    animation: none;
+  }
+}
+
+/* 4b. Cap the flagship poster so it stops swallowing the viewport. */
+.feature-visual .media-asset--poster {
+  max-height: 70vh;
+}
+
+.feature-visual .media-asset--poster img {
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* 5. Footer social links inherit the footer's forced-white treatment. */
+.footer-social a {
+  white-space: nowrap;
+}
+
+/* 6. Contact channels — real email and social links */
+.contact-channels {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.contact-channels li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-channels li > span {
+  min-width: 5.5rem;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-channels li > a {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  overflow-wrap: anywhere;
+  transition: color 180ms ease;
+}
+
+.contact-channels li > a:hover {
+  color: var(--accent-solid);
+}
+
+/* ---------------------------------------------------------------
+   Header reorganization + display type scaling
+   --------------------------------------------------------------- */
+
+/* 1. Inline About / Contact links, left of the 9-dot menu toggle. */
+.header-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.header-nav__link {
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.header-nav__link:hover,
+.header-nav__link[aria-current="page"] {
+  color: var(--accent-solid);
+}
+
+/* Subtitle matches the name's size, weight, and visual volume. */
+.brand-role {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+@media (max-width: 650px) {
+  /* Keep the quick links usable but compact on small screens. */
+  .header-nav {
+    gap: 0.9rem;
+  }
+
+  .header-nav__link {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .brand-role {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-nav {
+    display: none;
+  }
+}
+
+/* 2. Global display-type scaling — smaller, more elegant, better on mobile. */
+.hero-title {
+  font-size: clamp(2.6rem, 7.2vw, 6.4rem);
+}
+
+.page-header h1 {
+  font-size: clamp(2.4rem, 6.4vw, 5.6rem);
+}
+
+.feature-title {
+  font-size: clamp(2.2rem, 5.4vw, 4.6rem);
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+}
+
+.callout h2 {
+  font-size: clamp(1.9rem, 4.4vw, 3.8rem);
+}
+
+.footer-title {
+  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+}
+
+.promo-card h3 {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+}
+
+.contact-title,
+.story-copy h2 {
+  font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+}
+
+.modal-panel__body h2 {
+  font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+}
+
+.site-drawer .drawer-heading p {
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  line-height: 1.08;
+}
+
+.story-aside__number {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+}
+
+.category-hero-mark {
+  font-size: clamp(1.5rem, 3.4vw, 2.8rem);
+}
+
+/* ---------------------------------------------------------------
+   Refinement pass — header type, avatar, drawer, theme toggle
+   --------------------------------------------------------------- */
+
+/* 1. Subtitle: Inter, matched to the name's visual volume/width. */
+.brand-role {
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* 2. Avatar: no hard ring — a faint gradient glow so the photo floats. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow:
+    0 0 0 6px rgba(96, 92, 60, 0.05),
+    0 6px 18px rgba(60, 59, 63, 0.14);
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  opacity: 0.14;
+  filter: blur(7px);
+  pointer-events: none;
+  /* No mask: this is a soft halo, not a ring. */
+  -webkit-mask: none;
+  mask: none;
+  padding: 0;
+}
+
+/* 3. Sidebar: narrower, airier links, no footer block. */
+.site-drawer {
+  width: min(100%, 22rem);
+}
+
+.drawer-footer {
+  display: none;
+}
+
+.site-drawer .drawer-link,
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-size: 1.02rem;
+  padding: 0.56rem 0;
+}
+
+.site-drawer .drawer-subnav .drawer-link {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.site-drawer .drawer-link:hover,
+.site-drawer .drawer-link[aria-current="page"],
+.site-drawer .drawer-link:hover strong,
+.site-drawer .drawer-link[aria-current="page"] strong {
+  color: #d8d6cb;
+  -webkit-text-fill-color: #d8d6cb;
+}
+
+.site-drawer .drawer-heading p {
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+}
+
+/* 5. Case-study posters must not swallow the screen. */
+.media-asset--poster,
+.media-grid .media-asset--poster,
+.feature-visual .media-asset--poster {
+  max-height: 68vh;
+}
+
+.media-asset--poster img,
+.media-grid .media-asset--poster img,
+.feature-visual .media-asset--poster img {
+  max-height: 62vh;
+  object-fit: contain;
+}
+
+.page--fath-makkah .media-asset--poster {
+  max-height: 62vh;
+}
+
+/* Title stays "Fath Makkah", never ALL CAPS. */
+.page-header h1,
+.feature-title,
+.hero-title,
+.section-title,
+.story-copy h2,
+.callout h2,
+.footer-title,
+.promo-card h3,
+.contact-title,
+.modal-panel__body h2 {
+  text-transform: none;
+}
+
+/* 6. Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-solid);
+  color: var(--accent-solid);
+}
+
+.theme-toggle__icon--moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle__icon--moon {
+  display: block;
+}
+
+/* ---------------------------------------------------------------
+   Dark theme — token overrides. Because the site is built on these
+   variables, remapping them re-themes nearly every surface at once.
+   --------------------------------------------------------------- */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg-color: #16161a;
+  --text-color: #f2f1ec;
+  color-scheme: dark;
+
+  --canvas: #16161a;
+  --surface: #1e1e23;
+  --surface-strong: #26262c;
+  --ink: #f2f1ec;
+  --ink-soft: #d9d7cf;
+  --paper: #16161a;
+  --paper-light: #1e1e23;
+  --paper-deep: #26262c;
+  --muted: #a3a29c;
+  --muted-dark: #c3c2bb;
+  --line: rgba(242, 241, 236, 0.16);
+  --line-dark: rgba(242, 241, 236, 0.2);
+  --accent-solid: #b8b48f;
+  --accent-shadow: rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 18px 45px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.6);
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] html {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Gradient-clipped display text needs a lighter ramp to stay legible. */
+:root[data-theme="dark"] {
+  --accent-gradient: linear-gradient(to left, #b8b48f, #8f8d80);
+  --accent-gradient-deep: linear-gradient(to left, #cfcba6, #a5a294);
+}
+
+/* Cards and panels that were hard-coded to white. */
+:root[data-theme="dark"] .project-card,
+:root[data-theme="dark"] .feature-grid,
+:root[data-theme="dark"] .promo-card,
+:root[data-theme="dark"] .archive-entry,
+:root[data-theme="dark"] .project-spine__item,
+:root[data-theme="dark"] .modal-panel,
+:root[data-theme="dark"] .contact-form,
+:root[data-theme="dark"] .media-asset,
+:root[data-theme="dark"] .visual-placeholder,
+:root[data-theme="dark"] .hero-mark,
+:root[data-theme="dark"] .category-hero-mark,
+:root[data-theme="dark"] .prompt-modal__prompt {
+  background: var(--surface);
+  color: var(--text-color);
+  border-color: var(--line);
+}
+
+:root[data-theme="dark"] .promo-card--warm {
+  background: #23231f;
+}
+
+:root[data-theme="dark"] .promo-card--warm:hover {
+  background: #2b2b25;
+}
+
+:root[data-theme="dark"] .button-link,
+:root[data-theme="dark"] .button-quiet,
+:root[data-theme="dark"] .filter-button {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text-color);
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  border-color: var(--line);
+  color: var(--text-color);
+}
+
+/* The site ambience washes are tuned for a white canvas. */
+:root[data-theme="dark"] .site-ambience {
+  opacity: 0.35;
+}
+
+/* Header keeps its translucent treatment on the dark canvas. */
+:root[data-theme="dark"] .site-header {
+  background: rgba(22, 22, 26, 0.9);
+  border-bottom-color: var(--line);
+}
+
+/* ---------------------------------------------------------------
+   Header balance, avatar ring, theme transition, social icons
+   --------------------------------------------------------------- */
+
+/* 1. Name larger; subtitle tracked out to match its width.
+   The name is Aladin (display) at 1.62rem; the subtitle is Inter, which is
+   a narrower face, so it needs extra letter-spacing to span the same width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.62rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.brand-role {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.706rem;
+  font-weight: 600;
+  letter-spacing: 0.146em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  /* Stretch to the name's width so both lines end together. */
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .brand-name {
+    font-size: 1.3rem;
+  }
+
+  .brand-role {
+    font-size: 0.58rem;
+    letter-spacing: 0.132em;
+  }
+}
+
+/* 2. Avatar: true gradient ring sitting fully OUTSIDE the photo. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* Ring sits outside the circle with a transparent gap between it and the photo. */
+  inset: -5px;
+  z-index: 2;
+  padding: 2px;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  opacity: 0.85;
+  filter: none;
+  /* Mask out the centre so only the 2px band paints. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 4. Dark mode: drawer links must never inherit the clipped text gradient. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em,
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  color: #d8d6cb;
+  -webkit-text-fill-color: #d8d6cb;
+}
+
+/* 5. Smooth, premium theme cross-fade. */
+body,
+.site-header,
+.site-drawer,
+.callout,
+.site-footer,
+.project-card,
+.promo-card,
+.feature-grid,
+.archive-entry,
+.modal-panel,
+.contact-form,
+.media-asset,
+.visual-placeholder,
+.button-link,
+.button-quiet,
+.filter-button,
+.theme-toggle,
+#app {
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Never let the cross-fade slow the drawer slide or button lifts. */
+.site-drawer {
+  transition: transform 480ms var(--ease), background 0.4s ease, color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .site-header,
+  .site-drawer,
+  .callout,
+  .site-footer,
+  #app {
+    transition: none;
+  }
+}
+
+/* 6. Prompt Archive: single-column media grid after removing the placeholder. */
+.media-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 7. Footer social icons */
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.footer-social a:hover {
+  border-color: #ffffff;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  display: block;
+}
+
+/* ---------------------------------------------------------------
+   Final refinement pass — avatar fill, dark drawer, header balance
+   These rules are last in the file so they win over earlier passes.
+   --------------------------------------------------------------- */
+
+/* 1. Avatar: solid 100% gradient filling the padding ring.
+   The wrapper carries the gradient; padding creates the band; the photo is
+   inset by that padding so the gradient reads edge-to-edge with no gap. */
+.profile-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 3rem;
+  width: 3rem;
+  height: 3rem;
+  overflow: visible;
+  padding: 3px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  box-shadow: none;
+}
+
+/* (Superseded by the hotfix block at the end of this file — the previous
+   rule used width/height: auto on an absolutely positioned <img>, which
+   resolved to the photo's 2100x2100 intrinsic size and overflowed.) */
+
+/* No pseudo-element ring any more — the wrapper background is the ring. */
+.profile-avatar::after {
+  content: none;
+  display: none;
+}
+
+/* 2. Dark mode: the drawer background lightens (the accent ramp inverts),
+   so white text disappears. Paint the links with the dark gradient instead. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em {
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Small meta text stays legible as solid dark ink rather than clipped type. */
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link span:first-child {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 3. Header: name slightly larger; subtitle tightened to match its width.
+   Aladin is wide, Inter is narrow — the subtitle needs a small size and
+   moderate tracking to land on the same total width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.72rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+}
+
+.brand-role {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.615rem;
+  font-weight: 600;
+  letter-spacing: 0.118em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .brand-name {
+    font-size: 1.34rem;
+  }
+
+  .brand-role {
+    font-size: 0.5rem;
+    letter-spacing: 0.104em;
+  }
+}
+
+/* 5. Footer social icons stay on one row, Email beside YouTube. */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------------------------
+   HOTFIX — avatar overflow + subtitle font
+   Last in the file so these win over every earlier pass.
+   --------------------------------------------------------------- */
+
+/* 1. Avatar. The previous rule used `width: auto` on an absolutely
+   positioned <img>; replaced elements resolve `auto` to their INTRINSIC
+   size (this photo is 2100x2100), so it exploded across the page instead
+   of stretching to the inset box. Pin explicit dimensions instead. */
+.profile-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  max-height: 50px;
+  padding: 3px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.profile-avatar__img {
+  position: static;
+  inset: auto;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  box-sizing: border-box;
+}
+
+/* "EH" initials fallback sits behind the photo. */
+.profile-avatar span {
+  position: absolute;
+  z-index: 0;
+  color: var(--paper);
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.profile-avatar::after,
+.profile-avatar::before {
+  content: none;
+  display: none;
+}
+
+/* 2. Subtitle must use Inter, not the inherited Aladin display face.
+   Earlier passes set --font-display on .brand-* selectors, so this needs
+   !important to win reliably. Sized/tracked to match the name's width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.brand-role,
+.site-header .brand-role,
+.brand-copy .brand-role {
+  display: block;
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.108em;
+  line-height: 1.2;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+}
+
+@media (max-width: 650px) {
+  .profile-avatar {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    max-width: 44px;
+    max-height: 44px;
+  }
+
+  .brand-name {
+    font-size: 1.28rem;
+  }
+
+  .brand-role {
+    font-size: 0.49rem;
+    letter-spacing: 0.096em;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Image protection, footer location, dark-mode drawer, jitter fix
+   Appended last so these win the cascade.
+   --------------------------------------------------------------- */
+
+/* 1. Image security: block dragging and long-press/right-click saving. */
+img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
+/* 2. Footer: location bottom-left, copyright right. */
+.footer-copyright {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.2rem;
+  text-align: left;
+}
+
+.footer-location {
+  margin-right: auto;
+}
+
+/* Email icon must share the row with YouTube. */
+.footer-social {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.footer-social a {
+  flex: 0 0 auto;
+}
+
+/* 3 + 4. Dark mode drawer text.
+   The drawer background uses --accent-gradient, which inverts to a LIGHT
+   ramp in dark mode, so white text vanishes. Paint the links with the dark
+   gradient instead.
+   Jitter fix: light mode already sets background-clip/text-fill on these
+   same selectors, so both states carry an identical box model — only the
+   paint changes. Font-weight, letter-spacing, padding, and borders are
+   never redeclared per-theme, which is what caused items to shift. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-subnav .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em {
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Tiny meta text renders as mud when gradient-clipped — keep it solid. */
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link span:first-child {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #3c3b3f;
+  -webkit-text-fill-color: #3c3b3f;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* 4. No layout shift when toggling themes.
+   Metrics are locked identically for both themes, and the drawer is
+   excluded from the colour cross-fade so nothing reflows mid-transition. */
+.drawer-link,
+.drawer-link--primary,
+.drawer-link--feature,
+.drawer-subnav .drawer-link {
+  border: 0;
+  transition: none;
+}
+
+.site-drawer .drawer-link,
+.site-drawer .drawer-link--primary,
+.site-drawer .drawer-link--feature {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.site-drawer .drawer-subnav .drawer-link {
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+/* Gradient-clipped text can hairline-shift without a stable painting box. */
+.site-drawer .drawer-link,
+.site-drawer .drawer-heading p {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------
+   Category card titles — readable tracking
+   The base rule set letter-spacing: -0.045em, which pulled the letters
+   together and made titles like "Thumbnail Design 01" look squished.
+   Same font and size; only the tracking opens up.
+   --------------------------------------------------------------- */
+.project-card__title,
+.project-card__title span,
+.project-grid .project-card__title,
+.project-grid .project-card__title span {
+  letter-spacing: 0.05em;
+}
+
+/* Video cards use the smaller Inter treatment — give them the same air. */
+.project-card--video .project-card__title,
+.project-card--video .project-card__title span:first-child {
+  letter-spacing: 0.05em;
+}
+
+/* Bengali and Arabic titles must keep natural tracking: added spacing
+   breaks conjunct ligatures and cursive joins in those scripts. */
+.project-card__title span[lang="bn"],
+.project-card__title span.bengali-text,
+.project-card--video .project-card__title span[lang="bn"],
+.project-card--video .project-card__title span.bengali-text,
+.project-card__title span[lang="ar"],
+.project-card__title span.arabic-text {
+  letter-spacing: 0;
 }

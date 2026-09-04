@@ -38,7 +38,7 @@ The script moves them into `assets/bangla-namelipi/` and rewrites `data/bangla-n
 - Twenty-two self-hosted YouTube poster frames in `assets/video-posters/`
 - Dedicated Bangla Namelipi route (`#/bangla-namelipi`) rendering the `id="bangla-namelipi"` section, populated from `data/bangla-namelipi.js` (`window.banglaNamelipiArchive`)
 - `build_bangla_namelipi.py`, which moves supplied Bangla Namelipi images into `assets/bangla-namelipi/` and regenerates that data file
-- Self-hosted Monotes, Saprona, Kohinur Bangla, and Aref Ruqaa font files in `fonts/`
+- Google Fonts (Aladin, Inter, Noto Sans Bengali, Amiri) loaded via `<link>` tags in `index.html`
 
 Typography usage hooks are ready for future content:
 
