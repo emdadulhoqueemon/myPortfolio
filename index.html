@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +12,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,400&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=1017" />
+    <link rel="stylesheet" href="styles.css?v=1018" />
+    <script>
+      // Light mode is the default on a first visit. Only a previously stored
+      // explicit "dark" choice (set by the theme toggle) opts into dark mode.
+      // Runs before paint so the correct theme is applied with no flash.
+      (function () {
+        var theme = 'light';
+        try {
+          if (window.localStorage.getItem('eh-theme') === 'dark') theme = 'dark';
+        } catch (error) {
+          /* Storage unavailable (private mode) — stay on the light default. */
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
 </head>
   <body>
     <div class="site-ambience" aria-hidden="true">

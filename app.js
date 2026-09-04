@@ -1062,8 +1062,10 @@
     render();
   });
 
-  // Honour a stored choice, else follow the OS preference.
-  applyTheme(readStoredTheme() || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  // Honour an explicit stored choice only; otherwise always start in light mode.
+  // The site never auto-switches to dark from the OS preference — dark theme is
+  // opt-in via the theme toggle button.
+  applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
 
   render();
 

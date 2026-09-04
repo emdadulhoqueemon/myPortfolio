@@ -54,6 +54,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Light is the explicit default: any document without an opt-in
+   data-theme="dark" renders the light palette, regardless of the
+   operating system's colour-scheme preference. */
+:root:not([data-theme="dark"]) {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  color-scheme: light;
+}
+
+:root:not([data-theme="dark"]) html,
+:root:not([data-theme="dark"]) body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
 body {
   min-width: 320px;
   margin: 0;
