@@ -1,46 +1,57 @@
 @charset "UTF-8";
 
 /* Type system: Google Fonts loaded via <link> in index.html
-   Aladin (display), Inter (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
+   Parkinsans is the single global face for ALL Latin/English text
+   (headings, body, UI, links). Noto Sans Bengali (bn) and Amiri (ar)
+   are deliberately preserved for their scripts. */
 
 :root {
-  --font-ui: "Inter", "Noto Sans Bengali", Arial, sans-serif;
-  --font-display: "Aladin", "Inter", Georgia, cursive;
-  --font-bengali: "Noto Sans Bengali", "Inter", sans-serif;
+  --font-ui: "Parkinsans", "Noto Sans Bengali", Arial, sans-serif;
+  --font-display: "Parkinsans", "Noto Sans Bengali", Arial, sans-serif;
+  --font-bengali: "Noto Sans Bengali", sans-serif;
   --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
+  /* ---------------------------------------------------------------
+     STRICT MONOCHROME — light mode (default).
+     Background is absolute #FFFFFF, every glyph is absolute #000000.
+     Filled shapes/buttons are solid black carrying white text.
+     There are exactly two ink values; no greys, tints, or gradients.
+     --------------------------------------------------------------- */
   --canvas: #ffffff;
-  --surface: #f6f7f8;
-  --surface-strong: #eceef0;
-  --ink: #1a1a1a;
-  --ink-soft: #292929;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --ink: #000000;
+  --ink-soft: #000000;
   --paper: #ffffff;
   --paper-light: #ffffff;
-  --paper-deep: #eceef0;
-  /* Legacy accent names now resolve to the premium gradient's tones,
-     so every remaining var(--orange) reference stops rendering orange. */
-  --acid: #4f4d3e;
-  --orange: #4f4d3e;
-  --orange-deep: #3c3b3f;
-  --coral: #605c3c;
-  --gold: #d28a3b;
-  --muted: #6c6f73;
-  --muted-dark: #4e5155;
-  --line: rgba(26, 26, 26, 0.14);
-  --line-dark: rgba(255, 255, 255, 0.18);
-  --shadow-sm: 0 6px 18px rgba(26, 26, 26, 0.08);
-  --shadow-md: 0 18px 45px rgba(26, 26, 26, 0.13);
-  --shadow-lg: 0 28px 70px rgba(26, 26, 26, 0.18);
+  --paper-deep: #ffffff;
+  /* Legacy accent names all collapse onto pure black so any remaining
+     var(--orange)/var(--acid) reference renders monochrome. */
+  --acid: #000000;
+  --orange: #000000;
+  --orange-deep: #000000;
+  --coral: #000000;
+  --gold: #000000;
+  --muted: #000000;
+  --muted-dark: #000000;
+  --line: #000000;
+  --line-dark: #000000;
+  /* Ultra-minimalist: no coloured depth. Shadows are removed entirely. */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
   --max-width: 1380px;
   --gutter: clamp(1.1rem, 3.4vw, 4.6rem);
   --radius-sm: 0.7rem;
   --radius-md: 1.15rem;
   --radius-lg: 1.7rem;
   --pill: 999px;
-  --accent-gradient: linear-gradient(to left, #605c3c, #3c3b3f);
-  --accent-gradient-deep: linear-gradient(to left, #4b482f, #232225);
-  --accent-solid: #4f4d3e;
-  --accent-shadow: rgba(60, 59, 63, 0.24);
+  /* "Gradients" are now flat black/white so gradient-clipped text and
+     filled buttons stay strictly monochrome. */
+  --accent-gradient: #000000;
+  --accent-gradient-deep: #000000;
+  --accent-solid: #000000;
+  --accent-shadow: transparent;
   --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
@@ -140,7 +151,7 @@ textarea:focus-visible {
   height: 30vw;
   min-width: 38rem;
   min-height: 18rem;
-  border: 1px solid rgba(96, 92, 60, 0.09);
+  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 50%;
   filter: blur(0.5px);
   transform: rotate(-17deg);
@@ -157,7 +168,7 @@ textarea:focus-visible {
 .ambient-wave--one {
   top: 8vh;
   right: -18vw;
-  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.05), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.05), transparent 68%);
   animation: ambient-breathe 19s ease-in-out infinite alternate;
 }
 
@@ -175,7 +186,7 @@ textarea:focus-visible {
   width: 56vw;
   height: 24vw;
   transform: rotate(-8deg);
-  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.035), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.035), transparent 70%);
   animation: ambient-breathe 25s ease-in-out -8s infinite alternate;
 }
 
@@ -229,18 +240,18 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(60, 59, 63, 0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 ::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
   border-radius: 999px;
-  background: linear-gradient(to bottom, #605c3c, #3c3b3f);
+  background: #000000;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #4b482f, #232225);
+  background: #000000;
   background-clip: content-box;
 }
 
@@ -250,7 +261,7 @@ html {
 
 html {
   scrollbar-width: thin;
-  scrollbar-color: #4f4d3e rgba(60, 59, 63, 0.06);
+  scrollbar-color: #000000 rgba(0, 0, 0, 0.06);
 }
 
 .brand {
@@ -270,7 +281,7 @@ html {
   border-radius: 50%;
   background: var(--ink);
   color: var(--paper);
-  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.11);
 }
 
 .profile-avatar span {
@@ -767,7 +778,7 @@ body.drawer-open .site-drawer {
 .hero-mark::after {
   content: "";
   position: absolute;
-  border: 1px solid rgba(96, 92, 60, 0.34);
+  border: 1px solid rgba(0, 0, 0, 0.34);
   border-radius: 50%;
 }
 
@@ -913,7 +924,7 @@ body.drawer-open .site-drawer {
 
 .visual-placeholder::before {
   inset: 12% -10% 15% 32%;
-  border: 1px solid rgba(96, 92, 60, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.55);
   border-radius: 50%;
   transform: rotate(-21deg);
 }
@@ -923,7 +934,7 @@ body.drawer-open .site-drawer {
   right: 12%;
   width: 34%;
   height: 120%;
-  background: rgba(96, 92, 60, 0.22);
+  background: rgba(0, 0, 0, 0.22);
   transform: rotate(25deg);
 }
 
@@ -954,7 +965,7 @@ body.drawer-open .site-drawer {
   left: 48%;
   width: 13%;
   height: 81%;
-  background: rgba(96, 92, 60, 0.55);
+  background: rgba(0, 0, 0, 0.55);
   transform: rotate(9deg);
 }
 
@@ -999,7 +1010,7 @@ body.drawer-open .site-drawer {
 }
 
 .visual-placeholder--archive {
-  background: linear-gradient(90deg, transparent 0 12%, rgba(96, 92, 60, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(96, 92, 60, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
+  background: linear-gradient(90deg, transparent 0 12%, rgba(0, 0, 0, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(0, 0, 0, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
 }
 
 .placeholder-label,
@@ -1196,7 +1207,7 @@ body.drawer-open .site-drawer {
 }
 
 .project-card:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -1276,7 +1287,7 @@ body.drawer-open .site-drawer {
 .video-facade__visual {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, transparent 0 44%, rgba(96, 92, 60, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
+  background: linear-gradient(140deg, transparent 0 44%, rgba(0, 0, 0, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
 }
 
 .video-facade__visual::before {
@@ -1493,7 +1504,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.2);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1501,7 +1512,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.16);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
 }
 
 .button-link--filled:hover {
@@ -1625,7 +1636,7 @@ body.drawer-open .site-drawer {
 .practice-item:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(96, 92, 60, 0.055);
+  background: rgba(0, 0, 0, 0.055);
   color: var(--orange);
 }
 
@@ -1696,7 +1707,7 @@ body.drawer-open .site-drawer {
   border-radius: 50%;
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.11);
 }
 
 .story-aside__avatar img {
@@ -1764,7 +1775,7 @@ body.drawer-open .site-drawer {
   padding: 1rem 1.1rem;
   border-left: 3px solid var(--orange);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: rgba(96, 92, 60, 0.065);
+  background: rgba(0, 0, 0, 0.065);
   color: var(--muted);
   font-size: 0.73rem;
   line-height: 1.45;
@@ -1886,7 +1897,7 @@ body.drawer-open .site-drawer {
 .archive-entry:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(96, 92, 60, 0.055);
+  background: rgba(0, 0, 0, 0.055);
   color: var(--orange);
 }
 
@@ -2591,7 +2602,7 @@ body.drawer-open .site-drawer {
 }
 
 .verse-card:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -2646,7 +2657,7 @@ body.drawer-open .site-drawer {
 }
 
 .guideline-item:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
@@ -2963,7 +2974,7 @@ h6,
 
 /* ---------------------------------------------------------------
    Accent gradient pass
-   linear-gradient(to left, #605C3C, #3C3B3F) replaces the solid
+   #000000 replaces the solid
    orange accent across hero type, buttons, and the avatar ring.
    --------------------------------------------------------------- */
 
@@ -3054,7 +3065,7 @@ textarea:focus-visible {
 .profile-avatar {
   border: 0;
   /* Soft outer halo of the same gradient's darker stop. */
-  box-shadow: 0 0 0 4px rgba(60, 59, 63, 0.1);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .profile-avatar::after {
@@ -3097,7 +3108,7 @@ textarea:focus-visible {
 
 /* Practice list hover: drop the tinted wash, let the type carry the accent. */
 .practice-item:hover {
-  background: rgba(96, 92, 60, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   color: inherit;
 }
 
@@ -3109,7 +3120,7 @@ textarea:focus-visible {
   border: 0;
   padding: 3px;
   background: var(--accent-gradient);
-  box-shadow: 0 0 0 5px rgba(60, 59, 63, 0.1);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .story-aside__avatar img {
@@ -3135,7 +3146,7 @@ textarea:focus-visible {
   position: relative;
   border-left: 0;
   padding-left: 1.4rem;
-  background: rgba(96, 92, 60, 0.07);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .note-box::before {
@@ -3199,8 +3210,8 @@ textarea:focus-visible {
 .callout .button-link--filled {
   border-color: #ffffff;
   background: #ffffff;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 .site-footer .footer-links a:hover {
@@ -3600,8 +3611,8 @@ textarea:focus-visible {
   border: 0;
   background: var(--ink);
   box-shadow:
-    0 0 0 6px rgba(96, 92, 60, 0.05),
-    0 6px 18px rgba(60, 59, 63, 0.14);
+    0 0 0 6px rgba(0, 0, 0, 0.05),
+    0 6px 18px rgba(0, 0, 0, 0.14);
 }
 
 .profile-avatar::after {
@@ -3655,8 +3666,8 @@ textarea:focus-visible {
 .site-drawer .drawer-link[aria-current="page"],
 .site-drawer .drawer-link:hover strong,
 .site-drawer .drawer-link[aria-current="page"] strong {
-  color: #d8d6cb;
-  -webkit-text-fill-color: #d8d6cb;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
 }
 
 .site-drawer .drawer-heading p {
@@ -3739,27 +3750,37 @@ textarea:focus-visible {
 }
 
 :root[data-theme="dark"] {
-  --bg-color: #16161a;
-  --text-color: #f2f1ec;
+  /* STRICT MONOCHROME — dark mode is the exact inversion.
+     Background absolute #000000, every glyph absolute #FFFFFF,
+     filled shapes/buttons invert to solid white with black text. */
+  --bg-color: #000000;
+  --text-color: #ffffff;
   color-scheme: dark;
 
-  --canvas: #16161a;
-  --surface: #1e1e23;
-  --surface-strong: #26262c;
-  --ink: #f2f1ec;
-  --ink-soft: #d9d7cf;
-  --paper: #16161a;
-  --paper-light: #1e1e23;
-  --paper-deep: #26262c;
-  --muted: #a3a29c;
-  --muted-dark: #c3c2bb;
-  --line: rgba(242, 241, 236, 0.16);
-  --line-dark: rgba(242, 241, 236, 0.2);
-  --accent-solid: #b8b48f;
-  --accent-shadow: rgba(0, 0, 0, 0.45);
-  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 18px 45px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.6);
+  --canvas: #000000;
+  --surface: #000000;
+  --surface-strong: #000000;
+  --ink: #ffffff;
+  --ink-soft: #ffffff;
+  --paper: #000000;
+  --paper-light: #000000;
+  --paper-deep: #000000;
+  --acid: #ffffff;
+  --orange: #ffffff;
+  --orange-deep: #ffffff;
+  --coral: #ffffff;
+  --gold: #ffffff;
+  --muted: #ffffff;
+  --muted-dark: #ffffff;
+  --line: #ffffff;
+  --line-dark: #ffffff;
+  --accent-gradient: #ffffff;
+  --accent-gradient-deep: #ffffff;
+  --accent-solid: #ffffff;
+  --accent-shadow: transparent;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
 }
 
 :root[data-theme="dark"] body,
@@ -3768,10 +3789,10 @@ textarea:focus-visible {
   color: var(--text-color);
 }
 
-/* Gradient-clipped display text needs a lighter ramp to stay legible. */
+/* Gradient-clipped display text stays flat white in dark mode. */
 :root[data-theme="dark"] {
-  --accent-gradient: linear-gradient(to left, #b8b48f, #8f8d80);
-  --accent-gradient-deep: linear-gradient(to left, #cfcba6, #a5a294);
+  --accent-gradient: #ffffff;
+  --accent-gradient-deep: #ffffff;
 }
 
 /* Cards and panels that were hard-coded to white. */
@@ -3880,7 +3901,7 @@ textarea:focus-visible {
   z-index: 2;
   padding: 2px;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   opacity: 0.85;
   filter: none;
   /* Mask out the centre so only the 2px band paints. */
@@ -3913,8 +3934,8 @@ textarea:focus-visible {
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  color: #d8d6cb;
-  -webkit-text-fill-color: #d8d6cb;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
 }
 
 /* 5. Smooth, premium theme cross-fade. */
@@ -4003,7 +4024,7 @@ body,
   padding: 3px;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   box-shadow: none;
 }
 
@@ -4026,7 +4047,7 @@ body,
 :root[data-theme="dark"] .site-drawer .drawer-link--feature,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4041,15 +4062,15 @@ body,
   background: none;
   -webkit-background-clip: border-box;
   background-clip: border-box;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 :root[data-theme="dark"] .site-drawer .drawer-link:hover,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4127,7 +4148,7 @@ body,
   overflow: hidden;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -4177,7 +4198,7 @@ body,
 .site-header .brand-role,
 .brand-copy .brand-role {
   display: block;
-  font-family: "Inter", sans-serif !important;
+  font-family: var(--font-ui) !important;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.108em;
@@ -4271,7 +4292,7 @@ img {
 :root[data-theme="dark"] .site-drawer .drawer-subnav .drawer-link,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4286,15 +4307,15 @@ img {
   background: none;
   -webkit-background-clip: border-box;
   background-clip: border-box;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 :root[data-theme="dark"] .site-drawer .drawer-link:hover,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4360,4 +4381,365 @@ img {
 .project-card__title span[lang="ar"],
 .project-card__title span.arabic-text {
   letter-spacing: 0;
+}
+
+/* ===================================================================
+   MONOCHROME PIVOT — final authoritative overrides
+   Strict black & white, Parkinsans everywhere (except bn/ar),
+   and the flat three-zone header. Loaded last so it wins.
+   =================================================================== */
+
+/* -------------------------------------------------------------
+   1. Global typography: Parkinsans is the single Latin face.
+   Every element inherits it, so no stale Aladin/Inter rule can
+   survive. The two script exceptions are re-asserted below.
+   ------------------------------------------------------------- */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-ui);
+}
+
+*:not([lang="bn"]):not([lang="ar"]):not(.bengali-text):not(.arabic-text) {
+  font-family: inherit;
+}
+
+/* CRUCIAL EXCEPTION — Bengali and Arabic keep their own faces.
+   Declared after the blanket rule so they always win. */
+[lang="bn"],
+.bengali-text,
+[lang="bn"] *,
+.bengali-text * {
+  font-family: var(--font-bengali) !important;
+}
+
+[lang="ar"],
+.arabic-text,
+[lang="ar"] *,
+.arabic-text * {
+  font-family: var(--font-arabic) !important;
+}
+
+/* -------------------------------------------------------------
+   2. Strict monochrome surfaces.
+   Light: #FFFFFF ground, #000000 ink. Dark: exact inversion.
+   ------------------------------------------------------------- */
+html,
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+/* Filled shapes / primary buttons: solid black on white ground,
+   inverting to solid white on black ground in dark mode. */
+.button-link--filled,
+.button-link--warm,
+.filter-button[aria-pressed="true"],
+.callout .button-link--filled {
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+  box-shadow: none;
+}
+
+.button-link--filled:hover,
+.button-link--warm:hover,
+.filter-button[aria-pressed="true"]:hover {
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+/* Outline buttons: transparent ground, 1px ink hairline. */
+.button-link,
+.button-quiet,
+.filter-button {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  box-shadow: none;
+}
+
+/* Gradient-clipped display text is now a flat ink fill. */
+.hero-title,
+.hero-title span,
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+/* Ultra-minimalist: no tinted depth anywhere. */
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* The decorative ambience wash has no place in a strict mono system. */
+.site-ambience {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------
+   3. Header: completely flat and transparent.
+   No background, no border, no blur, no shape bar, no radius.
+   ------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: var(--max-width);
+  min-height: 5.2rem;
+  margin: 0 auto;
+  padding: 1rem var(--gutter);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* Centre zone: the name sits in the true centre of the header,
+   independent of the differing widths of the two flanking buttons. */
+.brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  max-width: calc(100% - 9rem);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-header .brand-name,
+.brand-name {
+  margin: 0;
+  overflow: hidden;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 2.4vw, 1.32rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Deleted elements — belt and braces in case markup is regenerated. */
+.profile-avatar,
+.profile-avatar__img,
+.profile-avatar span,
+.profile-avatar::before,
+.profile-avatar::after,
+.brand-role,
+.site-header .brand-role,
+.brand-copy .brand-role,
+.header-nav,
+.header-actions,
+.menu-toggle__label {
+  display: none !important;
+}
+
+/* Left zone: 2x2 grid menu button. */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-toggle__icon {
+  display: block;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--ink);
+  transition: opacity 180ms var(--ease);
+}
+
+.menu-toggle:hover .menu-toggle__icon {
+  transform: none;
+  opacity: 0.55;
+}
+
+/* Right zone: switch-style theme toggle. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border: 0;
+  background: transparent;
+  opacity: 0.55;
+}
+
+.theme-toggle__icon {
+  display: block;
+  width: 2.1rem;
+  height: auto;
+  color: var(--ink);
+}
+
+/* The old dual sun/moon icons are replaced by one switch glyph. */
+.theme-toggle__icon--sun,
+.theme-toggle__icon--moon {
+  display: none !important;
+}
+
+/* Equal-width flanks keep the centred name optically balanced. */
+.menu-toggle,
+.theme-toggle {
+  flex: 0 0 auto;
+  min-width: 2.6rem;
+}
+
+/* -------------------------------------------------------------
+   4. Safety net: kill every remaining background-clip:text
+   treatment. Those rules were authored for the old gradient; with
+   a flat palette they would paint ink-on-ink (e.g. black drawer
+   text on a black dark-mode ground). Force all text to the
+   theme's ink colour so contrast is always absolute.
+   ------------------------------------------------------------- */
+.site-drawer .drawer-link,
+.site-drawer .drawer-link *,
+.site-drawer .drawer-heading p,
+.site-drawer .drawer-heading em,
+.site-drawer .eyebrow,
+.site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link *,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em,
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Same guarantee for headline/display type across both themes. */
+.hero-title,
+.hero-title span,
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em,
+.page-header h1 span,
+.brand-name {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Drawer + footer + callout grounds follow the strict two-tone system. */
+.site-drawer,
+.drawer-inner,
+.site-footer,
+.callout {
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+}
+
+/* The callout block inverts (solid ink panel, canvas-coloured text)
+   to give the layout one deliberate high-contrast anchor. */
+.callout {
+  background: var(--ink) !important;
+  color: var(--canvas) !important;
+  border: 1px solid var(--ink);
+}
+
+.callout h2,
+.callout p,
+.callout h2 span,
+.callout em {
+  color: var(--canvas) !important;
+  -webkit-text-fill-color: var(--canvas) !important;
+  background: none !important;
+}
+
+.callout .button-link,
+.callout .button-link--filled {
+  border: 1px solid var(--canvas) !important;
+  background: transparent !important;
+  color: var(--canvas) !important;
+  -webkit-text-fill-color: var(--canvas) !important;
+}
+
+.callout .button-link:hover,
+.callout .button-link--filled:hover {
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Cards and panels: white (or black) ground with a 1px ink hairline. */
+.project-card,
+.feature-grid,
+.promo-card,
+.archive-entry,
+.project-spine__item,
+.modal-panel,
+.contact-form,
+.media-asset,
+.visual-placeholder,
+.hero-mark,
+.category-hero-mark,
+.prompt-modal__prompt {
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  color: var(--ink);
 }
