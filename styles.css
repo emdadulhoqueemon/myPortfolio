@@ -3808,3 +3808,163 @@ textarea:focus-visible {
   background: rgba(22, 22, 26, 0.9);
   border-bottom-color: var(--line);
 }
+
+/* ---------------------------------------------------------------
+   Header balance, avatar ring, theme transition, social icons
+   --------------------------------------------------------------- */
+
+/* 1. Name larger; subtitle tracked out to match its width.
+   The name is Aladin (display) at 1.62rem; the subtitle is Inter, which is
+   a narrower face, so it needs extra letter-spacing to span the same width. */
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.62rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.brand-role {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 0.706rem;
+  font-weight: 600;
+  letter-spacing: 0.146em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  /* Stretch to the name's width so both lines end together. */
+  white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+  .brand-name {
+    font-size: 1.3rem;
+  }
+
+  .brand-role {
+    font-size: 0.58rem;
+    letter-spacing: 0.132em;
+  }
+}
+
+/* 2. Avatar: true gradient ring sitting fully OUTSIDE the photo. */
+.profile-avatar {
+  position: relative;
+  overflow: visible;
+  border: 0;
+  background: var(--ink);
+  box-shadow: none;
+}
+
+.profile-avatar::after {
+  content: "";
+  position: absolute;
+  /* Ring sits outside the circle with a transparent gap between it and the photo. */
+  inset: -5px;
+  z-index: 2;
+  padding: 2px;
+  border-radius: 50%;
+  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  opacity: 0.85;
+  filter: none;
+  /* Mask out the centre so only the 2px band paints. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* 4. Dark mode: drawer links must never inherit the clipped text gradient. */
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link span,
+:root[data-theme="dark"] .site-drawer .drawer-link strong,
+:root[data-theme="dark"] .site-drawer .drawer-link small,
+:root[data-theme="dark"] .site-drawer .drawer-link--primary,
+:root[data-theme="dark"] .site-drawer .drawer-link--feature,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em,
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  color: #d8d6cb;
+  -webkit-text-fill-color: #d8d6cb;
+}
+
+/* 5. Smooth, premium theme cross-fade. */
+body,
+.site-header,
+.site-drawer,
+.callout,
+.site-footer,
+.project-card,
+.promo-card,
+.feature-grid,
+.archive-entry,
+.modal-panel,
+.contact-form,
+.media-asset,
+.visual-placeholder,
+.button-link,
+.button-quiet,
+.filter-button,
+.theme-toggle,
+#app {
+  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Never let the cross-fade slow the drawer slide or button lifts. */
+.site-drawer {
+  transition: transform 480ms var(--ease), background 0.4s ease, color 0.4s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .site-header,
+  .site-drawer,
+  .callout,
+  .site-footer,
+  #app {
+    transition: none;
+  }
+}
+
+/* 6. Prompt Archive: single-column media grid after removing the placeholder. */
+.media-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* 7. Footer social icons */
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.footer-social a:hover {
+  border-color: #ffffff;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  display: block;
+}

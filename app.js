@@ -659,8 +659,7 @@
       <div class="page">
         ${pageHeader('05 / Process archive', 'Prompt<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">Archive.</span>', 'A process-led archive for AI-assisted creative work: intent, prompt, iteration, output, and the human design decisions around them.', 'Slash-command library / 45 groups')}
         <section class="page-section reveal">
-          <div class="media-grid">
-            ${visualPlaceholder('motion', 'Prompt Archive / process placeholder', '01')}
+          <div class="media-grid media-grid--single">
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Process over spectacle</span>
               <h2 style="margin-top: 1.4rem;">Prompt →<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">decision.</span></h2>
@@ -1043,6 +1042,13 @@
       event.preventDefault();
       first.focus();
     }
+  });
+
+  // Clicks on empty space inside the drawer must not close it. Explicit
+  // controls (links, [data-close-drawer]) are handled before this fires.
+  drawer?.addEventListener('click', (event) => {
+    if (event.target.closest('[data-close-drawer], a[href^="#/"]')) return;
+    event.stopPropagation();
   });
 
   window.addEventListener('hashchange', () => {
