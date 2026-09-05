@@ -5841,3 +5841,64 @@ body {
 .story-aside__avatar:hover img {
   filter: grayscale(0%);
 }
+
+/* ===================================================================
+   FOOTER SOCIAL — local SVG icons in circular rings
+   The uploaded SVGs hardcode fill="#000000". An SVG loaded through an
+   <img> tag is an opaque document: `color`, `fill` and currentColor
+   cannot reach inside it, so the glyphs would stay black and vanish
+   against the dark-mode footer (which is var(--canvas) = #000).
+   A CSS filter DOES apply to the rendered image, so dark mode inverts
+   the glyph to white. The ring keeps using currentColor as before.
+   =================================================================== */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.site-footer .footer-social a.footer-social__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: none;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.site-footer .footer-social a.footer-social__link:hover {
+  opacity: 0.65;
+  transform: translateY(-2px);
+}
+
+.site-footer .footer-social a.footer-social__link .footer-social__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Dark mode: flip the black artwork to white so it stays visible. */
+:root[data-theme="dark"] .site-footer .footer-social a.footer-social__link .footer-social__icon {
+  filter: invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer .footer-social a.footer-social__link {
+    transition: none;
+  }
+
+  .site-footer .footer-social a.footer-social__link:hover {
+    transform: none;
+  }
+}
