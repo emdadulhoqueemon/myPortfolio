@@ -3841,11 +3841,6 @@ textarea:focus-visible {
 }
 
 /* Header keeps its translucent treatment on the dark canvas. */
-:root[data-theme="dark"] .site-header {
-  background: rgba(22, 22, 26, 0.9);
-  border-bottom-color: var(--line);
-}
-
 /* ---------------------------------------------------------------
    Header balance, avatar ring, theme transition, social icons
    --------------------------------------------------------------- */
