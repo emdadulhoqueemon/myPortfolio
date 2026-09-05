@@ -6144,3 +6144,44 @@ body {
     justify-content: flex-start !important;
   }
 }
+
+/* ===================================================================
+   SIDEBAR DRAWER — tighten the top, rebalance weights
+   Three separate rules were stacking blank space above the heading:
+   .drawer-inner padding-top 1.5rem, .drawer-topline padding-bottom
+   1.6rem, .drawer-heading padding 2.2rem/2.4rem, plus a later
+   margin-top: 2.4rem. Combined that pushed the heading far down.
+   =================================================================== */
+.site-drawer .drawer-inner {
+  padding-top: 1rem;
+}
+
+.site-drawer .drawer-topline {
+  padding-bottom: 0.9rem;
+}
+
+.site-drawer .drawer-heading {
+  margin-top: 0;
+  padding: 1rem 0 1.1rem;
+}
+
+.site-drawer .drawer-heading p {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+.site-drawer .drawer-heading em {
+  font-weight: 700;
+}
+
+/* 2. The 12 category links read lighter than the heading. */
+.site-drawer .drawer-nav .drawer-link,
+.site-drawer .drawer-nav .drawer-link--primary,
+.site-drawer .drawer-nav .drawer-link--feature,
+.site-drawer .drawer-nav .drawer-link strong {
+  font-weight: 400;
+}
+
+.site-drawer .drawer-nav .drawer-link--feature small {
+  font-weight: 400;
+}
