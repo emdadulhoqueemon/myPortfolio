@@ -506,9 +506,8 @@
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
             </div>
             <div class="hero-column hero-column--media">
-              <!-- Portrait image placeholder: drop an <img> in here later. -->
-              <div class="hero-photo" role="img" aria-label="Portrait photo placeholder">
-                <span class="hero-photo__hint">Portrait</span>
+              <div class="hero-photo">
+                <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
               </div>
             </div>
           </div>
