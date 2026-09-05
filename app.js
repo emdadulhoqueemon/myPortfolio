@@ -195,7 +195,7 @@
     featured: true,
     imageSrc: 'assets/case-study/fath-makkah-ebook-cover.webp',
     imageAlt: 'Front cover of the Fath Makkah e-book',
-    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Haque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
+    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Hoque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
   };
 
   const routeTitles = {
@@ -640,8 +640,8 @@
 
         <section class="page-section reveal">
           <div class="media-grid">
-            <figure class="media-asset media-asset--poster" style="min-height: 30rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);">
-              <img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" style="object-fit: contain;" />
+            <figure class="media-asset media-asset--plain">
+              <img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" />
             </figure>
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Project / Historical e-book</span>
@@ -677,16 +677,16 @@
 
         <section class="page-section reveal">
           <div class="section-heading"><div><div class="section-topline"><span>Cover system / 03</span><span>Front + back</span></div><h2 class="section-title">The book<br /><span>as object.</span></h2></div><p class="section-heading__side">Both supplied cover images are kept visible as part of the case study rather than being reduced to a single thumbnail.</p></div>
-          <div class="media-grid">
-            <figure class="media-asset media-asset--poster" style="min-height: 28rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="lazy" decoding="async" style="object-fit: contain;" /></figure>
-            <figure class="media-asset media-asset--poster" style="min-height: 28rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-back-cover.webp" alt="Back cover of the Fath Makkah e-book" loading="lazy" decoding="async" style="object-fit: contain;" /></figure>
+          <div class="cover-pair">
+            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
+            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-back-cover.webp" alt="Back cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
           </div>
         </section>
 
         <section class="page-section reveal">
           <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
-            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
+            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Hoque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
+            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Hoque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Hoque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>
       </div>

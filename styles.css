@@ -5645,3 +5645,120 @@ body {
     font-size: 1.05rem;
   }
 }
+
+/* ===================================================================
+   FATH MAKKAH — cover pair
+   The covers previously sat on large black (--ink-soft) slabs that
+   dominated the page. They now sit directly on the page background,
+   side by side, at a restrained size.
+   =================================================================== */
+.cover-pair {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cover-pair__item {
+  flex: 0 1 auto;
+  max-width: 300px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.cover-pair__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* Top-of-page cover: no slab, no forced min-height. */
+.media-asset--plain {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.media-asset--plain img {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .cover-pair__item {
+    max-width: 46%;
+  }
+}
+
+/* ===================================================================
+   AUTHOR AVATAR — clean borderless circle
+   Overrides the earlier ring (3px border, gradient padding ring) and
+   the outer box-shadow halo.
+   =================================================================== */
+.story-aside__avatar {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.story-aside__avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===================================================================
+   RINGS — footer social icons + theme toggle
+   currentColor inherits the themed text colour, so the ring is black
+   in light mode and white in dark mode automatically.
+   =================================================================== */
+.site-footer .footer-social a {
+  border: 2px solid currentColor;
+  opacity: 1;
+}
+
+.site-footer .footer-social a:hover {
+  border-color: currentColor;
+  opacity: 0.65;
+}
+
+.theme-switch {
+  border: 2px solid currentColor;
+  color: var(--ink);
+}
+
+/* The 2px border reduces the pill's inner box to 50x20, so the handle
+   is resized to keep an even gutter and the travel is recomputed:
+   50 - 16 - (2*2) = 30 ... using a 16px handle at a 2px inset. */
+.theme-switch__handle {
+  width: 16px;
+  height: 16px;
+  left: 2px;
+}
+
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px);
+}
+
+.theme-switch__icon {
+  width: 10px;
+  height: 10px;
+}
