@@ -6190,11 +6190,12 @@ body {
    mode) and a solid sun (dark mode) — there is no sliding element.
    =================================================================== */
 .theme-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid currentColor !important;
+  width: 28px;
+  height: 28px;
+  border: none !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6203,6 +6204,8 @@ body {
   outline: none;
   transition: transform 0.2s ease;
   color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* The header sets colour via --ink, so 'inherit' resolves to the themed
@@ -6222,15 +6225,16 @@ body {
 }
 
 .theme-btn:focus-visible {
-  outline: 1px solid currentColor;
-  outline-offset: 3px;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 50%;
 }
 
 .theme-btn__icon,
 .theme-btn img {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   pointer-events: none;
 }

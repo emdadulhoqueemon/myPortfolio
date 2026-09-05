@@ -81,22 +81,12 @@
     const isDark = theme === 'dark';
     document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
     if (themeToggle) {
-      // Light mode shows the moon (tap for dark); dark mode shows the sun.
+      // The button's content is ONLY the uploaded artwork.
+      //   light mode -> night_mode.svg (tap to go dark)
+      //   dark  mode -> day_mode.svg   (tap to go light)
       const iconSrc = isDark ? ICON_SUN : ICON_MOON;
-      const iconAlt = isDark ? 'Sun' : 'Moon';
-      let icon = themeToggle.querySelector('img');
-      if (!icon) {
-        icon = document.createElement('img');
-        icon.className = 'theme-btn__icon';
-        icon.setAttribute('aria-hidden', 'true');
-        icon.width = 20;
-        icon.height = 20;
-        themeToggle.innerHTML = '';
-        themeToggle.appendChild(icon);
-      }
-      // Only touch the DOM when the file actually changes.
-      if (icon.getAttribute('src') !== iconSrc) icon.setAttribute('src', iconSrc);
-      icon.alt = iconAlt;
+      const iconAlt = isDark ? 'Light Mode' : 'Dark Mode';
+      themeToggle.innerHTML = '<img src="' + iconSrc + '" alt="' + iconAlt + '" width="28" height="28" />';
       themeToggle.setAttribute('aria-pressed', String(isDark));
       themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
     }
