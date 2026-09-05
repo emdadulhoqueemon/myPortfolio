@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=1039" />
+    <link rel="stylesheet" href="styles.css?v=1040" />
     <script>
       // Light mode is the default on a first visit. Only a previously stored
       // explicit "dark" choice (set by the theme toggle) opts into dark mode.
@@ -58,30 +58,9 @@
         <span class="brand-name">Emdadul Hoque <span class="name-pulse">Emon</span></span>
       </a>
 
-      <!-- Right: sliding pill theme switch. The handle sits left with a sun
-           in light mode and slides right showing a moon in dark mode. -->
-      <button class="theme-toggle" type="button" data-theme-toggle role="switch" aria-checked="false" aria-label="Switch to dark theme" title="Switch theme">
-        <span class="theme-switch" aria-hidden="true">
-          <span class="theme-switch__handle">
-            <svg class="theme-switch__icon theme-switch__icon--sun" viewBox="0 0 24 24" width="14" height="14" focusable="false" aria-hidden="true">
-              <circle cx="12" cy="12" r="4.6" fill="currentColor" />
-              <g fill="currentColor">
-                <rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" />
-                <rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" />
-                <rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" />
-                <rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" />
-                <rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" />
-                <rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" />
-                <rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" />
-                <rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" />
-              </g>
-            </svg>
-            <svg class="theme-switch__icon theme-switch__icon--moon" viewBox="0 0 24 24" width="14" height="14" focusable="false" aria-hidden="true">
-              <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2a10 10 0 1 0 10 10c0-.42-.03-.84-.08-1.25a7.2 7.2 0 0 1-9.92-9.92C11.16 2.03 11.58 2 12 2Z" />
-            </svg>
-          </span>
-        </span>
-      </button>
+      <!-- Right: circular theme button. Shows a solid moon in light mode
+           and a solid sun in dark mode; app.js swaps the SVG on click. -->
+      <button id="theme-toggle-btn" class="theme-btn" type="button" data-theme-toggle aria-label="Toggle Theme" title="Toggle theme"></button>
     </header>
 
     <div class="drawer-backdrop" data-close-drawer></div>
@@ -216,13 +195,13 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=1039"></script>
-    <script src="data/thumbnails.js?v=1039"></script>
-    <script src="data/videos.js?v=1039"></script>
-    <script src="data/bangla-namelipi.js?v=1039"></script>
-    <script src="data/arabic-calligraphy.js?v=1039"></script>
-    <script src="data/islamic-corner.js?v=1039"></script>
-    <script src="data/prompt-library.js?v=1039"></script>
-    <script src="app.js?v=1039"></script>
+    <script src="data/graphic-design.js?v=1040"></script>
+    <script src="data/thumbnails.js?v=1040"></script>
+    <script src="data/videos.js?v=1040"></script>
+    <script src="data/bangla-namelipi.js?v=1040"></script>
+    <script src="data/arabic-calligraphy.js?v=1040"></script>
+    <script src="data/islamic-corner.js?v=1040"></script>
+    <script src="data/prompt-library.js?v=1040"></script>
+    <script src="app.js?v=1040"></script>
   </body>
 </html>

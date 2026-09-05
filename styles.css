@@ -6181,3 +6181,64 @@ body {
 .site-drawer .drawer-nav .drawer-link--feature small {
   font-weight: 400;
 }
+
+/* ===================================================================
+   THEME BUTTON — single circular control
+   Replaces the old sliding pill (.theme-toggle / .theme-switch and its
+   handle). Those rules are now dead: the classes no longer appear in
+   any markup. app.js swaps the inner SVG between a solid moon (light
+   mode) and a solid sun (dark mode) — there is no sliding element.
+   =================================================================== */
+.theme-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid currentColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: transform 0.2s ease;
+  color: inherit;
+}
+
+/* The header sets colour via --ink, so 'inherit' resolves to the themed
+   text colour: black ring/glyph in light mode, white in dark mode. */
+.site-header .theme-btn {
+  flex: 0 0 auto;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+.theme-btn:active {
+  transform: scale(0.9);
+}
+
+.theme-btn:hover {
+  transform: scale(1.06);
+}
+
+.theme-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.theme-btn__icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-btn,
+  .theme-btn:hover,
+  .theme-btn:active {
+    transition: none;
+    transform: none;
+  }
+}
