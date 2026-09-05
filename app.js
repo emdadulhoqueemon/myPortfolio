@@ -297,6 +297,42 @@
      Vertical, expandable alternative to the project grid. The header
      shows an 80px square thumbnail plus the title/category; the body
      holds the full-size original image and is revealed on click. */
+  // Copies a command chip's text (e.g. "/portrait") to the clipboard.
+  // navigator.clipboard requires a secure context, so a textarea-based
+  // fallback keeps this working over plain http:// previews too.
+  function copyCommandChip(chip) {
+    const text = (chip.textContent || '').trim();
+    if (!text) return;
+
+    const confirm = () => {
+      chip.classList.add('is-copied');
+      window.setTimeout(() => chip.classList.remove('is-copied'), 1200);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(confirm).catch(() => legacyCopy(text) && confirm());
+      return;
+    }
+    if (legacyCopy(text)) confirm();
+  }
+
+  function legacyCopy(text) {
+    try {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.top = '-9999px';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(area);
+      return ok;
+    } catch (error) {
+      return false;
+    }
+  }
+
   function accordionItem(project, index = '') {
     const displayTitle = projectDisplayTitle(project);
     const fullSrc = project.imageSrc || project.posterImage;
@@ -702,7 +738,7 @@
 
     const hasBengali = (text) => /[\u0980-\u09FF]/.test(text);
     const noteBlock = (text) => `<p class="prompt-group__note${hasBengali(text) ? ' bengali-text' : ''}"${hasBengali(text) ? ' lang="bn"' : ''}>${escapeHtml(text)}</p>`;
-    const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip">${escapeHtml(command)}</span>`).join('')}</div>`;
+    const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip" role="button" tabindex="0" title="Click to copy">${escapeHtml(command)}</span>`).join('')}</div>`;
     const comboBlock = (text) => `<code class="command-combo">${escapeHtml(text)}</code>`;
     const groupCard = (group) => {
       const commandCount = group.blocks.filter((block) => block.type === 'commands').reduce((sum, block) => sum + block.items.length, 0);
@@ -1045,6 +1081,15 @@
       return;
     }
 
+    // ---- Prompt archive: click a command chip to copy it -------------
+    // Delegated so it survives the re-render on every route change.
+    const chip = event.target.closest('.command-chip');
+    if (chip) {
+      event.preventDefault();
+      copyCommandChip(chip);
+      return;
+    }
+
     // ---- Smooth accordion -------------------------------------------
     // Delegated so it keeps working after every re-render. Buttons inside
     // the open panel (Open details / Play video) must not toggle it, so
@@ -1109,6 +1154,12 @@
       if (header) {
         event.preventDefault();
         toggleAccordion(header);
+        return;
+      }
+      const chipTarget = event.target.closest && event.target.closest('.command-chip');
+      if (chipTarget) {
+        event.preventDefault();
+        copyCommandChip(chipTarget);
         return;
       }
     }

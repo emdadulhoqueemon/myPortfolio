@@ -5052,3 +5052,104 @@ span.arabic-text,
 .page-header + .page-section {
   margin-top: clamp(3.2rem, 6vw, 5.5rem);
 }
+
+/* ===================================================================
+   PROMPT ARCHIVE — command chip hover + click-to-copy affordance
+   The pill tags (/portrait, /cinematic, …) invert on hover so the
+   interaction reads clearly in both themes.
+   =================================================================== */
+.command-chip {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  user-select: all;
+}
+
+/* Light mode: solid black pill with white text.
+   Dark mode inverts automatically because --ink/--canvas swap. */
+.command-chip:hover,
+.command-chip:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+/* Brief confirmation state after a successful copy. */
+.command-chip.is-copied {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+.command-chip.is-copied::after {
+  content: " ✓";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-chip {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   FOOTER VISIBILITY FIX
+   The footer previously sat on a dark accent gradient, so its text was
+   hardcoded to #ffffff (with -webkit-text-fill-color, which overrides
+   any inherited colour). The monochrome pivot repainted the footer
+   background to var(--canvas) — white in light mode — leaving white
+   text on white. These rules bind every footer colour to the theme ink
+   so the content is always legible.
+   =================================================================== */
+.site-footer,
+.site-footer p,
+.site-footer span,
+.site-footer em,
+.site-footer a,
+.site-footer .eyebrow,
+.site-footer .footer-title,
+.site-footer .footer-title em,
+.site-footer .footer-links a,
+.site-footer .footer-links a span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.site-footer .footer-copyright,
+.site-footer .footer-copyright span,
+.site-footer .footer-location,
+.site-footer .footer-social,
+.site-footer .footer-social a {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  opacity: 1;
+}
+
+/* Social glyphs use fill="currentColor", so binding colour is enough —
+   fill is set explicitly as well to defeat any inherited paint. */
+.site-footer svg,
+.site-footer .footer-social svg,
+.site-footer .footer-social a svg,
+.site-footer .footer-social a svg path {
+  color: var(--ink);
+  fill: currentColor;
+}
+
+/* Keep hover legible rather than fading toward the background. */
+.site-footer .footer-links a:hover,
+.site-footer .footer-social a:hover {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  opacity: 0.65;
+}
+
+/* The divider rules must also follow the theme. */
+.site-footer .footer-rule,
+.footer-rule {
+  background: var(--line);
+}
