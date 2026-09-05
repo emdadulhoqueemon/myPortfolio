@@ -601,18 +601,7 @@ body.drawer-open .site-drawer {
   color: var(--orange);
 }
 
-.drawer-subnav {
-  display: flex;
-  margin: 0.18rem 0 0.75rem 1.6rem;
-  flex-direction: column;
-  padding-left: 0.3rem;
-  border-left: 1px solid var(--line-dark);
-}
 
-.drawer-subnav .drawer-link {
-  padding-left: 0.8rem;
-  font-size: 0.73rem;
-}
 
 .drawer-footer {
   display: flex;
@@ -3335,11 +3324,6 @@ textarea:focus-visible {
 .site-drawer .drawer-close,
 .site-drawer .drawer-footer,
 .site-drawer .drawer-footer span,
-.site-drawer .drawer-subnav .drawer-link {
-  background-color: transparent;
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-}
 
 .site-drawer .drawer-heading em {
   background: none;
@@ -3716,11 +3700,6 @@ textarea:focus-visible {
   padding: 0.56rem 0;
 }
 
-.site-drawer .drawer-subnav .drawer-link {
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-}
 
 .site-drawer .drawer-link:hover,
 .site-drawer .drawer-link[aria-current="page"],
@@ -4388,10 +4367,6 @@ img {
 .drawer-link,
 .drawer-link--primary,
 .drawer-link--feature,
-.drawer-subnav .drawer-link {
-  border: 0;
-  transition: none;
-}
 
 .site-drawer .drawer-link,
 .site-drawer .drawer-link--primary,
@@ -4400,10 +4375,6 @@ img {
   letter-spacing: 0.06em;
 }
 
-.site-drawer .drawer-subnav .drawer-link {
-  font-weight: 500;
-  letter-spacing: 0.07em;
-}
 
 /* Gradient-clipped text can hairline-shift without a stable painting box. */
 .site-drawer .drawer-link,
