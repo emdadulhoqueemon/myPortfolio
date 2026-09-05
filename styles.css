@@ -5536,3 +5536,32 @@ body {
 .feature-grid--textonly .project-meta {
   justify-content: center;
 }
+
+/* ===================================================================
+   PROMO CARD SYMBOLS — centred icons inside the circle / diamond
+   The shapes are filled with --accent-gradient (black in light mode,
+   white in dark mode), so the icon takes --canvas to stay in perfect
+   contrast in both themes.
+   =================================================================== */
+.promo-card__symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+.promo-card__icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+/* The diamond is rotated 45deg, so the icon is counter-rotated
+   to sit upright inside it. */
+.promo-card--warm .promo-card__symbol .promo-card__icon {
+  transform: rotate(-45deg);
+}

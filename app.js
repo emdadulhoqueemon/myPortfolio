@@ -539,12 +539,12 @@
 
         <section class="page-section split-promos reveal">
           <a class="promo-card" href="#/islamic-corner">
-            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M15.2 3.3a9 9 0 1 0 5.5 15.9 7.2 7.2 0 1 1-5.5-15.9Z"/><path d="m18.7 3 .82 2.05L21.6 5.9l-2.08.85L18.7 8.8l-.82-2.05L15.8 5.9l2.08-.85L18.7 3Z"/></svg></span></div>
             <h3>Islamic <em>Corner.</em></h3>
             <div class="promo-card__bottom"><span>Dawah / Islamic visual content / Calligraphy</span><span aria-hidden="true">↗</span></div>
           </a>
           <a class="promo-card promo-card--warm" href="#/prompt-archive">
-            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M4.5 5.8a1.2 1.2 0 0 1 1.9-1.5l4.8 6a1.2 1.2 0 0 1 0 1.5l-4.8 6a1.2 1.2 0 0 1-1.9-1.5L8.6 11 4.5 5.8Z"/><rect x="11.4" y="16.6" width="8.6" height="2.4" rx="1.2"/></svg></span></div>
             <h3>Prompt <em>Archive.</em></h3>
             <div class="promo-card__bottom"><span>AI-assisted creative work / Iteration notes</span><span aria-hidden="true">↗</span></div>
           </a>
