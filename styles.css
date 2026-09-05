@@ -4846,3 +4846,115 @@ span.arabic-text,
 .hadith-card__arabic {
   font-family: "Amiri", "Noto Sans Bengali", serif !important;
 }
+
+/* ===================================================================
+   HEADER BAR — full-bleed, minimal height, theme-aware
+   Restores an opaque header background that spans the entire viewport
+   width, edge to edge, while staying strictly monochrome.
+   =================================================================== */
+.site-header {
+  /* Sticky (not fixed) is deliberate: the header stays in normal flow,
+     so the page content below is never hidden underneath it and no
+     compensating body padding is required. It still pins to the top
+     on scroll, and the existing show/hide-on-scroll behaviour in
+     app.js keeps working. */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+
+  /* Full bleed: escape the centred --max-width container so the bar
+     reaches the extreme left and right edges of the screen. */
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+
+  /* Minimal vertical thickness — thin and sleek. The horizontal 4%
+     inset replaces the much larger --gutter clamp. */
+  min-height: 0;
+  padding: 12px 4%;
+
+  /* Perfect vertical centring of the three zones. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  /* Theme-aware: follows the strict light/dark tokens.
+     Light -> #FFFFFF bar, dark -> #000000 bar. Opaque so content
+     scrolling beneath it is cleanly covered. */
+  background: var(--canvas);
+  color: var(--ink);
+  /* A 1px hairline in the ink colour delineates the bar; without it a
+     white bar on the white page (and black on black) would be
+     invisible. It is the only mark on an otherwise flat surface. */
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* The centred name is absolutely positioned, so it needs explicit
+   vertical centring too — flex alignment does not apply to it. */
+.brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  max-width: calc(100% - 12rem);
+  margin: 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-header .brand-name,
+.brand-name {
+  display: block;
+  line-height: 1.2;
+  font-size: clamp(0.9rem, 2.2vw, 1.18rem);
+}
+
+/* Flanking controls: no extra box, just the glyph, optically centred. */
+.menu-toggle,
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 2.2rem;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  line-height: 0;
+}
+
+.menu-toggle {
+  justify-content: flex-start;
+}
+
+.theme-toggle {
+  justify-content: flex-end;
+}
+
+.menu-toggle__icon,
+.theme-toggle__icon {
+  display: block;
+  color: var(--ink);
+}
+
+.menu-toggle__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.theme-toggle__icon {
+  width: 1.95rem;
+  height: auto;
+}
