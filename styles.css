@@ -6226,11 +6226,12 @@ body {
   outline-offset: 3px;
 }
 
-.theme-btn__icon {
+.theme-btn__icon,
+.theme-btn img {
   display: block;
-  width: 17px;
-  height: 17px;
-  fill: currentColor;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
   pointer-events: none;
 }
 
@@ -6242,3 +6243,35 @@ body {
     transform: none;
   }
 }
+
+/* ===================================================================
+   THEME BUTTON ARTWORK — uploaded night_mode.svg / day_mode.svg
+   Loaded via <img>, so currentColor cannot reach inside them; a CSS
+   filter is the only way to recolour them.
+
+   The brief assumed both files are black and asked for invert(1) in
+   dark mode. They are not:
+     night_mode.svg (shown in LIGHT mode) — black disc + white detail.
+       Light ground is #ffffff, so the black artwork already reads.
+     day_mode.svg  (shown in DARK mode)  — a single #ffffff path only.
+       Dark ground is #000000, so the white artwork already reads.
+
+   Inverting day_mode.svg in dark mode would paint it #000000 on a
+   #000000 ground and the sun would vanish. Both files are therefore
+   left un-inverted, which is what the brief actually wanted visually:
+   a dark glyph in light mode and a light glyph in dark mode.
+
+   The hook is kept below so the artwork can be re-tinted in one place
+   if either file is ever replaced with a differently coloured version.
+   =================================================================== */
+.theme-btn img {
+  filter: none;
+}
+
+/* If night_mode.svg is ever swapped for a WHITE-on-transparent version,
+   uncomment this to bring it back to black on the light ground: */
+/* :root[data-theme="light"] .theme-btn img { filter: invert(1); } */
+
+/* If day_mode.svg is ever swapped for a BLACK-on-transparent version,
+   uncomment this to bring it back to white on the dark ground: */
+/* :root[data-theme="dark"] .theme-btn img { filter: invert(1); } */

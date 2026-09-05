@@ -70,18 +70,33 @@
     }
   }
 
-  // Solid crescent: an r=10 disc with a circular cutout (fill-rule evenodd).
-  const ICON_MOON = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2a10 10 0 1 0 10 10c0-.42-.03-.84-.08-1.25a7.2 7.2 0 0 1-9.92-9.92C11.16 2.03 11.58 2 12 2Z" /></svg>';
-
-  // Solid centre disc plus eight detached, pill-ended rays.
-  const ICON_SUN = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.6" fill="currentColor" /><g fill="currentColor"><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /></g></svg>';
+  // Theme button artwork. These are the uploaded files, referenced as
+  // <img> rather than inline SVG.
+  //   light mode -> night_mode.svg (moon: "switch to dark")
+  //   dark  mode -> day_mode.svg   (sun:  "switch to light")
+  const ICON_MOON = 'assets/night_mode.svg';
+  const ICON_SUN = 'assets/day_mode.svg';
 
   function applyTheme(theme) {
     const isDark = theme === 'dark';
     document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
     if (themeToggle) {
       // Light mode shows the moon (tap for dark); dark mode shows the sun.
-      themeToggle.innerHTML = isDark ? ICON_SUN : ICON_MOON;
+      const iconSrc = isDark ? ICON_SUN : ICON_MOON;
+      const iconAlt = isDark ? 'Sun' : 'Moon';
+      let icon = themeToggle.querySelector('img');
+      if (!icon) {
+        icon = document.createElement('img');
+        icon.className = 'theme-btn__icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.width = 20;
+        icon.height = 20;
+        themeToggle.innerHTML = '';
+        themeToggle.appendChild(icon);
+      }
+      // Only touch the DOM when the file actually changes.
+      if (icon.getAttribute('src') !== iconSrc) icon.setAttribute('src', iconSrc);
+      icon.alt = iconAlt;
       themeToggle.setAttribute('aria-pressed', String(isDark));
       themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
     }
