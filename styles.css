@@ -5404,3 +5404,135 @@ body {
     transition: none;
   }
 }
+
+/* ===================================================================
+   HEADER NAME — slow breathing pulse on "Emon"
+   =================================================================== */
+@keyframes slowPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.name-pulse {
+  animation: slowPulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-pulse {
+    animation: none;
+  }
+}
+
+/* ===================================================================
+   HOME HERO — two-column layout
+   Text on the left, portrait image placeholder on the right.
+   =================================================================== */
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+.hero-column--text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.hero-column--text .hero-bio {
+  max-width: 46ch;
+  margin: 0;
+}
+
+.hero-column--media {
+  display: flex;
+  min-width: 0;
+  justify-content: flex-end;
+}
+
+/* Portrait placeholder box — replace the inner content with an <img>. */
+.hero-photo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 26rem;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+}
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.hero-photo__hint {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.45;
+}
+
+/* Stack on narrow screens: image below the text. */
+@media (max-width: 860px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-column--media {
+    justify-content: flex-start;
+  }
+
+  .hero-photo {
+    max-width: 20rem;
+  }
+}
+
+/* ===================================================================
+   FATH MAKKAH — text-only feature block
+   The cover image was removed, so the copy is centred on its own.
+   =================================================================== */
+.feature-grid--textonly {
+  display: block;
+  max-width: 62rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.feature-grid--textonly .feature-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.feature-grid--textonly .feature-copy__top,
+.feature-grid--textonly .feature-copy__bottom {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feature-grid--textonly .feature-copy p {
+  max-width: 58ch;
+  margin: 0 auto;
+}
+
+.feature-grid--textonly .project-meta {
+  justify-content: center;
+}

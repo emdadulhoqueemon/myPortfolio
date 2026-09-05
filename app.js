@@ -23,13 +23,29 @@
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
 
   // ---- Theme (light / dark) -------------------------------------------
-  const THEME_KEY = 'eh-theme';
+  // The key is versioned. Any value written before this version (including
+  // a stale 'dark' left over from an earlier visit, when the site still
+  // followed the OS preference) is discarded, so every visitor gets a
+  // genuine first-visit experience: LIGHT MODE.
+  const THEME_KEY = 'eh-theme-v2';
+  const LEGACY_THEME_KEYS = ['eh-theme'];
 
+  function purgeLegacyTheme() {
+    try {
+      LEGACY_THEME_KEYS.forEach((key) => window.localStorage.removeItem(key));
+    } catch (error) {
+      /* Storage unavailable; nothing to purge. */
+    }
+  }
+
+  // Returns 'dark' ONLY if the user explicitly chose it via the toggle.
+  // Everything else — no value, an unreadable store, a legacy value, or
+  // any unrecognised string — resolves to light.
   function readStoredTheme() {
     try {
-      return window.localStorage.getItem(THEME_KEY);
+      return window.localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light';
     } catch (error) {
-      return null;
+      return 'light';
     }
   }
 
@@ -471,19 +487,19 @@
             <span>01 — 04 / Curated home</span>
           </div>
           <div class="hero-layout">
-            <div>
+            <div class="hero-column hero-column--text">
               <h1 class="hero-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
+              <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
+              <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
               <div class="hero-actions">
                 ${routeLink('/work', 'View selected work', 'button-link button-link--filled')}
                 ${routeLink('/about', 'Read about the practice', 'button-link')}
               </div>
             </div>
-            <div class="hero-support">
-              <span class="hero-support__line"></span>
-              <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
-              <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
-              <div class="hero-mark" aria-hidden="true">
-                <span class="hero-mark__label">Still / moving<br />image system</span>
+            <div class="hero-column hero-column--media">
+              <!-- Portrait image placeholder: drop an <img> in here later. -->
+              <div class="hero-photo" role="img" aria-label="Portrait photo placeholder">
+                <span class="hero-photo__hint">Portrait</span>
               </div>
             </div>
           </div>
@@ -495,10 +511,7 @@
             <span>Selected project / 01</span>
             <span>Flagship case study</span>
           </div>
-          <div class="feature-grid">
-            <div class="feature-visual">
-              <figure class="media-asset media-asset--poster" style="min-height: 100%; background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" fetchpriority="high" style="object-fit: contain;" /></figure>
-            </div>
+          <div class="feature-grid feature-grid--textonly">
             <div class="feature-copy">
               <div class="feature-copy__top">
                 ${metaLine(['Fath Makkah', 'E-book / Historical case study'])}
@@ -1172,6 +1185,7 @@
   // Honour an explicit stored choice only; otherwise always start in light mode.
   // The site never auto-switches to dark from the OS preference — dark theme is
   // opt-in via the theme toggle button.
+  purgeLegacyTheme();
   applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
 
   render();

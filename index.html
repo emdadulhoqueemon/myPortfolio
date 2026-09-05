@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
-    <link rel="stylesheet" href="styles.css?v=1027" />
+    <link rel="stylesheet" href="styles.css?v=1028" />
     <script>
       // Light mode is the default on a first visit. Only a previously stored
       // explicit "dark" choice (set by the theme toggle) opts into dark mode.
@@ -18,7 +18,10 @@
       (function () {
         var theme = 'light';
         try {
-          if (window.localStorage.getItem('eh-theme') === 'dark') theme = 'dark';
+          // Retire any pre-v2 value so a stale 'dark' from an earlier
+          // visit can never override the light default.
+          window.localStorage.removeItem('eh-theme');
+          if (window.localStorage.getItem('eh-theme-v2') === 'dark') theme = 'dark';
         } catch (error) {
           /* Storage unavailable (private mode) — stay on the light default. */
         }
@@ -47,7 +50,7 @@
 
       <!-- Centre: the name, absolutely centred in the header. -->
       <a class="brand" href="#/" aria-label="Emdadul Hoque Emon, home">
-        <span class="brand-name">Emdadul Hoque Emon</span>
+        <span class="brand-name">Emdadul Hoque <span class="name-pulse">Emon</span></span>
       </a>
 
       <!-- Right: sliding pill theme switch. The handle sits left with a sun
