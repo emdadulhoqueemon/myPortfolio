@@ -3367,10 +3367,6 @@ textarea:focus-visible {
 }
 
 /* 2b. Sidebar heading sits lower and breathes. */
-.site-drawer .drawer-heading {
-  margin-top: 2.4rem;
-}
-
 .site-drawer .drawer-heading p {
   margin-top: 0.9rem;
 }
