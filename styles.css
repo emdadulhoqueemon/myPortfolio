@@ -6190,11 +6190,11 @@ body {
    mode) and a solid sun (dark mode) — there is no sliding element.
    =================================================================== */
 .theme-btn {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: transparent;
-  border: 2px solid currentColor;
+  border: 1px solid currentColor !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6222,14 +6222,14 @@ body {
 }
 
 .theme-btn:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
 }
 
 .theme-btn__icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   fill: currentColor;
   pointer-events: none;
 }

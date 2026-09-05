@@ -71,10 +71,10 @@
   }
 
   // Solid crescent: an r=10 disc with a circular cutout (fill-rule evenodd).
-  const ICON_MOON = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2a10 10 0 1 0 10 10c0-.42-.03-.84-.08-1.25a7.2 7.2 0 0 1-9.92-9.92C11.16 2.03 11.58 2 12 2Z" /></svg>';
+  const ICON_MOON = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M12 2a10 10 0 1 0 10 10c0-.42-.03-.84-.08-1.25a7.2 7.2 0 0 1-9.92-9.92C11.16 2.03 11.58 2 12 2Z" /></svg>';
 
   // Solid centre disc plus eight detached, pill-ended rays.
-  const ICON_SUN = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.6" fill="currentColor" /><g fill="currentColor"><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /></g></svg>';
+  const ICON_SUN = '<svg class="theme-btn__icon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.6" fill="currentColor" /><g fill="currentColor"><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" /><rect x="10.9" y="0.6" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="10.9" y="19" width="2.2" height="4.4" rx="1.1" transform="rotate(45 12 12)" /><rect x="0.6" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /><rect x="19" y="10.9" width="4.4" height="2.2" rx="1.1" transform="rotate(45 12 12)" /></g></svg>';
 
   function applyTheme(theme) {
     const isDark = theme === 'dark';
