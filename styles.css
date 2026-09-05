@@ -5793,9 +5793,6 @@ body {
    are appended last, so they are scoped to Latin-script UI classes only
    and never touch .bengali-text / .arabic-text.
    =================================================================== */
-.brand-name,
-.brand-name .name-pulse,
-.site-footer .eyebrow,
 .footer-note,
 .footer-note span,
 .footer-title,
@@ -5900,5 +5897,95 @@ body {
 
   .site-footer .footer-social a.footer-social__link:hover {
     transform: none;
+  }
+}
+
+/* ===================================================================
+   1. NAME — handwritten Caveat
+   Applies to the header brand and the footer eyebrow, which are the
+   two places 'Emdadul Hoque Emon' appears. These selectors were
+   removed from the Parkinsans group above so the two !important
+   rules do not fight.
+   =================================================================== */
+.brand-name,
+.brand-name .name-pulse,
+.site-header .brand-name,
+.site-footer .eyebrow {
+  font-family: 'Caveat', cursive !important;
+  text-transform: capitalize !important;
+  font-size: 1.8rem;
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+/* The footer eyebrow inherits uppercase + wide tracking from .eyebrow;
+   both are neutralised above. Keep it visually balanced. */
+.site-footer .eyebrow {
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* ===================================================================
+   2. STRAP LINE — force Parkinsans
+   'Visual Designer · Video Editor · Creative Content Creator'
+   =================================================================== */
+.footer-note,
+.footer-note span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.hero-support__meta {
+  font-family: 'Parkinsans', sans-serif !important;
+}
+
+/* ===================================================================
+   3. SOCIAL ICONS — force a horizontal row
+   Root cause: the <nav> is a flex ITEM inside .footer-links, which is
+   'flex-direction: column', and that column sits in the narrow 0.55fr
+   track of .footer-grid. The nav was already display:flex/wrap — it
+   simply had no horizontal room, so the rings wrapped one-per-line.
+   Fixing the nav alone cannot work; the parent track must be widened.
+   =================================================================== */
+.site-footer .footer-social,
+.footer-social {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto !important;
+  max-width: 100% !important;
+  grid-template-columns: none !important;
+}
+
+/* Let the nav span the full footer width instead of being trapped in
+   the narrow link column. */
+.site-footer .footer-links {
+  width: 100%;
+  max-width: 100%;
+}
+
+.site-footer .footer-links .footer-social {
+  width: 100% !important;
+  flex-basis: 100%;
+}
+
+/* The icon row needs real width: 9 rings at 44px + 16px gaps is about
+   530px. The old 0.55fr track was far too narrow, so widen that column
+   rather than restructuring the footer. */
+@media (min-width: 861px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr minmax(560px, 1.1fr);
+  }
+
+  .site-footer .footer-grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Below that, let the footer stack naturally. */
+@media (max-width: 860px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr;
   }
 }
