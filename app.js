@@ -819,10 +819,12 @@
               <h2 class="contact-title">Open<br /><span>line.</span></h2>
               <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
               <ul class="contact-channels">
-                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com">emdadulhoqueemon@outlook.com</a></li>
+                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com" target="_blank" rel="noopener noreferrer">emdadulhoqueemon@outlook.com</a></li>
                 <li><span>YouTube</span><a href="https://www.youtube.com/@emdadsvisual" target="_blank" rel="noopener noreferrer">@emdadsvisual</a></li>
                 <li><span>Facebook</span><a href="https://www.facebook.com/emdadulhoqueemo" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
                 <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/emdadulhoqueemo/" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+                <li><span>WhatsApp</span><a href="https://wa.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
+                <li><span>Telegram</span><a href="https://t.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
               </ul>
               <div class="note-box">The form below is a visual interaction placeholder and does not send a message yet — email is the reliable route for now.</div>
             </div>

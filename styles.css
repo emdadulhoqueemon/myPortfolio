@@ -5251,17 +5251,22 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Sun shows in light mode, moon in dark mode. */
-.theme-switch__icon--moon {
+/* Reversed: the handle shows the MOON in light mode (tap for dark) and
+   the SUN in dark mode (tap for light). */
+.theme-switch__icon--sun {
   opacity: 0;
+}
+
+.theme-switch__icon--moon {
+  opacity: 1;
 }
 
 :root[data-theme="dark"] .theme-switch__icon--sun {
-  opacity: 0;
+  opacity: 1;
 }
 
 :root[data-theme="dark"] .theme-switch__icon--moon {
-  opacity: 1;
+  opacity: 0;
 }
 
 .theme-toggle:hover .theme-switch {
@@ -5780,4 +5785,59 @@ body {
   .hero-photo__img {
     max-width: 340px;
   }
+}
+
+/* ===================================================================
+   TYPOGRAPHY — brand name + descriptive strap lines
+   These sit ahead of the Bengali/Arabic exception blocks in intent but
+   are appended last, so they are scoped to Latin-script UI classes only
+   and never touch .bengali-text / .arabic-text.
+   =================================================================== */
+.brand-name,
+.brand-name .name-pulse,
+.site-footer .eyebrow,
+.footer-note,
+.footer-note span,
+.footer-title,
+.footer-title em,
+.footer-copyright,
+.footer-copyright span,
+.footer-location,
+.hero-support__meta {
+  font-family: 'Parkinsans', sans-serif !important;
+}
+
+/* ===================================================================
+   THEME TOGGLE — explicit pill + circular handle
+   =================================================================== */
+.theme-switch {
+  border-radius: 50px;
+}
+
+.theme-switch__handle {
+  border-radius: 50%;
+}
+
+/* ===================================================================
+   AUTHOR AVATAR — smaller, grayscale until hover
+   =================================================================== */
+.story-aside__avatar {
+  width: 80px;
+  height: 80px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.story-aside__avatar img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+}
+
+.story-aside__avatar img:hover,
+.story-aside__avatar:hover img {
+  filter: grayscale(0%);
 }
