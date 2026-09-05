@@ -64,8 +64,7 @@
     drawerOpen: false,
     modalOpen: false,
     drawerReturnFocus: null,
-    modalReturnFocus: null,
-    archiveFilter: 'all'
+    modalReturnFocus: null
   };
 
   const categories = [
@@ -169,12 +168,6 @@
     imageAlt: 'Front cover of the Fath Makkah e-book',
     summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Haque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
   };
-
-  // Placeholder entries removed: the archive now shows only real content
-  // (the slash-command library). The filter toolbar and entry list below
-  // derive from this array, so both disappear automatically while it is
-  // empty and return as soon as genuine entries are added.
-  const promptEntries = [];
 
   const routeTitles = {
     '/': 'Home',
@@ -735,32 +728,7 @@
     `;
   }
 
-  // Only render a filter tab when entries actually carry that tag, so the
-  // toolbar never shows a dead control that filters to an empty list.
-  function archiveFilterButtons() {
-    const candidates = [
-      { key: 'process', label: 'Process' },
-      { key: 'ai-assisted', label: 'AI-assisted' },
-      { key: 'iteration', label: 'Iteration' }
-    ].filter((option) => promptEntries.some((entry) => entry.tag.toLowerCase().includes(option.key)));
-    const options = [{ key: 'all', label: 'All' }, ...candidates];
-    if (options.length < 2) return '';
-    return options.map((option) => `<button class="filter-button" type="button" data-archive-filter="${escapeHtml(option.key)}" aria-pressed="${state.archiveFilter === option.key}">${escapeHtml(option.label)}</button>`).join('');
-  }
-
   function renderPromptArchive() {
-    const filtered = state.archiveFilter === 'all'
-      ? promptEntries
-      : promptEntries.filter((entry) => entry.tag.toLowerCase().includes(state.archiveFilter));
-    const entries = filtered.map((entry) => `
-      <button class="archive-entry" type="button" data-open-prompt="${escapeHtml(entry.index)}" aria-label="Open ${escapeHtml(entry.title)}">
-        <span class="archive-entry__index">${escapeHtml(entry.index)}</span>
-        <span class="archive-entry__title">${escapeHtml(entry.title)}</span>
-        <span class="archive-entry__detail">${escapeHtml(entry.detail)}</span>
-        <span class="archive-entry__arrow" aria-hidden="true">→</span>
-      </button>
-    `).join('');
-
     const hasBengali = (text) => /[\u0980-\u09FF]/.test(text);
     const noteBlock = (text) => `<p class="prompt-group__note${hasBengali(text) ? ' bengali-text' : ''}"${hasBengali(text) ? ' lang="bn"' : ''}>${escapeHtml(text)}</p>`;
     const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip" role="button" tabindex="0" title="Click to copy">${escapeHtml(command)}</span>`).join('')}</div>`;
@@ -798,11 +766,6 @@
             </div>
           </div>
         </section>
-        ${promptEntries.length ? `
-        <section class="page-section reveal">
-          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive">${archiveFilterButtons()}</div><span class="archive-count">${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}</span></div>
-          <div class="archive-list">${entries || '<p class="note-box">No entries match this filter.</p>'}</div>
-        </section>` : ''}
         ${librarySection}
       </div>
     `;
@@ -1027,24 +990,6 @@
     window.setTimeout(() => modalRoot.querySelector('.modal-panel__close')?.focus(), 60);
   }
 
-  function openPromptModal(index) {
-    const entry = promptEntries.find((item) => item.index === index);
-    if (!entry) return;
-    state.modalReturnFocus = document.activeElement;
-    state.modalOpen = true;
-    modalRoot.innerHTML = modalTemplate(`
-      <div class="modal-panel__body">
-        <span class="eyebrow">${escapeHtml(entry.tag)}</span>
-        <h2 id="modal-title">${escapeHtml(entry.title)}</h2>
-        <p class="modal-panel__intro">${escapeHtml(entry.detail)}</p>
-        <div class="prompt-modal__prompt">Prompt content, references, iterations, tool information, outputs, and final creative decisions will be added here from supplied archive material.</div>
-        <div class="note-box">Sensitive or private prompts can be redacted. This archive is designed to document process, not expose information that should remain private.</div>
-      </div>
-    `);
-    document.body.classList.add('modal-open');
-    window.setTimeout(() => modalRoot.querySelector('.modal-panel__close')?.focus(), 60);
-  }
-
   function closeModal(restoreFocus = true) {
     if (!state.modalOpen) return;
     state.modalOpen = false;
@@ -1146,20 +1091,6 @@
     if (videoButton) {
       event.preventDefault();
       openVideoModal(videoButton.dataset.openVideo);
-      return;
-    }
-
-    const promptButton = event.target.closest('[data-open-prompt]');
-    if (promptButton) {
-      event.preventDefault();
-      openPromptModal(promptButton.dataset.openPrompt);
-      return;
-    }
-
-    const filterButton = event.target.closest('[data-archive-filter]');
-    if (filterButton) {
-      state.archiveFilter = filterButton.dataset.archiveFilter;
-      render();
       return;
     }
 

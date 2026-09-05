@@ -5342,3 +5342,65 @@ body {
     transition: none;
   }
 }
+
+/* ===================================================================
+   THEME TOGGLE — sleek slim pill
+   Reduced from 60x30 to 54x24 so the switch reads as a thin control
+   rather than a bulky button. Metrics are chosen so the handle sits
+   with an even 2px gutter on every side.
+
+   Geometry (box-sizing: border-box is global):
+     pill  54 x 24, 1px border  -> inner box 52 x 22
+     handle 18px, inset 2px      -> 2px gutter top/bottom/left
+     travel 52 - 18 - 2 - 2 = 30 -> translateX(30px) rests it flush right
+   =================================================================== */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 24px;
+  border: 1px solid var(--ink);
+  border-radius: 50px;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.theme-switch__handle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--canvas);
+  transform: translateY(-50%) translateX(0);
+  transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+}
+
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px);
+}
+
+/* Smaller glyphs to sit comfortably inside the 18px handle. */
+.theme-switch__icon {
+  grid-area: 1 / 1;
+  width: 11px;
+  height: 11px;
+  color: var(--canvas);
+  transition: opacity 0.3s ease;
+}
+
+/* Keep the button's footprint matched to the slimmer pill. */
+.theme-toggle {
+  min-width: 54px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch__handle,
+  .theme-switch__icon {
+    transition: none;
+  }
+}
