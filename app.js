@@ -545,9 +545,6 @@
     return `
       <div class="page">
         ${pageHeader(`${category.index} / Category hub`, escapeHtml(category.title), category.intro, 'Dedicated route / Reusable hub')}
-        <section class="page-section reveal">
-          <div class="category-hero-mark category-hero-mark--${category.tone}" aria-hidden="true">${escapeHtml(category.mark).replace('\n', '<br />')}</div>
-        </section>
         ${hasVideo ? `
           <section class="page-section reveal">
             <div class="section-heading">
