@@ -1,5 +1,70 @@
 @charset "UTF-8";
 
+/* ===================================================================
+   PARKINSANS — self-hosted from assets/fonts/parkinsans/
+   Served from the repository, not the Google Fonts CDN.
+
+   The variable font covers the full 300-800 range in a single file and
+   is declared first so it wins where supported; the static weights that
+   follow act as a fallback for engines without variable-font support.
+   =================================================================== */
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-VariableFont_wght.ttf") format("truetype-variations"),
+       url("assets/fonts/parkinsans/Parkinsans-Regular.ttf") format("truetype");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Type system: Google Fonts loaded via <link> in index.html
    Parkinsans is the single global face for ALL Latin/English text
    (headings, body, UI, links). Noto Sans Bengali (bn) and Amiri (ar)
