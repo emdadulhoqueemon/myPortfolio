@@ -27,8 +27,8 @@
   // a stale 'dark' left over from an earlier visit, when the site still
   // followed the OS preference) is discarded, so every visitor gets a
   // genuine first-visit experience: LIGHT MODE.
-  const THEME_KEY = 'eh-theme-v2';
-  const LEGACY_THEME_KEYS = ['eh-theme'];
+  const THEME_KEY = 'eh-theme-v3';
+  const LEGACY_THEME_KEYS = ['eh-theme', 'eh-theme-v2'];
 
   function purgeLegacyTheme() {
     try {
@@ -47,6 +47,19 @@
     } catch (error) {
       return 'light';
     }
+  }
+
+  // Escape hatch: '?theme=light' (or '?theme=dark') forces a theme and
+  // rewrites storage. Useful to prove the default without hunting through
+  // browser settings to clear site data.
+  function readThemeOverride() {
+    try {
+      const value = new URLSearchParams(window.location.search).get('theme');
+      if (value === 'light' || value === 'dark') return value;
+    } catch (error) {
+      /* URLSearchParams unavailable; ignore. */
+    }
+    return null;
   }
 
   function storeTheme(theme) {
@@ -491,10 +504,6 @@
               <h1 class="hero-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
               <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
-              <div class="hero-actions">
-                ${routeLink('/work', 'View selected work', 'button-link button-link--filled')}
-                ${routeLink('/about', 'Read about the practice', 'button-link')}
-              </div>
             </div>
             <div class="hero-column hero-column--media">
               <!-- Portrait image placeholder: drop an <img> in here later. -->
@@ -506,23 +515,15 @@
           <div class="scroll-cue">Scroll to explore</div>
         </section>
 
-        <section class="page-section feature-block reveal reveal-delay-1">
+        <section class="page-section feature-block feature-block--compact reveal reveal-delay-1">
           <div class="feature-topline">
             <span>Selected project / 01</span>
             <span>Flagship case study</span>
           </div>
-          <div class="feature-grid feature-grid--textonly">
-            <div class="feature-copy">
-              <div class="feature-copy__top">
-                ${metaLine(['Fath Makkah', 'E-book / Historical case study'])}
-                <h2 class="feature-title">Fath <span>Makkah</span></h2>
-                <p>An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
-              </div>
-              <div class="feature-copy__bottom">
-                <span class="eyebrow">Author / Muhammad Emdadul Haque</span>
-                ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled')}
-              </div>
-            </div>
+          <div class="flagship-card">
+            <h2 class="flagship-card__title">Fath <span>Makkah</span></h2>
+            <p class="flagship-card__desc">An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
+            ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled flagship-card__cta')}
           </div>
         </section>
 
@@ -1186,7 +1187,13 @@
   // The site never auto-switches to dark from the OS preference — dark theme is
   // opt-in via the theme toggle button.
   purgeLegacyTheme();
-  applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
+  const themeOverride = readThemeOverride();
+  if (themeOverride) {
+    applyTheme(themeOverride);
+    storeTheme(themeOverride);
+  } else {
+    applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
+  }
 
   render();
 

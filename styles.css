@@ -5201,7 +5201,7 @@ body {
   justify-content: flex-end;
   flex: 0 0 auto;
   width: auto;
-  min-width: 60px;
+  min-width: 54px;
   min-height: 0;
   margin: 0;
   padding: 0;
@@ -5215,8 +5215,8 @@ body {
 .theme-switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 30px;
+  width: 54px;
+  height: 24px;
   border: 1px solid var(--ink);
   border-radius: 999px;
   background: transparent;
@@ -5226,11 +5226,11 @@ body {
 .theme-switch__handle {
   position: absolute;
   top: 50%;
-  left: 3px;
+  left: 2px;
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: var(--ink);
   color: var(--canvas);
@@ -5240,13 +5240,13 @@ body {
 
 /* Dark mode: slide the handle to the right-hand end of the pill. */
 :root[data-theme="dark"] .theme-switch__handle {
-  transform: translateY(-50%) translateX(30px);
+  transform: translateY(-50%) translateX(30px); /* 52 - 18 - 2*2 = 30 */
 }
 
 .theme-switch__icon {
   grid-area: 1 / 1;
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   color: var(--canvas);
   transition: opacity 0.3s ease;
 }
@@ -5564,4 +5564,84 @@ body {
    to sit upright inside it. */
 .promo-card--warm .promo-card__symbol .promo-card__icon {
   transform: rotate(-45deg);
+}
+
+/* ===================================================================
+   HERO — CTA buttons removed, so tighten the remaining stack
+   =================================================================== */
+.hero-column--text .hero-support__meta {
+  margin-top: 0.2rem;
+}
+
+/* ===================================================================
+   FATH MAKKAH — compact flagship card
+   Was a full-width feature block; now a small, self-contained card.
+   =================================================================== */
+.feature-block--compact {
+  padding-top: clamp(1.6rem, 3vw, 2.4rem);
+  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.flagship-card {
+  display: flex;
+  max-width: 34rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-top: 1.1rem;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+}
+
+.flagship-card__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.flagship-card__desc {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.flagship-card__cta {
+  margin-top: 0.35rem;
+}
+
+/* ===================================================================
+   PRACTICE LIST — compact rows
+   The row height was driven mostly by an oversized title, so the type
+   scale is reduced alongside the padding.
+   =================================================================== */
+.practice-item {
+  gap: 0.85rem;
+  padding: 0.7rem 0;
+}
+
+.practice-item__title {
+  font-size: clamp(1.05rem, 1.9vw, 1.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.practice-item:hover {
+  padding-right: 0.6rem;
+  padding-left: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .practice-item {
+    padding: 0.6rem 0;
+  }
+
+  .practice-item__title {
+    font-size: 1.05rem;
+  }
 }
