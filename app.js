@@ -293,6 +293,78 @@
     `;
   }
 
+  /* ---- Smooth accordion list -------------------------------------
+     Vertical, expandable alternative to the project grid. The header
+     shows an 80px square thumbnail plus the title/category; the body
+     holds the full-size original image and is revealed on click. */
+  function accordionItem(project, index = '') {
+    const displayTitle = projectDisplayTitle(project);
+    const fullSrc = project.imageSrc || project.posterImage;
+    const alt = project.imageAlt || displayTitle;
+    const category = project.label || 'Project';
+    const num = index ? String(index).padStart(2, '0') : '';
+
+    const thumb = fullSrc
+      ? `<img class="accordion-thumb" src="${escapeHtml(fullSrc)}" alt="" loading="lazy" decoding="async" draggable="false" />`
+      : `<span class="accordion-thumb accordion-thumb--placeholder" aria-hidden="true">${escapeHtml(num || '—')}</span>`;
+
+    const full = fullSrc
+      ? `<img class="accordion-full" src="${escapeHtml(fullSrc)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" draggable="false" />`
+      : visualPlaceholder(project.visual, displayTitle, num);
+
+    const summary = project.summary
+      ? `<p class="accordion-summary"${localizedAttrs(project)}>${escapeHtml(project.summary)}</p>`
+      : '';
+
+    const action = project.video
+      ? `<button class="button-link" type="button" data-open-video="${escapeHtml(project.slug)}">Play video</button>`
+      : `<button class="button-link" type="button" data-open-project="${escapeHtml(project.slug)}">Open details</button>`;
+
+    const panelId = `accordion-panel-${escapeHtml(project.slug)}`;
+
+    return `
+      <div class="accordion-item">
+        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="${panelId}">
+          ${thumb}
+          <div class="accordion-heading">
+            <h3 class="accordion-title"><span${localizedAttrs(project)}>${escapeHtml(displayTitle)}</span></h3>
+            <span class="accordion-category">${escapeHtml(category)}</span>
+          </div>
+          <span class="accordion-indicator" aria-hidden="true">+</span>
+        </div>
+        <div class="accordion-content" id="${panelId}">
+          ${full}
+          ${summary}
+          <div class="accordion-actions">${action}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Only one item stays open at a time; clicking an open item closes it.
+  function toggleAccordion(header) {
+    const item = header.closest('.accordion-item');
+    if (!item) return;
+    const willOpen = !item.classList.contains('active');
+    const root = item.closest('.accordion-list') || document;
+    root.querySelectorAll('.accordion-item.active').forEach((other) => {
+      if (other === item) return;
+      other.classList.remove('active');
+      const otherHeader = other.querySelector('.accordion-header');
+      if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+    });
+    item.classList.toggle('active', willOpen);
+    header.setAttribute('aria-expanded', String(willOpen));
+  }
+
+  function accordionItems(entries) {
+    return entries.map((entry, i) => accordionItem(entry, i + 1)).join('');
+  }
+
+  function accordionList(entries) {
+    return `<div class="accordion-list">${accordionItems(entries)}</div>`;
+  }
+
   function videoFacade(id, title = 'Short-form video placeholder', portrait = false) {
     const sourceProject = getProject(id);
     const poster = sourceProject?.imageSrc || sourceProject?.posterImage;
@@ -466,7 +538,7 @@
       status: 'Placeholder content',
       summary: `A temporary placeholder for the ${category.title} category. Real project material will be added later.`
     }];
-    const cards = entries.map((project, index) => projectCard(project, index + 1)).join('');
+    const cards = accordionList(entries);
     const hasVideo = slug === 'video-editing';
     const videoProject = projects.find((project) => project.video && project.featured) || projects.find((project) => project.video);
 
@@ -490,7 +562,7 @@
             <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Category<br /><span>work.</span></h2></div>
             <p class="section-heading__side">The category can later support filters, project metadata, related work, and a full archive without changing its route.</p>
           </div>
-          <div class="project-grid">${cards}</div>
+          ${cards}
         </section>
       </div>
     `;
@@ -743,7 +815,7 @@
   }
 
   function renderBanglaNamelipi() {
-    const cards = banglaNamelipiArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const cards = accordionItems(banglaNamelipiArchive);
     const total = banglaNamelipiArchive.length;
     if (banglaGrid) banglaGrid.innerHTML = cards;
     if (banglaCount) {
@@ -753,7 +825,7 @@
   }
 
   function renderArabicCalligraphy() {
-    const cards = arabicCalligraphyArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const cards = accordionItems(arabicCalligraphyArchive);
     const total = arabicCalligraphyArchive.length;
     if (arabicGrid) arabicGrid.innerHTML = cards;
     if (arabicCount) {
@@ -976,6 +1048,17 @@
       return;
     }
 
+    // ---- Smooth accordion -------------------------------------------
+    // Delegated so it keeps working after every re-render. Buttons inside
+    // the open panel (Open details / Play video) must not toggle it, so
+    // they are excluded before the header is matched.
+    const accordionHeader = event.target.closest('.accordion-header');
+    if (accordionHeader && !event.target.closest('[data-open-project], [data-open-video]')) {
+      event.preventDefault();
+      toggleAccordion(accordionHeader);
+      return;
+    }
+
     const projectButton = event.target.closest('[data-open-project]');
     if (projectButton) {
       event.preventDefault();
@@ -1022,6 +1105,17 @@
   });
 
   document.addEventListener('keydown', (event) => {
+    // Accordion headers are role="button" + tabindex="0", so Enter/Space
+    // must activate them the way a real <button> would.
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      const header = event.target.closest && event.target.closest('.accordion-header');
+      if (header) {
+        event.preventDefault();
+        toggleAccordion(header);
+        return;
+      }
+    }
+
     if (event.key === 'Escape') {
       if (state.modalOpen) closeModal();
       else if (state.drawerOpen) closeDrawer();
