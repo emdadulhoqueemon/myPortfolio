@@ -214,10 +214,9 @@ textarea:focus-visible {
   min-height: 5.9rem;
   margin: 0 auto;
   padding: 1rem var(--gutter);
-  border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  /* Completely flat and transparent: no bar, border, blur or shape. */
+  border: 0;
+  background: transparent;
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2839,7 +2838,7 @@ body.drawer-open .site-drawer {
 
 /* ---------------------------------------------------------------
    Google Fonts typography pass
-   Aladin = display/headings/facades, Inter = body/UI,
+   Parkinsans = all Latin text (display, headings, body, UI),
    Noto Sans Bengali = Bengali, Amiri = Arabic (Quran / Hadith)
    --------------------------------------------------------------- */
 
@@ -2872,7 +2871,7 @@ h6,
   font-family: var(--font-display);
 }
 
-/* Aladin is a decorative display face: negative tracking hurts it. */
+/* Display type: negative tracking hurts the display face. */
 .page-header h1,
 .hero-title,
 .feature-title,
@@ -2932,7 +2931,7 @@ small {
   font-synthesis: none;
 }
 
-/* Aladin ships a single 400 weight — avoid faux-bold synthesis on display type. */
+/* Avoid faux-bold synthesis on display type. */
 h1,
 h2,
 h3,
@@ -3336,11 +3335,7 @@ textarea:focus-visible {
   pointer-events: none;
 }
 
-/* 1b. Premium curve on the bottom edge of the header bar. */
-.site-header {
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
+/* 1b. Header is strictly flat — the premium bottom curve is removed. */
 
 /* 2a. Case-study title reads "Fath Makkah", not "FATH MAKKAH". */
 .page-header h1,
@@ -3594,7 +3589,7 @@ textarea:focus-visible {
    Refinement pass — header type, avatar, drawer, theme toggle
    --------------------------------------------------------------- */
 
-/* 1. Subtitle: Inter, matched to the name's visual volume/width. */
+/* 1. Subtitle (removed from the header markup; kept for legacy nodes). */
 .brand-role {
   color: var(--ink);
   font-family: var(--font-ui);
@@ -3850,7 +3845,7 @@ textarea:focus-visible {
    --------------------------------------------------------------- */
 
 /* 1. Name larger; subtitle tracked out to match its width.
-   The name is Aladin (display) at 1.62rem; the subtitle is Inter, which is
+   The name is the display face at 1.62rem; the subtitle, which is
    a narrower face, so it needs extra letter-spacing to span the same width. */
 .brand-name {
   font-family: var(--font-display);
@@ -4078,7 +4073,7 @@ body,
 }
 
 /* 3. Header: name slightly larger; subtitle tightened to match its width.
-   Aladin is wide, Inter is narrow — the subtitle needs a small size and
+   The display face is wide — the subtitle needs a small size and
    moderate tracking to land on the same total width. */
 .brand-name {
   font-family: var(--font-display);
@@ -4183,7 +4178,7 @@ body,
   display: none;
 }
 
-/* 2. Subtitle must use Inter, not the inherited Aladin display face.
+/* 2. Subtitle uses the global UI face.
    Earlier passes set --font-display on .brand-* selectors, so this needs
    !important to win reliably. Sized/tracked to match the name's width. */
 .brand-name {
@@ -4366,7 +4361,7 @@ img {
   letter-spacing: 0.05em;
 }
 
-/* Video cards use the smaller Inter treatment — give them the same air. */
+/* Video cards use the smaller body treatment — give them the same air. */
 .project-card--video .project-card__title,
 .project-card--video .project-card__title span:first-child {
   letter-spacing: 0.05em;
@@ -4391,7 +4386,7 @@ img {
 
 /* -------------------------------------------------------------
    1. Global typography: Parkinsans is the single Latin face.
-   Every element inherits it, so no stale Aladin/Inter rule can
+   Every element inherits it, so no stale legacy font rule can
    survive. The two script exceptions are re-asserted below.
    ------------------------------------------------------------- */
 html,
@@ -4742,4 +4737,47 @@ body {
   border: 1px solid var(--line);
   background: var(--canvas);
   color: var(--ink);
+}
+
+/* ===================================================================
+   GLOBAL TYPOGRAPHY — explicit enforcement
+   Parkinsans is the single face for all English/Latin text.
+   =================================================================== */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+  font-family: "Parkinsans", sans-serif !important;
+}
+
+/* CRUCIAL EXCEPTION — Bengali and Arabic keep their own faces.
+   Declared AFTER the blanket rule above (equal specificity + !important),
+   so the cascade resolves in favour of the script-specific face. Without
+   this, the `span` selector above would capture Bengali/Arabic spans. */
+[lang="bn"],
+[lang="bn"] *,
+.bengali-text,
+.bengali-text *,
+span[lang="bn"],
+span.bengali-text,
+.verse-card__bengali,
+.verse-card__source {
+  font-family: "Noto Sans Bengali", sans-serif !important;
+}
+
+[lang="ar"],
+[lang="ar"] *,
+.arabic-text,
+.arabic-text *,
+span[lang="ar"],
+span.arabic-text,
+.verse-card__arabic,
+.hadith-card__arabic {
+  font-family: "Amiri", "Noto Sans Bengali", serif !important;
 }
