@@ -10,7 +10,7 @@
   const drawer = document.getElementById('site-drawer');
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
-  const themeToggle = document.querySelector('[data-theme-toggle]');
+  const themeToggle = document.getElementById('theme-toggle-btn') || document.querySelector('[data-theme-toggle]');
   // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
   const banglaSection = document.getElementById('bangla-namelipi');
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
@@ -23,14 +23,43 @@
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
 
   // ---- Theme (light / dark) -------------------------------------------
-  const THEME_KEY = 'eh-theme';
+  // The key is versioned. Any value written before this version (including
+  // a stale 'dark' left over from an earlier visit, when the site still
+  // followed the OS preference) is discarded, so every visitor gets a
+  // genuine first-visit experience: LIGHT MODE.
+  const THEME_KEY = 'eh-theme-v3';
+  const LEGACY_THEME_KEYS = ['eh-theme', 'eh-theme-v2'];
 
+  function purgeLegacyTheme() {
+    try {
+      LEGACY_THEME_KEYS.forEach((key) => window.localStorage.removeItem(key));
+    } catch (error) {
+      /* Storage unavailable; nothing to purge. */
+    }
+  }
+
+  // Returns 'dark' ONLY if the user explicitly chose it via the toggle.
+  // Everything else — no value, an unreadable store, a legacy value, or
+  // any unrecognised string — resolves to light.
   function readStoredTheme() {
     try {
-      return window.localStorage.getItem(THEME_KEY);
+      return window.localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light';
     } catch (error) {
-      return null;
+      return 'light';
     }
+  }
+
+  // Escape hatch: '?theme=light' (or '?theme=dark') forces a theme and
+  // rewrites storage. Useful to prove the default without hunting through
+  // browser settings to clear site data.
+  function readThemeOverride() {
+    try {
+      const value = new URLSearchParams(window.location.search).get('theme');
+      if (value === 'light' || value === 'dark') return value;
+    } catch (error) {
+      /* URLSearchParams unavailable; ignore. */
+    }
+    return null;
   }
 
   function storeTheme(theme) {
@@ -41,10 +70,23 @@
     }
   }
 
+  // Theme button artwork. These are the uploaded files, referenced as
+  // <img> rather than inline SVG.
+  //   light mode -> night_mode.svg (moon: "switch to dark")
+  //   dark  mode -> day_mode.svg   (sun:  "switch to light")
+  const ICON_MOON = 'assets/night_mode.svg';
+  const ICON_SUN = 'assets/day_mode.svg';
+
   function applyTheme(theme) {
     const isDark = theme === 'dark';
     document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
     if (themeToggle) {
+      // The button's content is ONLY the uploaded artwork.
+      //   light mode -> night_mode.svg (tap to go dark)
+      //   dark  mode -> day_mode.svg   (tap to go light)
+      const iconSrc = isDark ? ICON_SUN : ICON_MOON;
+      const iconAlt = isDark ? 'Light Mode' : 'Dark Mode';
+      themeToggle.innerHTML = '<img src="' + iconSrc + '" alt="' + iconAlt + '" width="28" height="28" />';
       themeToggle.setAttribute('aria-pressed', String(isDark));
       themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
     }
@@ -61,8 +103,7 @@
     drawerOpen: false,
     modalOpen: false,
     drawerReturnFocus: null,
-    modalReturnFocus: null,
-    archiveFilter: 'all'
+    modalReturnFocus: null
   };
 
   const categories = [
@@ -164,23 +205,8 @@
     featured: true,
     imageSrc: 'assets/case-study/fath-makkah-ebook-cover.webp',
     imageAlt: 'Front cover of the Fath Makkah e-book',
-    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Haque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
+    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Hoque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
   };
-
-  const promptEntries = [
-    {
-      index: '01',
-      title: 'AI-assisted study placeholder',
-      tag: 'AI-assisted / Placeholder',
-      detail: 'A future entry for documenting an AI-assisted visual experiment without exposing private material.'
-    },
-    {
-      index: '02',
-      title: 'Iteration notes placeholder',
-      tag: 'Iteration / Placeholder',
-      detail: 'A future entry for recording what worked, what changed, and why the final direction was chosen.'
-    }
-  ];
 
   const routeTitles = {
     '/': 'Home',
@@ -293,6 +319,144 @@
     `;
   }
 
+  /* ---- Smooth accordion list -------------------------------------
+     Vertical, expandable alternative to the project grid. The header
+     shows an 80px square thumbnail plus the title/category; the body
+     holds the full-size original image and is revealed on click. */
+  // Copies a full Ayat/Hadith card: Arabic, Bengali translation and the
+  // reference, each on its own line.
+  function copyVerseCard(button) {
+    const card = button.closest('.verse-card');
+    if (!card) return;
+
+    const pick = (selector) => {
+      const node = card.querySelector(selector);
+      return node ? (node.textContent || '').trim() : '';
+    };
+
+    const arabic = pick('.verse-card__arabic');
+    const bengali = pick('.verse-card__bengali');
+    const source = pick('.verse-card__source');
+
+    const text = [arabic, bengali, source].filter(Boolean).join('\n\n');
+    if (!text) return;
+
+    const confirm = () => {
+      button.classList.add('is-copied');
+      window.setTimeout(() => button.classList.remove('is-copied'), 1200);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(confirm).catch(() => legacyCopy(text) && confirm());
+      return;
+    }
+    if (legacyCopy(text)) confirm();
+  }
+
+  // Copies a command chip's text (e.g. "/portrait") to the clipboard.
+  // navigator.clipboard requires a secure context, so a textarea-based
+  // fallback keeps this working over plain http:// previews too.
+  function copyCommandChip(chip) {
+    const text = (chip.textContent || '').trim();
+    if (!text) return;
+
+    const confirm = () => {
+      chip.classList.add('is-copied');
+      window.setTimeout(() => chip.classList.remove('is-copied'), 1200);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(confirm).catch(() => legacyCopy(text) && confirm());
+      return;
+    }
+    if (legacyCopy(text)) confirm();
+  }
+
+  function legacyCopy(text) {
+    try {
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.top = '-9999px';
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(area);
+      return ok;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function accordionItem(project, index = '') {
+    const displayTitle = projectDisplayTitle(project);
+    const fullSrc = project.imageSrc || project.posterImage;
+    const alt = project.imageAlt || displayTitle;
+    const category = project.label || 'Project';
+    const num = index ? String(index).padStart(2, '0') : '';
+
+    const thumb = fullSrc
+      ? `<img class="accordion-thumb" src="${escapeHtml(fullSrc)}" alt="" loading="lazy" decoding="async" draggable="false" />`
+      : `<span class="accordion-thumb accordion-thumb--placeholder" aria-hidden="true">${escapeHtml(num || '—')}</span>`;
+
+    const full = fullSrc
+      ? `<img class="accordion-full" src="${escapeHtml(fullSrc)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" draggable="false" />`
+      : visualPlaceholder(project.visual, displayTitle, num);
+
+    const summary = project.summary
+      ? `<p class="accordion-summary"${localizedAttrs(project)}>${escapeHtml(project.summary)}</p>`
+      : '';
+
+    const action = project.video
+      ? `<button class="button-link" type="button" data-open-video="${escapeHtml(project.slug)}">Play video</button>`
+      : `<button class="button-link" type="button" data-open-project="${escapeHtml(project.slug)}">Open details</button>`;
+
+    const panelId = `accordion-panel-${escapeHtml(project.slug)}`;
+
+    return `
+      <div class="accordion-item">
+        <div class="accordion-header" role="button" tabindex="0" aria-expanded="false" aria-controls="${panelId}">
+          ${thumb}
+          <div class="accordion-heading">
+            <h3 class="accordion-title"><span${localizedAttrs(project)}>${escapeHtml(displayTitle)}</span></h3>
+            <span class="accordion-category">${escapeHtml(category)}</span>
+          </div>
+          <span class="accordion-indicator" aria-hidden="true">+</span>
+        </div>
+        <div class="accordion-content" id="${panelId}">
+          ${full}
+          ${summary}
+          <div class="accordion-actions">${action}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Only one item stays open at a time; clicking an open item closes it.
+  function toggleAccordion(header) {
+    const item = header.closest('.accordion-item');
+    if (!item) return;
+    const willOpen = !item.classList.contains('active');
+    const root = item.closest('.accordion-list') || document;
+    root.querySelectorAll('.accordion-item.active').forEach((other) => {
+      if (other === item) return;
+      other.classList.remove('active');
+      const otherHeader = other.querySelector('.accordion-header');
+      if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+    });
+    item.classList.toggle('active', willOpen);
+    header.setAttribute('aria-expanded', String(willOpen));
+  }
+
+  function accordionItems(entries) {
+    return entries.map((entry, i) => accordionItem(entry, i + 1)).join('');
+  }
+
+  function accordionList(entries) {
+    return `<div class="accordion-list">${accordionItems(entries)}</div>`;
+  }
+
   function videoFacade(id, title = 'Short-form video placeholder', portrait = false) {
     const sourceProject = getProject(id);
     const poster = sourceProject?.imageSrc || sourceProject?.posterImage;
@@ -346,45 +510,29 @@
             <span>01 — 04 / Curated home</span>
           </div>
           <div class="hero-layout">
-            <div>
+            <div class="hero-column hero-column--text">
               <h1 class="hero-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
-              <div class="hero-actions">
-                ${routeLink('/work', 'View selected work', 'button-link button-link--filled')}
-                ${routeLink('/about', 'Read about the practice', 'button-link')}
-              </div>
-            </div>
-            <div class="hero-support">
-              <span class="hero-support__line"></span>
               <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
-              <div class="hero-mark" aria-hidden="true">
-                <span class="hero-mark__label">Still / moving<br />image system</span>
+            </div>
+            <div class="hero-column hero-column--media">
+              <div class="hero-photo">
+                <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
               </div>
             </div>
           </div>
           <div class="scroll-cue">Scroll to explore</div>
         </section>
 
-        <section class="page-section feature-block reveal reveal-delay-1">
+        <section class="page-section feature-block feature-block--compact reveal reveal-delay-1">
           <div class="feature-topline">
             <span>Selected project / 01</span>
             <span>Flagship case study</span>
           </div>
-          <div class="feature-grid">
-            <div class="feature-visual">
-              <figure class="media-asset media-asset--poster" style="min-height: 100%; background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" fetchpriority="high" style="object-fit: contain;" /></figure>
-            </div>
-            <div class="feature-copy">
-              <div class="feature-copy__top">
-                ${metaLine(['Fath Makkah', 'E-book / Historical case study'])}
-                <h2 class="feature-title">Fath <span>Makkah</span></h2>
-                <p>An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
-              </div>
-              <div class="feature-copy__bottom">
-                <span class="eyebrow">Author / Muhammad Emdadul Haque</span>
-                ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled')}
-              </div>
-            </div>
+          <div class="flagship-card">
+            <h2 class="flagship-card__title">Fath <span>Makkah</span></h2>
+            <p class="flagship-card__desc">An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
+            ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled flagship-card__cta')}
           </div>
         </section>
 
@@ -401,12 +549,12 @@
 
         <section class="page-section split-promos reveal">
           <a class="promo-card" href="#/islamic-corner">
-            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M15.2 3.3a9 9 0 1 0 5.5 15.9 7.2 7.2 0 1 1-5.5-15.9Z"/><path d="m18.7 3 .82 2.05L21.6 5.9l-2.08.85L18.7 8.8l-.82-2.05L15.8 5.9l2.08-.85L18.7 3Z"/></svg></span></div>
             <h3>Islamic <em>Corner.</em></h3>
             <div class="promo-card__bottom"><span>Dawah / Islamic visual content / Calligraphy</span><span aria-hidden="true">↗</span></div>
           </a>
           <a class="promo-card promo-card--warm" href="#/prompt-archive">
-            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M4.5 5.8a1.2 1.2 0 0 1 1.9-1.5l4.8 6a1.2 1.2 0 0 1 0 1.5l-4.8 6a1.2 1.2 0 0 1-1.9-1.5L8.6 11 4.5 5.8Z"/><rect x="11.4" y="16.6" width="8.6" height="2.4" rx="1.2"/></svg></span></div>
             <h3>Prompt <em>Archive.</em></h3>
             <div class="promo-card__bottom"><span>AI-assisted creative work / Iteration notes</span><span aria-hidden="true">↗</span></div>
           </a>
@@ -466,16 +614,13 @@
       status: 'Placeholder content',
       summary: `A temporary placeholder for the ${category.title} category. Real project material will be added later.`
     }];
-    const cards = entries.map((project, index) => projectCard(project, index + 1)).join('');
+    const cards = accordionList(entries);
     const hasVideo = slug === 'video-editing';
     const videoProject = projects.find((project) => project.video && project.featured) || projects.find((project) => project.video);
 
     return `
       <div class="page">
         ${pageHeader(`${category.index} / Category hub`, escapeHtml(category.title), category.intro, 'Dedicated route / Reusable hub')}
-        <section class="page-section reveal">
-          <div class="category-hero-mark category-hero-mark--${category.tone}" aria-hidden="true">${escapeHtml(category.mark).replace('\n', '<br />')}</div>
-        </section>
         ${hasVideo ? `
           <section class="page-section reveal">
             <div class="section-heading">
@@ -490,7 +635,7 @@
             <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Category<br /><span>work.</span></h2></div>
             <p class="section-heading__side">The category can later support filters, project metadata, related work, and a full archive without changing its route.</p>
           </div>
-          <div class="project-grid">${cards}</div>
+          ${cards}
         </section>
       </div>
     `;
@@ -504,8 +649,8 @@
 
         <section class="page-section reveal">
           <div class="media-grid">
-            <figure class="media-asset media-asset--poster" style="min-height: 30rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);">
-              <img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" style="object-fit: contain;" />
+            <figure class="media-asset media-asset--plain">
+              <img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" />
             </figure>
             <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
               <span class="eyebrow">Project / Historical e-book</span>
@@ -541,16 +686,16 @@
 
         <section class="page-section reveal">
           <div class="section-heading"><div><div class="section-topline"><span>Cover system / 03</span><span>Front + back</span></div><h2 class="section-title">The book<br /><span>as object.</span></h2></div><p class="section-heading__side">Both supplied cover images are kept visible as part of the case study rather than being reduced to a single thumbnail.</p></div>
-          <div class="media-grid">
-            <figure class="media-asset media-asset--poster" style="min-height: 28rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="lazy" decoding="async" style="object-fit: contain;" /></figure>
-            <figure class="media-asset media-asset--poster" style="min-height: 28rem; padding: clamp(1rem, 3vw, 2.5rem); background: var(--ink-soft);"><img src="assets/case-study/fath-makkah-ebook-back-cover.webp" alt="Back cover of the Fath Makkah e-book" loading="lazy" decoding="async" style="object-fit: contain;" /></figure>
+          <div class="cover-pair">
+            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
+            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-back-cover.webp" alt="Back cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
           </div>
         </section>
 
         <section class="page-section reveal">
           <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Haque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
-            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Haque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Haque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
+            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Hoque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
+            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Hoque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Hoque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
           </div>
         </section>
       </div>
@@ -561,7 +706,8 @@
     const verseCard = (entry, position) => {
       const delayClass = position % 3 === 1 ? ' reveal-delay-1' : (position % 3 === 2 ? ' reveal-delay-2' : '');
       const arabic = entry.arabic ? `<p class="verse-card__arabic arabic-text" lang="ar" dir="rtl">${escapeHtml(entry.arabic)}</p>` : '';
-      return `<figure class="verse-card${entry.arabic ? '' : ' verse-card--reminder'} reveal${delayClass}">${arabic}<blockquote class="verse-card__bengali bengali-text" lang="bn">${escapeHtml(entry.bengali)}</blockquote><figcaption class="verse-card__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</figcaption></figure>`;
+      const copyButton = `<button class="verse-card__copy" type="button" data-copy-verse aria-label="Copy this text" title="Copy"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11Z"/></svg></button>`;
+      return `<figure class="verse-card${entry.arabic ? '' : ' verse-card--reminder'} reveal${delayClass}">${arabic}<blockquote class="verse-card__bengali bengali-text" lang="bn">${escapeHtml(entry.bengali)}</blockquote><figcaption class="verse-card__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</figcaption>${copyButton}</figure>`;
     };
     const verseGrid = (entries) => `<div class="verse-grid">${entries.map((entry, index) => verseCard(entry, index)).join('')}</div>`;
 
@@ -605,35 +751,10 @@
     `;
   }
 
-  // Only render a filter tab when entries actually carry that tag, so the
-  // toolbar never shows a dead control that filters to an empty list.
-  function archiveFilterButtons() {
-    const candidates = [
-      { key: 'process', label: 'Process' },
-      { key: 'ai-assisted', label: 'AI-assisted' },
-      { key: 'iteration', label: 'Iteration' }
-    ].filter((option) => promptEntries.some((entry) => entry.tag.toLowerCase().includes(option.key)));
-    const options = [{ key: 'all', label: 'All' }, ...candidates];
-    if (options.length < 2) return '';
-    return options.map((option) => `<button class="filter-button" type="button" data-archive-filter="${escapeHtml(option.key)}" aria-pressed="${state.archiveFilter === option.key}">${escapeHtml(option.label)}</button>`).join('');
-  }
-
   function renderPromptArchive() {
-    const filtered = state.archiveFilter === 'all'
-      ? promptEntries
-      : promptEntries.filter((entry) => entry.tag.toLowerCase().includes(state.archiveFilter));
-    const entries = filtered.map((entry) => `
-      <button class="archive-entry" type="button" data-open-prompt="${escapeHtml(entry.index)}" aria-label="Open ${escapeHtml(entry.title)}">
-        <span class="archive-entry__index">${escapeHtml(entry.index)}</span>
-        <span class="archive-entry__title">${escapeHtml(entry.title)}</span>
-        <span class="archive-entry__detail">${escapeHtml(entry.detail)}</span>
-        <span class="archive-entry__arrow" aria-hidden="true">→</span>
-      </button>
-    `).join('');
-
     const hasBengali = (text) => /[\u0980-\u09FF]/.test(text);
     const noteBlock = (text) => `<p class="prompt-group__note${hasBengali(text) ? ' bengali-text' : ''}"${hasBengali(text) ? ' lang="bn"' : ''}>${escapeHtml(text)}</p>`;
-    const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip">${escapeHtml(command)}</span>`).join('')}</div>`;
+    const commandBlock = (items) => `<div class="command-chips">${items.map((command) => `<span class="command-chip" role="button" tabindex="0" title="Click to copy">${escapeHtml(command)}</span>`).join('')}</div>`;
     const comboBlock = (text) => `<code class="command-combo">${escapeHtml(text)}</code>`;
     const groupCard = (group) => {
       const commandCount = group.blocks.filter((block) => block.type === 'commands').reduce((sum, block) => sum + block.items.length, 0);
@@ -667,10 +788,6 @@
               <div class="note-box">Commands are grouped by purpose — creative direction, photography, lighting, composition, historical reconstruction, education, and more — exactly as they are used in practice.</div>
             </div>
           </div>
-        </section>
-        <section class="page-section reveal">
-          <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive">${archiveFilterButtons()}</div><span class="archive-count">${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}</span></div>
-          <div class="archive-list">${entries || '<p class="note-box">No placeholder entries match this filter.</p>'}</div>
         </section>
         ${librarySection}
       </div>
@@ -712,10 +829,12 @@
               <h2 class="contact-title">Open<br /><span>line.</span></h2>
               <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
               <ul class="contact-channels">
-                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com">emdadulhoqueemon@outlook.com</a></li>
+                <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com" target="_blank" rel="noopener noreferrer">emdadulhoqueemon@outlook.com</a></li>
                 <li><span>YouTube</span><a href="https://www.youtube.com/@emdadsvisual" target="_blank" rel="noopener noreferrer">@emdadsvisual</a></li>
                 <li><span>Facebook</span><a href="https://www.facebook.com/emdadulhoqueemo" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
                 <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/emdadulhoqueemo/" target="_blank" rel="noopener noreferrer">emdadulhoqueemo</a></li>
+                <li><span>WhatsApp</span><a href="https://wa.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
+                <li><span>Telegram</span><a href="https://t.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
               </ul>
               <div class="note-box">The form below is a visual interaction placeholder and does not send a message yet — email is the reliable route for now.</div>
             </div>
@@ -743,7 +862,7 @@
   }
 
   function renderBanglaNamelipi() {
-    const cards = banglaNamelipiArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const cards = accordionItems(banglaNamelipiArchive);
     const total = banglaNamelipiArchive.length;
     if (banglaGrid) banglaGrid.innerHTML = cards;
     if (banglaCount) {
@@ -753,7 +872,7 @@
   }
 
   function renderArabicCalligraphy() {
-    const cards = arabicCalligraphyArchive.map((entry, index) => projectCard(entry, index + 1)).join('');
+    const cards = accordionItems(arabicCalligraphyArchive);
     const total = arabicCalligraphyArchive.length;
     if (arabicGrid) arabicGrid.innerHTML = cards;
     if (arabicCount) {
@@ -896,24 +1015,6 @@
     window.setTimeout(() => modalRoot.querySelector('.modal-panel__close')?.focus(), 60);
   }
 
-  function openPromptModal(index) {
-    const entry = promptEntries.find((item) => item.index === index);
-    if (!entry) return;
-    state.modalReturnFocus = document.activeElement;
-    state.modalOpen = true;
-    modalRoot.innerHTML = modalTemplate(`
-      <div class="modal-panel__body">
-        <span class="eyebrow">${escapeHtml(entry.tag)}</span>
-        <h2 id="modal-title">${escapeHtml(entry.title)}</h2>
-        <p class="modal-panel__intro">${escapeHtml(entry.detail)}</p>
-        <div class="prompt-modal__prompt">Prompt content, references, iterations, tool information, outputs, and final creative decisions will be added here from supplied archive material.</div>
-        <div class="note-box">Sensitive or private prompts can be redacted. This archive is designed to document process, not expose information that should remain private.</div>
-      </div>
-    `);
-    document.body.classList.add('modal-open');
-    window.setTimeout(() => modalRoot.querySelector('.modal-panel__close')?.focus(), 60);
-  }
-
   function closeModal(restoreFocus = true) {
     if (!state.modalOpen) return;
     state.modalOpen = false;
@@ -955,7 +1056,7 @@
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
-    if (event.target.closest('[data-theme-toggle]')) {
+    if (event.target.closest('#theme-toggle-btn, [data-theme-toggle]')) {
       event.preventDefault();
       toggleTheme();
       return;
@@ -976,6 +1077,34 @@
       return;
     }
 
+    // ---- Islamic Corner: copy a full Ayat card -----------------------
+    const copyVerse = event.target.closest('[data-copy-verse]');
+    if (copyVerse) {
+      event.preventDefault();
+      copyVerseCard(copyVerse);
+      return;
+    }
+
+    // ---- Prompt archive: click a command chip to copy it -------------
+    // Delegated so it survives the re-render on every route change.
+    const chip = event.target.closest('.command-chip');
+    if (chip) {
+      event.preventDefault();
+      copyCommandChip(chip);
+      return;
+    }
+
+    // ---- Smooth accordion -------------------------------------------
+    // Delegated so it keeps working after every re-render. Buttons inside
+    // the open panel (Open details / Play video) must not toggle it, so
+    // they are excluded before the header is matched.
+    const accordionHeader = event.target.closest('.accordion-header');
+    if (accordionHeader && !event.target.closest('[data-open-project], [data-open-video]')) {
+      event.preventDefault();
+      toggleAccordion(accordionHeader);
+      return;
+    }
+
     const projectButton = event.target.closest('[data-open-project]');
     if (projectButton) {
       event.preventDefault();
@@ -987,20 +1116,6 @@
     if (videoButton) {
       event.preventDefault();
       openVideoModal(videoButton.dataset.openVideo);
-      return;
-    }
-
-    const promptButton = event.target.closest('[data-open-prompt]');
-    if (promptButton) {
-      event.preventDefault();
-      openPromptModal(promptButton.dataset.openPrompt);
-      return;
-    }
-
-    const filterButton = event.target.closest('[data-archive-filter]');
-    if (filterButton) {
-      state.archiveFilter = filterButton.dataset.archiveFilter;
-      render();
       return;
     }
 
@@ -1022,6 +1137,23 @@
   });
 
   document.addEventListener('keydown', (event) => {
+    // Accordion headers are role="button" + tabindex="0", so Enter/Space
+    // must activate them the way a real <button> would.
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      const header = event.target.closest && event.target.closest('.accordion-header');
+      if (header) {
+        event.preventDefault();
+        toggleAccordion(header);
+        return;
+      }
+      const chipTarget = event.target.closest && event.target.closest('.command-chip');
+      if (chipTarget) {
+        event.preventDefault();
+        copyCommandChip(chipTarget);
+        return;
+      }
+    }
+
     if (event.key === 'Escape') {
       if (state.modalOpen) closeModal();
       else if (state.drawerOpen) closeDrawer();
@@ -1062,8 +1194,17 @@
     render();
   });
 
-  // Honour a stored choice, else follow the OS preference.
-  applyTheme(readStoredTheme() || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+  // Honour an explicit stored choice only; otherwise always start in light mode.
+  // The site never auto-switches to dark from the OS preference — dark theme is
+  // opt-in via the theme toggle button.
+  purgeLegacyTheme();
+  const themeOverride = readThemeOverride();
+  if (themeOverride) {
+    applyTheme(themeOverride);
+    storeTheme(themeOverride);
+  } else {
+    applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
+  }
 
   render();
 

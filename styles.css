@@ -1,46 +1,122 @@
 @charset "UTF-8";
 
+/* ===================================================================
+   PARKINSANS — self-hosted from assets/fonts/parkinsans/
+   Served from the repository, not the Google Fonts CDN.
+
+   The variable font covers the full 300-800 range in a single file and
+   is declared first so it wins where supported; the static weights that
+   follow act as a fallback for engines without variable-font support.
+   =================================================================== */
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-VariableFont_wght.ttf") format("truetype-variations"),
+       url("assets/fonts/parkinsans/Parkinsans-Regular.ttf") format("truetype");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Parkinsans";
+  src: url("assets/fonts/parkinsans/Parkinsans-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Type system: Google Fonts loaded via <link> in index.html
-   Aladin (display), Inter (UI/body), Noto Sans Bengali (bn), Amiri (ar) */
+   Parkinsans is the single global face for ALL Latin/English text
+   (headings, body, UI, links). Noto Sans Bengali (bn) and Amiri (ar)
+   are deliberately preserved for their scripts. */
 
 :root {
-  --font-ui: "Inter", "Noto Sans Bengali", Arial, sans-serif;
-  --font-display: "Aladin", "Inter", Georgia, cursive;
-  --font-bengali: "Noto Sans Bengali", "Inter", sans-serif;
+  --font-ui: "Parkinsans", "Noto Sans Bengali", Arial, sans-serif;
+  --font-display: "Parkinsans", "Noto Sans Bengali", Arial, sans-serif;
+  --font-bengali: "Noto Sans Bengali", sans-serif;
   --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
+  /* ---------------------------------------------------------------
+     STRICT MONOCHROME — light mode (default).
+     Background is absolute #FFFFFF, every glyph is absolute #000000.
+     Filled shapes/buttons are solid black carrying white text.
+     There are exactly two ink values; no greys, tints, or gradients.
+     --------------------------------------------------------------- */
   --canvas: #ffffff;
-  --surface: #f6f7f8;
-  --surface-strong: #eceef0;
-  --ink: #1a1a1a;
-  --ink-soft: #292929;
+  --surface: #ffffff;
+  --surface-strong: #ffffff;
+  --ink: #000000;
+  --ink-soft: #000000;
   --paper: #ffffff;
   --paper-light: #ffffff;
-  --paper-deep: #eceef0;
-  /* Legacy accent names now resolve to the premium gradient's tones,
-     so every remaining var(--orange) reference stops rendering orange. */
-  --acid: #4f4d3e;
-  --orange: #4f4d3e;
-  --orange-deep: #3c3b3f;
-  --coral: #605c3c;
-  --gold: #d28a3b;
-  --muted: #6c6f73;
-  --muted-dark: #4e5155;
-  --line: rgba(26, 26, 26, 0.14);
-  --line-dark: rgba(255, 255, 255, 0.18);
-  --shadow-sm: 0 6px 18px rgba(26, 26, 26, 0.08);
-  --shadow-md: 0 18px 45px rgba(26, 26, 26, 0.13);
-  --shadow-lg: 0 28px 70px rgba(26, 26, 26, 0.18);
+  --paper-deep: #ffffff;
+  /* Legacy accent names all collapse onto pure black so any remaining
+     var(--orange)/var(--acid) reference renders monochrome. */
+  --acid: #000000;
+  --orange: #000000;
+  --orange-deep: #000000;
+  --coral: #000000;
+  --gold: #000000;
+  --muted: #000000;
+  --muted-dark: #000000;
+  --line: #000000;
+  --line-dark: #000000;
+  /* Ultra-minimalist: no coloured depth. Shadows are removed entirely. */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
   --max-width: 1380px;
   --gutter: clamp(1.1rem, 3.4vw, 4.6rem);
   --radius-sm: 0.7rem;
   --radius-md: 1.15rem;
   --radius-lg: 1.7rem;
   --pill: 999px;
-  --accent-gradient: linear-gradient(to left, #605c3c, #3c3b3f);
-  --accent-gradient-deep: linear-gradient(to left, #4b482f, #232225);
-  --accent-solid: #4f4d3e;
-  --accent-shadow: rgba(60, 59, 63, 0.24);
+  /* "Gradients" are now flat black/white so gradient-clipped text and
+     filled buttons stay strictly monochrome. */
+  --accent-gradient: #000000;
+  --accent-gradient-deep: #000000;
+  --accent-solid: #000000;
+  --accent-shadow: transparent;
   --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
@@ -52,6 +128,21 @@ html {
   background: var(--canvas);
   color-scheme: light;
   scroll-behavior: smooth;
+}
+
+/* Light is the explicit default: any document without an opt-in
+   data-theme="dark" renders the light palette, regardless of the
+   operating system's colour-scheme preference. */
+:root:not([data-theme="dark"]) {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  color-scheme: light;
+}
+
+:root:not([data-theme="dark"]) html,
+:root:not([data-theme="dark"]) body {
+  background: var(--canvas);
+  color: var(--ink);
 }
 
 body {
@@ -125,7 +216,7 @@ textarea:focus-visible {
   height: 30vw;
   min-width: 38rem;
   min-height: 18rem;
-  border: 1px solid rgba(96, 92, 60, 0.09);
+  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 50%;
   filter: blur(0.5px);
   transform: rotate(-17deg);
@@ -142,7 +233,7 @@ textarea:focus-visible {
 .ambient-wave--one {
   top: 8vh;
   right: -18vw;
-  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.05), transparent 68%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.05), transparent 68%);
   animation: ambient-breathe 19s ease-in-out infinite alternate;
 }
 
@@ -160,7 +251,7 @@ textarea:focus-visible {
   width: 56vw;
   height: 24vw;
   transform: rotate(-8deg);
-  background: radial-gradient(ellipse at center, rgba(96, 92, 60, 0.035), transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.035), transparent 70%);
   animation: ambient-breathe 25s ease-in-out -8s infinite alternate;
 }
 
@@ -188,10 +279,9 @@ textarea:focus-visible {
   min-height: 5.9rem;
   margin: 0 auto;
   padding: 1rem var(--gutter);
-  border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  /* Completely flat and transparent: no bar, border, blur or shape. */
+  border: 0;
+  background: transparent;
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -214,18 +304,18 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(60, 59, 63, 0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 ::-webkit-scrollbar-thumb {
   border: 2px solid transparent;
   border-radius: 999px;
-  background: linear-gradient(to bottom, #605c3c, #3c3b3f);
+  background: #000000;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #4b482f, #232225);
+  background: #000000;
   background-clip: content-box;
 }
 
@@ -235,7 +325,7 @@ html {
 
 html {
   scrollbar-width: thin;
-  scrollbar-color: #4f4d3e rgba(60, 59, 63, 0.06);
+  scrollbar-color: #000000 rgba(0, 0, 0, 0.06);
 }
 
 .brand {
@@ -255,7 +345,7 @@ html {
   border-radius: 50%;
   background: var(--ink);
   color: var(--paper);
-  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.11);
 }
 
 .profile-avatar span {
@@ -511,18 +601,7 @@ body.drawer-open .site-drawer {
   color: var(--orange);
 }
 
-.drawer-subnav {
-  display: flex;
-  margin: 0.18rem 0 0.75rem 1.6rem;
-  flex-direction: column;
-  padding-left: 0.3rem;
-  border-left: 1px solid var(--line-dark);
-}
 
-.drawer-subnav .drawer-link {
-  padding-left: 0.8rem;
-  font-size: 0.73rem;
-}
 
 .drawer-footer {
   display: flex;
@@ -752,7 +831,7 @@ body.drawer-open .site-drawer {
 .hero-mark::after {
   content: "";
   position: absolute;
-  border: 1px solid rgba(96, 92, 60, 0.34);
+  border: 1px solid rgba(0, 0, 0, 0.34);
   border-radius: 50%;
 }
 
@@ -898,7 +977,7 @@ body.drawer-open .site-drawer {
 
 .visual-placeholder::before {
   inset: 12% -10% 15% 32%;
-  border: 1px solid rgba(96, 92, 60, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.55);
   border-radius: 50%;
   transform: rotate(-21deg);
 }
@@ -908,7 +987,7 @@ body.drawer-open .site-drawer {
   right: 12%;
   width: 34%;
   height: 120%;
-  background: rgba(96, 92, 60, 0.22);
+  background: rgba(0, 0, 0, 0.22);
   transform: rotate(25deg);
 }
 
@@ -939,7 +1018,7 @@ body.drawer-open .site-drawer {
   left: 48%;
   width: 13%;
   height: 81%;
-  background: rgba(96, 92, 60, 0.55);
+  background: rgba(0, 0, 0, 0.55);
   transform: rotate(9deg);
 }
 
@@ -984,7 +1063,7 @@ body.drawer-open .site-drawer {
 }
 
 .visual-placeholder--archive {
-  background: linear-gradient(90deg, transparent 0 12%, rgba(96, 92, 60, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(96, 92, 60, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
+  background: linear-gradient(90deg, transparent 0 12%, rgba(0, 0, 0, 0.42) 12.2% 13%, transparent 13.2% 40%, rgba(26, 26, 26, 0.18) 40.2% 41%, transparent 41.2% 68%, rgba(0, 0, 0, 0.28) 68.2% 69%, transparent 69.2%), #f0f2f3;
 }
 
 .placeholder-label,
@@ -1181,7 +1260,7 @@ body.drawer-open .site-drawer {
 }
 
 .project-card:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -1261,7 +1340,7 @@ body.drawer-open .site-drawer {
 .video-facade__visual {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, transparent 0 44%, rgba(96, 92, 60, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
+  background: linear-gradient(140deg, transparent 0 44%, rgba(0, 0, 0, 0.18) 44.3% 48%, transparent 48.3%), #f0f2f3;
 }
 
 .video-facade__visual::before {
@@ -1478,7 +1557,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.2);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
@@ -1486,7 +1565,7 @@ body.drawer-open .site-drawer {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--paper);
-  box-shadow: 0 8px 18px rgba(96, 92, 60, 0.16);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
 }
 
 .button-link--filled:hover {
@@ -1610,7 +1689,7 @@ body.drawer-open .site-drawer {
 .practice-item:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(96, 92, 60, 0.055);
+  background: rgba(0, 0, 0, 0.055);
   color: var(--orange);
 }
 
@@ -1681,7 +1760,7 @@ body.drawer-open .site-drawer {
   border-radius: 50%;
   overflow: hidden;
   background: var(--surface);
-  box-shadow: 0 0 0 5px rgba(96, 92, 60, 0.11);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.11);
 }
 
 .story-aside__avatar img {
@@ -1749,7 +1828,7 @@ body.drawer-open .site-drawer {
   padding: 1rem 1.1rem;
   border-left: 3px solid var(--orange);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: rgba(96, 92, 60, 0.065);
+  background: rgba(0, 0, 0, 0.065);
   color: var(--muted);
   font-size: 0.73rem;
   line-height: 1.45;
@@ -1773,37 +1852,9 @@ body.drawer-open .site-drawer {
   border-radius: var(--radius-md);
 }
 
-.category-hero-mark {
-  display: flex;
-  min-height: 14rem;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  color: var(--orange);
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 4.6rem);
-  line-height: 0.82;
-  text-align: center;
-  text-transform: uppercase;
-  box-shadow: var(--shadow-sm);
-}
 
-.category-hero-mark--warm {
-  background: #f2f1ea;
-  color: var(--orange-deep);
-}
 
-.category-hero-mark--gold {
-  background: #fff7e9;
-  color: var(--gold);
-}
 
-.category-hero-mark--quiet {
-  background: var(--ink);
-  color: var(--paper);
-}
 
 .archive-toolbar {
   display: flex;
@@ -1871,7 +1922,7 @@ body.drawer-open .site-drawer {
 .archive-entry:hover {
   padding-right: 0.8rem;
   padding-left: 0.8rem;
-  background: rgba(96, 92, 60, 0.055);
+  background: rgba(0, 0, 0, 0.055);
   color: var(--orange);
 }
 
@@ -2576,7 +2627,7 @@ body.drawer-open .site-drawer {
 }
 
 .verse-card:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -2631,7 +2682,7 @@ body.drawer-open .site-drawer {
 }
 
 .guideline-item:hover {
-  border-color: rgba(96, 92, 60, 0.45);
+  border-color: rgba(0, 0, 0, 0.45);
   box-shadow: var(--shadow-md);
   transform: translateY(-3px);
 }
@@ -2748,12 +2799,6 @@ body.drawer-open .site-drawer {
   transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
 }
 
-.command-chip:hover {
-  border-color: var(--coral);
-  background: var(--paper);
-  color: var(--orange-deep);
-}
-
 .command-combo {
   display: block;
   padding: 0.7rem 0.9rem;
@@ -2813,7 +2858,7 @@ body.drawer-open .site-drawer {
 
 /* ---------------------------------------------------------------
    Google Fonts typography pass
-   Aladin = display/headings/facades, Inter = body/UI,
+   Parkinsans = all Latin text (display, headings, body, UI),
    Noto Sans Bengali = Bengali, Amiri = Arabic (Quran / Hadith)
    --------------------------------------------------------------- */
 
@@ -2846,7 +2891,7 @@ h6,
   font-family: var(--font-display);
 }
 
-/* Aladin is a decorative display face: negative tracking hurts it. */
+/* Display type: negative tracking hurts the display face. */
 .page-header h1,
 .hero-title,
 .feature-title,
@@ -2906,7 +2951,7 @@ small {
   font-synthesis: none;
 }
 
-/* Aladin ships a single 400 weight — avoid faux-bold synthesis on display type. */
+/* Avoid faux-bold synthesis on display type. */
 h1,
 h2,
 h3,
@@ -2948,7 +2993,7 @@ h6,
 
 /* ---------------------------------------------------------------
    Accent gradient pass
-   linear-gradient(to left, #605C3C, #3C3B3F) replaces the solid
+   #000000 replaces the solid
    orange accent across hero type, buttons, and the avatar ring.
    --------------------------------------------------------------- */
 
@@ -3039,7 +3084,7 @@ textarea:focus-visible {
 .profile-avatar {
   border: 0;
   /* Soft outer halo of the same gradient's darker stop. */
-  box-shadow: 0 0 0 4px rgba(60, 59, 63, 0.1);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .profile-avatar::after {
@@ -3082,7 +3127,7 @@ textarea:focus-visible {
 
 /* Practice list hover: drop the tinted wash, let the type carry the accent. */
 .practice-item:hover {
-  background: rgba(96, 92, 60, 0.06);
+  background: rgba(0, 0, 0, 0.06);
   color: inherit;
 }
 
@@ -3094,7 +3139,7 @@ textarea:focus-visible {
   border: 0;
   padding: 3px;
   background: var(--accent-gradient);
-  box-shadow: 0 0 0 5px rgba(60, 59, 63, 0.1);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .story-aside__avatar img {
@@ -3120,7 +3165,7 @@ textarea:focus-visible {
   position: relative;
   border-left: 0;
   padding-left: 1.4rem;
-  background: rgba(96, 92, 60, 0.07);
+  background: rgba(0, 0, 0, 0.07);
 }
 
 .note-box::before {
@@ -3184,8 +3229,8 @@ textarea:focus-visible {
 .callout .button-link--filled {
   border-color: #ffffff;
   background: #ffffff;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 .site-footer .footer-links a:hover {
@@ -3245,11 +3290,6 @@ textarea:focus-visible {
 .site-drawer .drawer-close,
 .site-drawer .drawer-footer,
 .site-drawer .drawer-footer span,
-.site-drawer .drawer-subnav .drawer-link {
-  background-color: transparent;
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
-}
 
 .site-drawer .drawer-heading em {
   background: none;
@@ -3310,11 +3350,7 @@ textarea:focus-visible {
   pointer-events: none;
 }
 
-/* 1b. Premium curve on the bottom edge of the header bar. */
-.site-header {
-  border-bottom-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
+/* 1b. Header is strictly flat — the premium bottom curve is removed. */
 
 /* 2a. Case-study title reads "Fath Makkah", not "FATH MAKKAH". */
 .page-header h1,
@@ -3331,10 +3367,6 @@ textarea:focus-visible {
 }
 
 /* 2b. Sidebar heading sits lower and breathes. */
-.site-drawer .drawer-heading {
-  margin-top: 2.4rem;
-}
-
 .site-drawer .drawer-heading p {
   margin-top: 0.9rem;
 }
@@ -3560,15 +3592,12 @@ textarea:focus-visible {
   font-size: clamp(2.4rem, 5vw, 4.2rem);
 }
 
-.category-hero-mark {
-  font-size: clamp(1.5rem, 3.4vw, 2.8rem);
-}
 
 /* ---------------------------------------------------------------
    Refinement pass — header type, avatar, drawer, theme toggle
    --------------------------------------------------------------- */
 
-/* 1. Subtitle: Inter, matched to the name's visual volume/width. */
+/* 1. Subtitle (removed from the header markup; kept for legacy nodes). */
 .brand-role {
   color: var(--ink);
   font-family: var(--font-ui);
@@ -3585,8 +3614,8 @@ textarea:focus-visible {
   border: 0;
   background: var(--ink);
   box-shadow:
-    0 0 0 6px rgba(96, 92, 60, 0.05),
-    0 6px 18px rgba(60, 59, 63, 0.14);
+    0 0 0 6px rgba(0, 0, 0, 0.05),
+    0 6px 18px rgba(0, 0, 0, 0.14);
 }
 
 .profile-avatar::after {
@@ -3630,18 +3659,13 @@ textarea:focus-visible {
   padding: 0.56rem 0;
 }
 
-.site-drawer .drawer-subnav .drawer-link {
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-}
 
 .site-drawer .drawer-link:hover,
 .site-drawer .drawer-link[aria-current="page"],
 .site-drawer .drawer-link:hover strong,
 .site-drawer .drawer-link[aria-current="page"] strong {
-  color: #d8d6cb;
-  -webkit-text-fill-color: #d8d6cb;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
 }
 
 .site-drawer .drawer-heading p {
@@ -3724,27 +3748,37 @@ textarea:focus-visible {
 }
 
 :root[data-theme="dark"] {
-  --bg-color: #16161a;
-  --text-color: #f2f1ec;
+  /* STRICT MONOCHROME — dark mode is the exact inversion.
+     Background absolute #000000, every glyph absolute #FFFFFF,
+     filled shapes/buttons invert to solid white with black text. */
+  --bg-color: #000000;
+  --text-color: #ffffff;
   color-scheme: dark;
 
-  --canvas: #16161a;
-  --surface: #1e1e23;
-  --surface-strong: #26262c;
-  --ink: #f2f1ec;
-  --ink-soft: #d9d7cf;
-  --paper: #16161a;
-  --paper-light: #1e1e23;
-  --paper-deep: #26262c;
-  --muted: #a3a29c;
-  --muted-dark: #c3c2bb;
-  --line: rgba(242, 241, 236, 0.16);
-  --line-dark: rgba(242, 241, 236, 0.2);
-  --accent-solid: #b8b48f;
-  --accent-shadow: rgba(0, 0, 0, 0.45);
-  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 18px 45px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.6);
+  --canvas: #000000;
+  --surface: #000000;
+  --surface-strong: #000000;
+  --ink: #ffffff;
+  --ink-soft: #ffffff;
+  --paper: #000000;
+  --paper-light: #000000;
+  --paper-deep: #000000;
+  --acid: #ffffff;
+  --orange: #ffffff;
+  --orange-deep: #ffffff;
+  --coral: #ffffff;
+  --gold: #ffffff;
+  --muted: #ffffff;
+  --muted-dark: #ffffff;
+  --line: #ffffff;
+  --line-dark: #ffffff;
+  --accent-gradient: #ffffff;
+  --accent-gradient-deep: #ffffff;
+  --accent-solid: #ffffff;
+  --accent-shadow: transparent;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
 }
 
 :root[data-theme="dark"] body,
@@ -3753,10 +3787,10 @@ textarea:focus-visible {
   color: var(--text-color);
 }
 
-/* Gradient-clipped display text needs a lighter ramp to stay legible. */
+/* Gradient-clipped display text stays flat white in dark mode. */
 :root[data-theme="dark"] {
-  --accent-gradient: linear-gradient(to left, #b8b48f, #8f8d80);
-  --accent-gradient-deep: linear-gradient(to left, #cfcba6, #a5a294);
+  --accent-gradient: #ffffff;
+  --accent-gradient-deep: #ffffff;
 }
 
 /* Cards and panels that were hard-coded to white. */
@@ -3770,7 +3804,6 @@ textarea:focus-visible {
 :root[data-theme="dark"] .media-asset,
 :root[data-theme="dark"] .visual-placeholder,
 :root[data-theme="dark"] .hero-mark,
-:root[data-theme="dark"] .category-hero-mark,
 :root[data-theme="dark"] .prompt-modal__prompt {
   background: var(--surface);
   color: var(--text-color);
@@ -3804,17 +3837,12 @@ textarea:focus-visible {
 }
 
 /* Header keeps its translucent treatment on the dark canvas. */
-:root[data-theme="dark"] .site-header {
-  background: rgba(22, 22, 26, 0.9);
-  border-bottom-color: var(--line);
-}
-
 /* ---------------------------------------------------------------
    Header balance, avatar ring, theme transition, social icons
    --------------------------------------------------------------- */
 
 /* 1. Name larger; subtitle tracked out to match its width.
-   The name is Aladin (display) at 1.62rem; the subtitle is Inter, which is
+   The name is the display face at 1.62rem; the subtitle, which is
    a narrower face, so it needs extra letter-spacing to span the same width. */
 .brand-name {
   font-family: var(--font-display);
@@ -3865,7 +3893,7 @@ textarea:focus-visible {
   z-index: 2;
   padding: 2px;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   opacity: 0.85;
   filter: none;
   /* Mask out the centre so only the 2px band paints. */
@@ -3898,8 +3926,8 @@ textarea:focus-visible {
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  color: #d8d6cb;
-  -webkit-text-fill-color: #d8d6cb;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
 }
 
 /* 5. Smooth, premium theme cross-fade. */
@@ -3988,7 +4016,7 @@ body,
   padding: 3px;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   box-shadow: none;
 }
 
@@ -4011,7 +4039,7 @@ body,
 :root[data-theme="dark"] .site-drawer .drawer-link--feature,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4026,15 +4054,15 @@ body,
   background: none;
   -webkit-background-clip: border-box;
   background-clip: border-box;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 :root[data-theme="dark"] .site-drawer .drawer-link:hover,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4042,7 +4070,7 @@ body,
 }
 
 /* 3. Header: name slightly larger; subtitle tightened to match its width.
-   Aladin is wide, Inter is narrow — the subtitle needs a small size and
+   The display face is wide — the subtitle needs a small size and
    moderate tracking to land on the same total width. */
 .brand-name {
   font-family: var(--font-display);
@@ -4112,7 +4140,7 @@ body,
   overflow: hidden;
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   box-shadow: none;
   box-sizing: border-box;
 }
@@ -4147,7 +4175,7 @@ body,
   display: none;
 }
 
-/* 2. Subtitle must use Inter, not the inherited Aladin display face.
+/* 2. Subtitle uses the global UI face.
    Earlier passes set --font-display on .brand-* selectors, so this needs
    !important to win reliably. Sized/tracked to match the name's width. */
 .brand-name {
@@ -4162,7 +4190,7 @@ body,
 .site-header .brand-role,
 .brand-copy .brand-role {
   display: block;
-  font-family: "Inter", sans-serif !important;
+  font-family: var(--font-ui) !important;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.108em;
@@ -4256,7 +4284,7 @@ img {
 :root[data-theme="dark"] .site-drawer .drawer-subnav .drawer-link,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
-  background: linear-gradient(to left, #605c3c, #3c3b3f);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4271,15 +4299,15 @@ img {
   background: none;
   -webkit-background-clip: border-box;
   background-clip: border-box;
-  color: #3c3b3f;
-  -webkit-text-fill-color: #3c3b3f;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
 }
 
 :root[data-theme="dark"] .site-drawer .drawer-link:hover,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
 :root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
 :root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
-  background: linear-gradient(to left, #3c3b3f, #1f1e21);
+  background: #000000;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -4292,10 +4320,6 @@ img {
 .drawer-link,
 .drawer-link--primary,
 .drawer-link--feature,
-.drawer-subnav .drawer-link {
-  border: 0;
-  transition: none;
-}
 
 .site-drawer .drawer-link,
 .site-drawer .drawer-link--primary,
@@ -4304,10 +4328,6 @@ img {
   letter-spacing: 0.06em;
 }
 
-.site-drawer .drawer-subnav .drawer-link {
-  font-weight: 500;
-  letter-spacing: 0.07em;
-}
 
 /* Gradient-clipped text can hairline-shift without a stable painting box. */
 .site-drawer .drawer-link,
@@ -4330,7 +4350,7 @@ img {
   letter-spacing: 0.05em;
 }
 
-/* Video cards use the smaller Inter treatment — give them the same air. */
+/* Video cards use the smaller body treatment — give them the same air. */
 .project-card--video .project-card__title,
 .project-card--video .project-card__title span:first-child {
   letter-spacing: 0.05em;
@@ -4346,3 +4366,1916 @@ img {
 .project-card__title span.arabic-text {
   letter-spacing: 0;
 }
+
+/* ===================================================================
+   MONOCHROME PIVOT — final authoritative overrides
+   Strict black & white, Parkinsans everywhere (except bn/ar),
+   and the flat three-zone header. Loaded last so it wins.
+   =================================================================== */
+
+/* -------------------------------------------------------------
+   1. Global typography: Parkinsans is the single Latin face.
+   Every element inherits it, so no stale legacy font rule can
+   survive. The two script exceptions are re-asserted below.
+   ------------------------------------------------------------- */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-ui);
+}
+
+*:not([lang="bn"]):not([lang="ar"]):not(.bengali-text):not(.arabic-text) {
+  font-family: inherit;
+}
+
+/* CRUCIAL EXCEPTION — Bengali and Arabic keep their own faces.
+   Declared after the blanket rule so they always win. */
+[lang="bn"],
+.bengali-text,
+[lang="bn"] *,
+.bengali-text * {
+  font-family: var(--font-bengali) !important;
+}
+
+[lang="ar"],
+.arabic-text,
+[lang="ar"] *,
+.arabic-text * {
+  font-family: var(--font-arabic) !important;
+}
+
+/* -------------------------------------------------------------
+   2. Strict monochrome surfaces.
+   Light: #FFFFFF ground, #000000 ink. Dark: exact inversion.
+   ------------------------------------------------------------- */
+html,
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+/* Filled shapes / primary buttons: solid black on white ground,
+   inverting to solid white on black ground in dark mode. */
+.button-link--filled,
+.button-link--warm,
+.filter-button[aria-pressed="true"],
+.callout .button-link--filled {
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+  box-shadow: none;
+}
+
+.button-link--filled:hover,
+.button-link--warm:hover,
+.filter-button[aria-pressed="true"]:hover {
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+/* Outline buttons: transparent ground, 1px ink hairline. */
+.button-link,
+.button-quiet,
+.filter-button {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  box-shadow: none;
+}
+
+/* Gradient-clipped display text is now a flat ink fill. */
+.hero-title,
+.hero-title span,
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+/* Ultra-minimalist: no tinted depth anywhere. */
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* The decorative ambience wash has no place in a strict mono system. */
+.site-ambience {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------
+   3. Header: completely flat and transparent.
+   No background, no border, no blur, no shape bar, no radius.
+   ------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: var(--max-width);
+  min-height: 5.2rem;
+  margin: 0 auto;
+  padding: 1rem var(--gutter);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* Centre zone: the name sits in the true centre of the header,
+   independent of the differing widths of the two flanking buttons. */
+.brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  max-width: calc(100% - 9rem);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-header .brand-name,
+.brand-name {
+  margin: 0;
+  overflow: hidden;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: clamp(0.95rem, 2.4vw, 1.32rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Deleted elements — belt and braces in case markup is regenerated. */
+.profile-avatar,
+.profile-avatar__img,
+.profile-avatar span,
+.profile-avatar::before,
+.profile-avatar::after,
+.brand-role,
+.site-header .brand-role,
+.brand-copy .brand-role,
+.header-nav,
+.header-actions,
+.menu-toggle__label {
+  display: none !important;
+}
+
+/* Left zone: 2x2 grid menu button. */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-toggle__icon {
+  display: block;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--ink);
+  transition: opacity 180ms var(--ease);
+}
+
+.menu-toggle:hover .menu-toggle__icon {
+  transform: none;
+  opacity: 0.55;
+}
+
+/* Right zone: switch-style theme toggle. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border: 0;
+  background: transparent;
+  opacity: 0.55;
+}
+
+.theme-toggle__icon {
+  display: block;
+  width: 2.1rem;
+  height: auto;
+  color: var(--ink);
+}
+
+/* The old dual sun/moon icons are replaced by one switch glyph. */
+.theme-toggle__icon--sun,
+.theme-toggle__icon--moon {
+  display: none !important;
+}
+
+/* Equal-width flanks keep the centred name optically balanced. */
+.menu-toggle,
+.theme-toggle {
+  flex: 0 0 auto;
+  min-width: 2.6rem;
+}
+
+/* -------------------------------------------------------------
+   4. Safety net: kill every remaining background-clip:text
+   treatment. Those rules were authored for the old gradient; with
+   a flat palette they would paint ink-on-ink (e.g. black drawer
+   text on a black dark-mode ground). Force all text to the
+   theme's ink colour so contrast is always absolute.
+   ------------------------------------------------------------- */
+.site-drawer .drawer-link,
+.site-drawer .drawer-link *,
+.site-drawer .drawer-heading p,
+.site-drawer .drawer-heading em,
+.site-drawer .eyebrow,
+.site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link,
+:root[data-theme="dark"] .site-drawer .drawer-link *,
+:root[data-theme="dark"] .site-drawer .drawer-heading p,
+:root[data-theme="dark"] .site-drawer .drawer-heading em,
+:root[data-theme="dark"] .site-drawer .eyebrow,
+:root[data-theme="dark"] .site-drawer .drawer-close,
+:root[data-theme="dark"] .site-drawer .drawer-link:hover,
+:root[data-theme="dark"] .site-drawer .drawer-link:hover strong,
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"],
+:root[data-theme="dark"] .site-drawer .drawer-link[aria-current="page"] strong {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Same guarantee for headline/display type across both themes. */
+.hero-title,
+.hero-title span,
+.feature-title span,
+.section-title span,
+.story-copy h2 span,
+.contact-title span,
+.about-lead em,
+.promo-card h3 em,
+.footer-title em,
+.drawer-heading em,
+.page-header h1 span,
+.brand-name {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Drawer + footer + callout grounds follow the strict two-tone system. */
+.site-drawer,
+.drawer-inner,
+.site-footer,
+.callout {
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+}
+
+/* The callout block inverts (solid ink panel, canvas-coloured text)
+   to give the layout one deliberate high-contrast anchor. */
+.callout {
+  background: var(--ink) !important;
+  color: var(--canvas) !important;
+  border: 1px solid var(--ink);
+}
+
+.callout h2,
+.callout p,
+.callout h2 span,
+.callout em {
+  color: var(--canvas) !important;
+  -webkit-text-fill-color: var(--canvas) !important;
+  background: none !important;
+}
+
+.callout .button-link,
+.callout .button-link--filled {
+  border: 1px solid var(--canvas) !important;
+  background: transparent !important;
+  color: var(--canvas) !important;
+  -webkit-text-fill-color: var(--canvas) !important;
+}
+
+.callout .button-link:hover,
+.callout .button-link--filled:hover {
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+}
+
+/* Cards and panels: white (or black) ground with a 1px ink hairline. */
+.project-card,
+.feature-grid,
+.promo-card,
+.archive-entry,
+.project-spine__item,
+.modal-panel,
+.contact-form,
+.media-asset,
+.visual-placeholder,
+.hero-mark,
+.prompt-modal__prompt {
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+/* ===================================================================
+   GLOBAL TYPOGRAPHY — explicit enforcement
+   Parkinsans is the single face for all English/Latin text.
+   =================================================================== */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+  font-family: "Parkinsans", sans-serif !important;
+}
+
+/* CRUCIAL EXCEPTION — Bengali and Arabic keep their own faces.
+   Declared AFTER the blanket rule above (equal specificity + !important),
+   so the cascade resolves in favour of the script-specific face. Without
+   this, the `span` selector above would capture Bengali/Arabic spans. */
+[lang="bn"],
+[lang="bn"] *,
+.bengali-text,
+.bengali-text *,
+span[lang="bn"],
+span.bengali-text,
+.verse-card__bengali,
+.verse-card__source {
+  font-family: "Noto Sans Bengali", sans-serif !important;
+}
+
+[lang="ar"],
+[lang="ar"] *,
+.arabic-text,
+.arabic-text *,
+span[lang="ar"],
+span.arabic-text,
+.verse-card__arabic,
+.hadith-card__arabic {
+  font-family: "Amiri", "Noto Sans Bengali", serif !important;
+}
+
+/* ===================================================================
+   HEADER BAR — full-bleed, minimal height, theme-aware
+   Restores an opaque header background that spans the entire viewport
+   width, edge to edge, while staying strictly monochrome.
+   =================================================================== */
+.site-header {
+  /* Sticky (not fixed) is deliberate: the header stays in normal flow,
+     so the page content below is never hidden underneath it and no
+     compensating body padding is required. It still pins to the top
+     on scroll, and the existing show/hide-on-scroll behaviour in
+     app.js keeps working. */
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+
+  /* Full bleed: escape the centred --max-width container so the bar
+     reaches the extreme left and right edges of the screen. */
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+
+  /* Minimal vertical thickness — thin and sleek. The horizontal 4%
+     inset replaces the much larger --gutter clamp. */
+  min-height: 0;
+  padding: 12px 4%;
+
+  /* Perfect vertical centring of the three zones. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  /* Theme-aware: follows the strict light/dark tokens.
+     Light -> #FFFFFF bar, dark -> #000000 bar. Opaque so content
+     scrolling beneath it is cleanly covered. */
+  background: var(--canvas);
+  color: var(--ink);
+  /* A 1px hairline in the ink colour delineates the bar; without it a
+     white bar on the white page (and black on black) would be
+     invisible. It is the only mark on an otherwise flat surface. */
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* The centred name is absolutely positioned, so it needs explicit
+   vertical centring too — flex alignment does not apply to it. */
+.brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  max-width: calc(100% - 12rem);
+  margin: 0;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-header .brand-name,
+.brand-name {
+  display: block;
+  line-height: 1.2;
+  font-size: clamp(0.9rem, 2.2vw, 1.18rem);
+}
+
+/* Flanking controls: no extra box, just the glyph, optically centred. */
+.menu-toggle,
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 2.2rem;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  line-height: 0;
+}
+
+.menu-toggle {
+  justify-content: flex-start;
+}
+
+.theme-toggle {
+  justify-content: flex-end;
+}
+
+.menu-toggle__icon,
+.theme-toggle__icon {
+  display: block;
+  color: var(--ink);
+}
+
+.menu-toggle__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.theme-toggle__icon {
+  width: 1.95rem;
+  height: auto;
+}
+
+/* ===================================================================
+   SMOOTH ACCORDION — project list layout
+   Replaces the image grid on category pages and the dedicated
+   archives with a vertical, expandable list.
+   =================================================================== */
+.accordion-list {
+  display: block;
+  width: 100%;
+}
+
+.accordion-item {
+  border-bottom: 1px solid currentColor;
+  overflow: hidden;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 20px 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.accordion-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  flex: 0 0 80px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+.accordion-header:hover .accordion-thumb {
+  filter: grayscale(0%);
+}
+
+/* Title / category text block sitting to the right of the thumbnail. */
+.accordion-heading {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accordion-title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.accordion-category {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Expand/collapse affordance on the far right. */
+.accordion-indicator {
+  flex: 0 0 auto;
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .accordion-indicator {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 3000px;
+  opacity: 1;
+  padding: 20px 0;
+}
+
+.accordion-content img,
+.accordion-content .accordion-full {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Placeholder entries have no photograph to reveal. */
+.accordion-content .visual-placeholder {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.accordion-summary {
+  margin: 14px 0 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.accordion-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+/* Square thumb fallback when a project has no image. */
+.accordion-thumb--placeholder {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  filter: none;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-content,
+  .accordion-thumb,
+  .accordion-indicator {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   CATEGORY PAGE SPACING
+   The redundant category hero placeholder was removed, so the first
+   .page-section now follows .page-header directly. The existing
+   `.page-section + .page-section` rule only matches section-to-section
+   pairs, which left the project list butted against the description.
+   =================================================================== */
+.page-header + .page-section {
+  margin-top: clamp(3.2rem, 6vw, 5.5rem);
+}
+
+/* ===================================================================
+   PROMPT ARCHIVE — command chip hover + click-to-copy affordance
+   The pill tags (/portrait, /cinematic, …) invert on hover so the
+   interaction reads clearly in both themes.
+   =================================================================== */
+.command-chip {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+  user-select: all;
+}
+
+/* Light mode: solid black pill with white text.
+   Dark mode inverts automatically because --ink/--canvas swap. */
+.command-chip:hover,
+.command-chip:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+/* Brief confirmation state after a successful copy. */
+.command-chip.is-copied {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+.command-chip.is-copied::after {
+  content: " ✓";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-chip {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   FOOTER VISIBILITY FIX
+   The footer previously sat on a dark accent gradient, so its text was
+   hardcoded to #ffffff (with -webkit-text-fill-color, which overrides
+   any inherited colour). The monochrome pivot repainted the footer
+   background to var(--canvas) — white in light mode — leaving white
+   text on white. These rules bind every footer colour to the theme ink
+   so the content is always legible.
+   =================================================================== */
+.site-footer,
+.site-footer p,
+.site-footer span,
+.site-footer em,
+.site-footer a,
+.site-footer .eyebrow,
+.site-footer .footer-title,
+.site-footer .footer-title em,
+.site-footer .footer-links a,
+.site-footer .footer-links a span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.site-footer .footer-copyright,
+.site-footer .footer-copyright span,
+.site-footer .footer-location,
+.site-footer .footer-social,
+.site-footer .footer-social a {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  opacity: 1;
+}
+
+/* Social glyphs use fill="currentColor", so binding colour is enough —
+   fill is set explicitly as well to defeat any inherited paint. */
+.site-footer svg,
+.site-footer .footer-social svg,
+.site-footer .footer-social a svg,
+.site-footer .footer-social a svg path {
+  color: var(--ink);
+  fill: currentColor;
+}
+
+/* Keep hover legible rather than fading toward the background. */
+.site-footer .footer-links a:hover,
+.site-footer .footer-social a:hover {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: var(--ink) !important;
+  opacity: 0.65;
+}
+
+/* The divider rules must also follow the theme. */
+.site-footer .footer-rule,
+.footer-rule {
+  background: var(--line);
+}
+
+/* ===================================================================
+   HEADER — glassmorphism bar
+   Fixed, semi-transparent and blurred so content scrolling underneath
+   is visibly diffused while the header text stays fully legible.
+   =================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  z-index: 9999;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: none;
+  padding: 12px 4%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+:root[data-theme="dark"] .site-header {
+  background: rgba(0, 0, 0, 0.85);
+  border-bottom-color: rgba(128, 128, 128, 0.2);
+}
+
+/* The header is fixed, so it no longer occupies flow space. Offset the
+   page content by the bar's height to stop the first block hiding
+   underneath it. */
+body {
+  padding-top: 66px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 60px;
+  }
+}
+
+/* ===================================================================
+   THEME TOGGLE — sliding pill switch
+   Handle rests left (sun) in light mode and slides right (moon) in
+   dark mode.
+   =================================================================== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 54px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  line-height: 0;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 24px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.theme-switch__handle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--canvas);
+  transform: translateY(-50%) translateX(0);
+  transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+}
+
+/* Dark mode: slide the handle to the right-hand end of the pill. */
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px); /* 52 - 18 - 2*2 = 30 */
+}
+
+.theme-switch__icon {
+  grid-area: 1 / 1;
+  width: 11px;
+  height: 11px;
+  color: var(--canvas);
+  transition: opacity 0.3s ease;
+}
+
+/* Reversed: the handle shows the MOON in light mode (tap for dark) and
+   the SUN in dark mode (tap for light). */
+.theme-switch__icon--sun {
+  opacity: 0;
+}
+
+.theme-switch__icon--moon {
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .theme-switch__icon--sun {
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .theme-switch__icon--moon {
+  opacity: 0;
+}
+
+.theme-toggle:hover .theme-switch {
+  opacity: 0.75;
+}
+
+/* Menu icon sizing for the 3-line hamburger. */
+.menu-toggle__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch__handle,
+  .theme-switch__icon {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   ISLAMIC CORNER — per-card copy control
+   =================================================================== */
+.verse-card {
+  position: relative;
+}
+
+.verse-card__copy {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.verse-card:hover .verse-card__copy,
+.verse-card__copy:focus-visible {
+  opacity: 1;
+}
+
+.verse-card__copy:hover {
+  background: var(--ink);
+  color: var(--canvas);
+  opacity: 1;
+}
+
+.verse-card__copy svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.verse-card__copy.is-copied {
+  background: var(--ink);
+  color: var(--canvas);
+  opacity: 1;
+}
+
+/* Keep the copy button clear of the caption text. */
+.verse-card__source {
+  padding-right: 38px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse-card__copy {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   THEME TOGGLE — sleek slim pill
+   Reduced from 60x30 to 54x24 so the switch reads as a thin control
+   rather than a bulky button. Metrics are chosen so the handle sits
+   with an even 2px gutter on every side.
+
+   Geometry (box-sizing: border-box is global):
+     pill  54 x 24, 1px border  -> inner box 52 x 22
+     handle 18px, inset 2px      -> 2px gutter top/bottom/left
+     travel 52 - 18 - 2 - 2 = 30 -> translateX(30px) rests it flush right
+   =================================================================== */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 24px;
+  border: 1px solid var(--ink);
+  border-radius: 50px;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.theme-switch__handle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--canvas);
+  transform: translateY(-50%) translateX(0);
+  transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+}
+
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px);
+}
+
+/* Smaller glyphs to sit comfortably inside the 18px handle. */
+.theme-switch__icon {
+  grid-area: 1 / 1;
+  width: 11px;
+  height: 11px;
+  color: var(--canvas);
+  transition: opacity 0.3s ease;
+}
+
+/* Keep the button's footprint matched to the slimmer pill. */
+.theme-toggle {
+  min-width: 54px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch__handle,
+  .theme-switch__icon {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   HEADER NAME — slow breathing pulse on "Emon"
+   =================================================================== */
+@keyframes slowPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.name-pulse {
+  animation: slowPulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-pulse {
+    animation: none;
+  }
+}
+
+/* ===================================================================
+   HOME HERO — two-column layout
+   Text on the left, portrait image placeholder on the right.
+   =================================================================== */
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+.hero-column--text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.hero-column--text .hero-bio {
+  max-width: 46ch;
+  margin: 0;
+}
+
+.hero-column--media {
+  display: flex;
+  min-width: 0;
+  justify-content: flex-end;
+}
+
+/* Portrait placeholder box — replace the inner content with an <img>. */
+/* Stack on narrow screens: image below the text. */
+@media (max-width: 860px) {
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-column--media {
+    justify-content: flex-start;
+  }
+
+  .hero-photo {
+    max-width: 20rem;
+  }
+}
+
+/* ===================================================================
+   FATH MAKKAH — text-only feature block
+   The cover image was removed, so the copy is centred on its own.
+   =================================================================== */
+.feature-grid--textonly {
+  display: block;
+  max-width: 62rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.feature-grid--textonly .feature-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.feature-grid--textonly .feature-copy__top,
+.feature-grid--textonly .feature-copy__bottom {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.feature-grid--textonly .feature-copy p {
+  max-width: 58ch;
+  margin: 0 auto;
+}
+
+.feature-grid--textonly .project-meta {
+  justify-content: center;
+}
+
+/* ===================================================================
+   PROMO CARD SYMBOLS — centred icons inside the circle / diamond
+   The shapes are filled with --accent-gradient (black in light mode,
+   white in dark mode), so the icon takes --canvas to stay in perfect
+   contrast in both themes.
+   =================================================================== */
+.promo-card__symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--canvas);
+  -webkit-text-fill-color: var(--canvas);
+}
+
+.promo-card__icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+/* The diamond is rotated 45deg, so the icon is counter-rotated
+   to sit upright inside it. */
+.promo-card--warm .promo-card__symbol .promo-card__icon {
+  transform: rotate(-45deg);
+}
+
+/* ===================================================================
+   HERO — CTA buttons removed, so tighten the remaining stack
+   =================================================================== */
+.hero-column--text .hero-support__meta {
+  margin-top: 0.2rem;
+}
+
+/* ===================================================================
+   FATH MAKKAH — compact flagship card
+   Was a full-width feature block; now a small, self-contained card.
+   =================================================================== */
+.feature-block--compact {
+  padding-top: clamp(1.6rem, 3vw, 2.4rem);
+  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+.flagship-card {
+  display: flex;
+  max-width: 34rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-top: 1.1rem;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+}
+
+.flagship-card__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.flagship-card__desc {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.flagship-card__cta {
+  margin-top: 0.35rem;
+}
+
+/* ===================================================================
+   PRACTICE LIST — compact rows
+   The row height was driven mostly by an oversized title, so the type
+   scale is reduced alongside the padding.
+   =================================================================== */
+.practice-item {
+  gap: 0.85rem;
+  padding: 0.7rem 0;
+}
+
+.practice-item__title {
+  font-size: clamp(1.05rem, 1.9vw, 1.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.practice-item:hover {
+  padding-right: 0.6rem;
+  padding-left: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .practice-item {
+    padding: 0.6rem 0;
+  }
+
+  .practice-item__title {
+    font-size: 1.05rem;
+  }
+}
+
+/* ===================================================================
+   FATH MAKKAH — cover pair
+   The covers previously sat on large black (--ink-soft) slabs that
+   dominated the page. They now sit directly on the page background,
+   side by side, at a restrained size.
+   =================================================================== */
+.cover-pair {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.cover-pair__item {
+  flex: 0 1 auto;
+  max-width: 300px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.cover-pair__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* Top-of-page cover: no slab, no forced min-height. */
+.media-asset--plain {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.media-asset--plain img {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .cover-pair__item {
+    max-width: 46%;
+  }
+}
+
+/* ===================================================================
+   AUTHOR AVATAR — clean borderless circle
+   Overrides the earlier ring (3px border, gradient padding ring) and
+   the outer box-shadow halo.
+   =================================================================== */
+.story-aside__avatar {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.story-aside__avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===================================================================
+   RINGS — footer social icons + theme toggle
+   currentColor inherits the themed text colour, so the ring is black
+   in light mode and white in dark mode automatically.
+   =================================================================== */
+.site-footer .footer-social a {
+  border: 2px solid currentColor;
+  opacity: 1;
+}
+
+.site-footer .footer-social a:hover {
+  border-color: currentColor;
+  opacity: 0.65;
+}
+
+.theme-switch {
+  border: 2px solid currentColor;
+  color: var(--ink);
+}
+
+/* The 2px border reduces the pill's inner box to 50x20, so the handle
+   is resized to keep an even gutter and the travel is recomputed:
+   50 - 16 - (2*2) = 30 ... using a 16px handle at a 2px inset. */
+.theme-switch__handle {
+  width: 16px;
+  height: 16px;
+  left: 2px;
+}
+
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px);
+}
+
+.theme-switch__icon {
+  width: 10px;
+  height: 10px;
+}
+
+/* ===================================================================
+   HERO PORTRAIT
+   The transparent PNG cutout replaces the placeholder box, so the
+   box's border, radius, background and fixed aspect-ratio are all
+   cleared — the subject floats directly on the page background.
+   =================================================================== */
+.hero-photo {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: auto;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.hero-photo__img {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  object-fit: contain;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* The hero column is right-aligned; let the portrait fill its side. */
+.hero-column--media {
+  justify-content: center;
+}
+
+@media (max-width: 860px) {
+  .hero-photo,
+  .hero-photo__img {
+    max-width: 340px;
+  }
+}
+
+/* ===================================================================
+   TYPOGRAPHY — brand name + descriptive strap lines
+   These sit ahead of the Bengali/Arabic exception blocks in intent but
+   are appended last, so they are scoped to Latin-script UI classes only
+   and never touch .bengali-text / .arabic-text.
+   =================================================================== */
+.footer-note,
+.footer-note span,
+.footer-title,
+.footer-title em,
+.footer-copyright,
+.footer-copyright span,
+.footer-location,
+.hero-support__meta {
+  font-family: 'Parkinsans', sans-serif !important;
+}
+
+/* ===================================================================
+   THEME TOGGLE — explicit pill + circular handle
+   =================================================================== */
+.theme-switch {
+  border-radius: 50px;
+}
+
+.theme-switch__handle {
+  border-radius: 50%;
+}
+
+/* ===================================================================
+   AUTHOR AVATAR — smaller, grayscale until hover
+   =================================================================== */
+.story-aside__avatar {
+  width: 80px;
+  height: 80px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.story-aside__avatar img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+}
+
+.story-aside__avatar img:hover,
+.story-aside__avatar:hover img {
+  filter: grayscale(0%);
+}
+
+/* ===================================================================
+   FOOTER SOCIAL — local SVG icons in circular rings
+   The uploaded SVGs hardcode fill="#000000". An SVG loaded through an
+   <img> tag is an opaque document: `color`, `fill` and currentColor
+   cannot reach inside it, so the glyphs would stay black and vanish
+   against the dark-mode footer (which is var(--canvas) = #000).
+   A CSS filter DOES apply to the rendered image, so dark mode inverts
+   the glyph to white. The ring keeps using currentColor as before.
+   =================================================================== */
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.site-footer .footer-social a.footer-social__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: none;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.site-footer .footer-social a.footer-social__link:hover {
+  opacity: 0.65;
+  transform: translateY(-2px);
+}
+
+.site-footer .footer-social a.footer-social__link .footer-social__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Dark mode: flip the black artwork to white so it stays visible. */
+:root[data-theme="dark"] .site-footer .footer-social a.footer-social__link .footer-social__icon {
+  filter: invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer .footer-social a.footer-social__link {
+    transition: none;
+  }
+
+  .site-footer .footer-social a.footer-social__link:hover {
+    transform: none;
+  }
+}
+
+/* ===================================================================
+   1. NAME — handwritten Caveat
+   Applies to the header brand and the footer eyebrow, which are the
+   two places 'Emdadul Hoque Emon' appears. These selectors were
+   removed from the Parkinsans group above so the two !important
+   rules do not fight.
+   =================================================================== */
+.site-footer .eyebrow {
+  font-family: 'Caveat', cursive !important;
+  text-transform: capitalize !important;
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+
+/* The footer eyebrow inherits uppercase + wide tracking from .eyebrow;
+   both are neutralised above. Keep it visually balanced. */
+.site-footer .eyebrow {
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* ===================================================================
+   2. STRAP LINE — force Parkinsans
+   'Visual Designer · Video Editor · Creative Content Creator'
+   =================================================================== */
+.footer-note,
+.footer-note span,
+.site-footer .footer-note,
+.site-footer .footer-note span,
+.hero-support__meta {
+  font-family: 'Parkinsans', sans-serif !important;
+}
+
+/* ===================================================================
+   3. SOCIAL ICONS — force a horizontal row
+   Root cause: the <nav> is a flex ITEM inside .footer-links, which is
+   'flex-direction: column', and that column sits in the narrow 0.55fr
+   track of .footer-grid. The nav was already display:flex/wrap — it
+   simply had no horizontal room, so the rings wrapped one-per-line.
+   Fixing the nav alone cannot work; the parent track must be widened.
+   =================================================================== */
+.site-footer .footer-social,
+.footer-social {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto !important;
+  max-width: 100% !important;
+  grid-template-columns: none !important;
+}
+
+/* Let the nav span the full footer width instead of being trapped in
+   the narrow link column. */
+.site-footer .footer-links {
+  width: 100%;
+  max-width: 100%;
+}
+
+.site-footer .footer-links .footer-social {
+  width: 100% !important;
+  flex-basis: 100%;
+}
+
+/* The icon row needs real width: 9 rings at 44px + 16px gaps is about
+   530px. The old 0.55fr track was far too narrow, so widen that column
+   rather than restructuring the footer. */
+@media (min-width: 861px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr minmax(560px, 1.1fr);
+  }
+
+  .site-footer .footer-grid > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Below that, let the footer stack naturally. */
+@media (max-width: 860px) {
+  .site-footer .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===================================================================
+   1. TOP HEADER NAME — back to Parkinsans
+   The previous Caveat rule listed .brand-name, which is the header
+   brand. Handwriting belongs to the footer only, so the header is
+   forced back here (later + equal/greater specificity).
+   =================================================================== */
+.brand-name,
+.brand-name .name-pulse,
+.site-header .brand-name,
+.site-header .brand-name .name-pulse {
+  font-family: 'Parkinsans', sans-serif !important;
+  font-style: normal;
+  font-size: clamp(0.95rem, 2.4vw, 1.2rem);
+  letter-spacing: 0.01em;
+  text-transform: none !important;
+}
+
+/* ===================================================================
+   2. FOOTER NAME + SUBTITLE
+   =================================================================== */
+.site-footer .eyebrow {
+  display: block;
+  font-family: 'Caveat', cursive !important;
+  font-size: 1.4rem !important;
+  font-weight: 600;
+  text-transform: capitalize !important;
+  letter-spacing: normal;
+  line-height: 1.15;
+}
+
+.footer-subtitle {
+  margin-top: 0.15rem;
+  color: var(--ink);
+  font-family: 'Parkinsans', sans-serif !important;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+/* ===================================================================
+   3. FOOTER TEXT LINKS — About / Contact, right of the headline
+   =================================================================== */
+.footer-headline {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-textlinks {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding-bottom: 0.6rem;
+}
+
+.site-footer a.text-link,
+.text-link {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  color: var(--ink);
+  font-family: 'Parkinsans', sans-serif !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 180ms ease, text-decoration-color 180ms ease;
+}
+
+.site-footer a.text-link:hover,
+.text-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* ===================================================================
+   4. SOCIAL ICONS — bottom-right, no rings, larger glyphs
+   The strap-line block that occupied the right-hand cell is deleted,
+   so the icon group takes that position.
+   =================================================================== */
+.site-footer .footer-grid {
+  display: flex !important;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  grid-template-columns: none !important;
+}
+
+.site-footer .footer-brand {
+  flex: 1 1 min(100%, 30rem);
+  min-width: 0;
+}
+
+.site-footer .footer-links {
+  display: flex;
+  flex: 0 1 auto;
+  width: auto;
+  max-width: 100%;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.site-footer .footer-social,
+.footer-social {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 18px !important;
+  justify-content: flex-end !important;
+  align-items: center;
+  width: auto !important;
+  max-width: 100% !important;
+  margin-top: 0;
+  grid-template-columns: none !important;
+}
+
+/* Rings removed; the glyph alone carries the link. */
+.site-footer .footer-social a.footer-social__link,
+.footer-social a.footer-social__link {
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.site-footer .footer-social a.footer-social__link .footer-social__icon,
+.footer-social a.footer-social__link .footer-social__icon {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+@media (max-width: 860px) {
+  .site-footer .footer-grid {
+    align-items: flex-start;
+  }
+
+  .site-footer .footer-links {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .site-footer .footer-social {
+    justify-content: flex-start !important;
+  }
+}
+
+/* ===================================================================
+   SIDEBAR DRAWER — tighten the top, rebalance weights
+   Three separate rules were stacking blank space above the heading:
+   .drawer-inner padding-top 1.5rem, .drawer-topline padding-bottom
+   1.6rem, .drawer-heading padding 2.2rem/2.4rem, plus a later
+   margin-top: 2.4rem. Combined that pushed the heading far down.
+   =================================================================== */
+.site-drawer .drawer-inner {
+  padding-top: 1rem;
+}
+
+.site-drawer .drawer-topline {
+  padding-bottom: 0.9rem;
+}
+
+.site-drawer .drawer-heading {
+  margin-top: 0;
+  padding: 1rem 0 1.1rem;
+}
+
+.site-drawer .drawer-heading p {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+.site-drawer .drawer-heading em {
+  font-weight: 700;
+}
+
+/* 2. The 12 category links read lighter than the heading. */
+.site-drawer .drawer-nav .drawer-link,
+.site-drawer .drawer-nav .drawer-link--primary,
+.site-drawer .drawer-nav .drawer-link--feature,
+.site-drawer .drawer-nav .drawer-link strong {
+  font-weight: 400;
+}
+
+.site-drawer .drawer-nav .drawer-link--feature small {
+  font-weight: 400;
+}
+
+/* ===================================================================
+   THEME BUTTON — single circular control
+   Replaces the old sliding pill (.theme-toggle / .theme-switch and its
+   handle). Those rules are now dead: the classes no longer appear in
+   any markup. app.js swaps the inner SVG between a solid moon (light
+   mode) and a solid sun (dark mode) — there is no sliding element.
+   =================================================================== */
+.theme-btn {
+  width: 28px;
+  height: 28px;
+  border: none !important;
+  border-radius: 0;
+  background: none !important;
+  box-shadow: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition: transform 0.2s ease;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The header sets colour via --ink, so 'inherit' resolves to the themed
+   text colour: black ring/glyph in light mode, white in dark mode. */
+.site-header .theme-btn {
+  flex: 0 0 auto;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
+}
+
+.theme-btn:active {
+  transform: scale(0.9);
+}
+
+.theme-btn:hover {
+  transform: scale(1.06);
+}
+
+.theme-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+.theme-btn__icon,
+.theme-btn img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-btn,
+  .theme-btn:hover,
+  .theme-btn:active {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ===================================================================
+   THEME BUTTON ARTWORK — uploaded night_mode.svg / day_mode.svg
+   Loaded via <img>, so currentColor cannot reach inside them; a CSS
+   filter is the only way to recolour them.
+
+   The brief assumed both files are black and asked for invert(1) in
+   dark mode. They are not:
+     night_mode.svg (shown in LIGHT mode) — black disc + white detail.
+       Light ground is #ffffff, so the black artwork already reads.
+     day_mode.svg  (shown in DARK mode)  — a single #ffffff path only.
+       Dark ground is #000000, so the white artwork already reads.
+
+   Inverting day_mode.svg in dark mode would paint it #000000 on a
+   #000000 ground and the sun would vanish. Both files are therefore
+   left un-inverted, which is what the brief actually wanted visually:
+   a dark glyph in light mode and a light glyph in dark mode.
+
+   The hook is kept below so the artwork can be re-tinted in one place
+   if either file is ever replaced with a differently coloured version.
+   =================================================================== */
+.theme-btn img {
+  filter: none;
+}
+
+/* If night_mode.svg is ever swapped for a WHITE-on-transparent version,
+   uncomment this to bring it back to black on the light ground: */
+/* :root[data-theme="light"] .theme-btn img { filter: invert(1); } */
+
+/* If day_mode.svg is ever swapped for a BLACK-on-transparent version,
+   uncomment this to bring it back to white on the dark ground: */
+/* :root[data-theme="dark"] .theme-btn img { filter: invert(1); } */
