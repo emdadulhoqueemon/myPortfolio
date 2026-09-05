@@ -5147,3 +5147,203 @@ span.arabic-text,
 .footer-rule {
   background: var(--line);
 }
+
+/* ===================================================================
+   HEADER — glassmorphism bar
+   Fixed, semi-transparent and blurred so content scrolling underneath
+   is visibly diffused while the header text stays fully legible.
+   =================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  z-index: 9999;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: none;
+  padding: 12px 4%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+:root[data-theme="dark"] .site-header {
+  background: rgba(0, 0, 0, 0.85);
+  border-bottom-color: rgba(128, 128, 128, 0.2);
+}
+
+/* The header is fixed, so it no longer occupies flow space. Offset the
+   page content by the bar's height to stop the first block hiding
+   underneath it. */
+body {
+  padding-top: 66px;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding-top: 60px;
+  }
+}
+
+/* ===================================================================
+   THEME TOGGLE — sliding pill switch
+   Handle rests left (sun) in light mode and slides right (moon) in
+   dark mode.
+   =================================================================== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 60px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  line-height: 0;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.theme-switch__handle {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--canvas);
+  transform: translateY(-50%) translateX(0);
+  transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+}
+
+/* Dark mode: slide the handle to the right-hand end of the pill. */
+:root[data-theme="dark"] .theme-switch__handle {
+  transform: translateY(-50%) translateX(30px);
+}
+
+.theme-switch__icon {
+  grid-area: 1 / 1;
+  width: 14px;
+  height: 14px;
+  color: var(--canvas);
+  transition: opacity 0.3s ease;
+}
+
+/* Sun shows in light mode, moon in dark mode. */
+.theme-switch__icon--moon {
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .theme-switch__icon--sun {
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .theme-switch__icon--moon {
+  opacity: 1;
+}
+
+.theme-toggle:hover .theme-switch {
+  opacity: 0.75;
+}
+
+/* Menu icon sizing for the 3-line hamburger. */
+.menu-toggle__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switch__handle,
+  .theme-switch__icon {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   ISLAMIC CORNER — per-card copy control
+   =================================================================== */
+.verse-card {
+  position: relative;
+}
+
+.verse-card__copy {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.verse-card:hover .verse-card__copy,
+.verse-card__copy:focus-visible {
+  opacity: 1;
+}
+
+.verse-card__copy:hover {
+  background: var(--ink);
+  color: var(--canvas);
+  opacity: 1;
+}
+
+.verse-card__copy svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.verse-card__copy.is-copied {
+  background: var(--ink);
+  color: var(--canvas);
+  opacity: 1;
+}
+
+/* Keep the copy button clear of the caption text. */
+.verse-card__source {
+  padding-right: 38px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verse-card__copy {
+    transition: none;
+  }
+}

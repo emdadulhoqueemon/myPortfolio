@@ -45,6 +45,9 @@
     const isDark = theme === 'dark';
     document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
     if (themeToggle) {
+      // The control is role="switch": aria-checked is the correct state
+      // attribute. aria-pressed is kept in sync for older assistive tech.
+      themeToggle.setAttribute('aria-checked', String(isDark));
       themeToggle.setAttribute('aria-pressed', String(isDark));
       themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
     }
@@ -167,20 +170,11 @@
     summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Haque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
   };
 
-  const promptEntries = [
-    {
-      index: '01',
-      title: 'AI-assisted study placeholder',
-      tag: 'AI-assisted / Placeholder',
-      detail: 'A future entry for documenting an AI-assisted visual experiment without exposing private material.'
-    },
-    {
-      index: '02',
-      title: 'Iteration notes placeholder',
-      tag: 'Iteration / Placeholder',
-      detail: 'A future entry for recording what worked, what changed, and why the final direction was chosen.'
-    }
-  ];
+  // Placeholder entries removed: the archive now shows only real content
+  // (the slash-command library). The filter toolbar and entry list below
+  // derive from this array, so both disappear automatically while it is
+  // empty and return as soon as genuine entries are added.
+  const promptEntries = [];
 
   const routeTitles = {
     '/': 'Home',
@@ -297,6 +291,36 @@
      Vertical, expandable alternative to the project grid. The header
      shows an 80px square thumbnail plus the title/category; the body
      holds the full-size original image and is revealed on click. */
+  // Copies a full Ayat/Hadith card: Arabic, Bengali translation and the
+  // reference, each on its own line.
+  function copyVerseCard(button) {
+    const card = button.closest('.verse-card');
+    if (!card) return;
+
+    const pick = (selector) => {
+      const node = card.querySelector(selector);
+      return node ? (node.textContent || '').trim() : '';
+    };
+
+    const arabic = pick('.verse-card__arabic');
+    const bengali = pick('.verse-card__bengali');
+    const source = pick('.verse-card__source');
+
+    const text = [arabic, bengali, source].filter(Boolean).join('\n\n');
+    if (!text) return;
+
+    const confirm = () => {
+      button.classList.add('is-copied');
+      window.setTimeout(() => button.classList.remove('is-copied'), 1200);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(confirm).catch(() => legacyCopy(text) && confirm());
+      return;
+    }
+    if (legacyCopy(text)) confirm();
+  }
+
   // Copies a command chip's text (e.g. "/portrait") to the clipboard.
   // navigator.clipboard requires a secure context, so a textarea-based
   // fallback keeps this working over plain http:// previews too.
@@ -666,7 +690,8 @@
     const verseCard = (entry, position) => {
       const delayClass = position % 3 === 1 ? ' reveal-delay-1' : (position % 3 === 2 ? ' reveal-delay-2' : '');
       const arabic = entry.arabic ? `<p class="verse-card__arabic arabic-text" lang="ar" dir="rtl">${escapeHtml(entry.arabic)}</p>` : '';
-      return `<figure class="verse-card${entry.arabic ? '' : ' verse-card--reminder'} reveal${delayClass}">${arabic}<blockquote class="verse-card__bengali bengali-text" lang="bn">${escapeHtml(entry.bengali)}</blockquote><figcaption class="verse-card__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</figcaption></figure>`;
+      const copyButton = `<button class="verse-card__copy" type="button" data-copy-verse aria-label="Copy this text" title="Copy"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12Zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11Z"/></svg></button>`;
+      return `<figure class="verse-card${entry.arabic ? '' : ' verse-card--reminder'} reveal${delayClass}">${arabic}<blockquote class="verse-card__bengali bengali-text" lang="bn">${escapeHtml(entry.bengali)}</blockquote><figcaption class="verse-card__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</figcaption>${copyButton}</figure>`;
     };
     const verseGrid = (entries) => `<div class="verse-grid">${entries.map((entry, index) => verseCard(entry, index)).join('')}</div>`;
 
@@ -773,10 +798,11 @@
             </div>
           </div>
         </section>
+        ${promptEntries.length ? `
         <section class="page-section reveal">
           <div class="archive-toolbar"><div class="filter-list" role="group" aria-label="Filter prompt archive">${archiveFilterButtons()}</div><span class="archive-count">${filtered.length} ${filtered.length === 1 ? 'entry' : 'entries'}</span></div>
-          <div class="archive-list">${entries || '<p class="note-box">No placeholder entries match this filter.</p>'}</div>
-        </section>
+          <div class="archive-list">${entries || '<p class="note-box">No entries match this filter.</p>'}</div>
+        </section>` : ''}
         ${librarySection}
       </div>
     `;
@@ -1078,6 +1104,14 @@
     if (event.target.closest('[data-close-drawer]')) {
       event.preventDefault();
       closeDrawer();
+      return;
+    }
+
+    // ---- Islamic Corner: copy a full Ayat card -----------------------
+    const copyVerse = event.target.closest('[data-copy-verse]');
+    if (copyVerse) {
+      event.preventDefault();
+      copyVerseCard(copyVerse);
       return;
     }
 
