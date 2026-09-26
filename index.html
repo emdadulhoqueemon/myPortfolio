@@ -6,12 +6,17 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
     <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
+    <link rel="manifest" href="/manifest.json" />
+    <!-- iOS ignores the manifest icons, and since iOS 15.4 also reads the manifest. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Emon Portfolio" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=1043" />
+    <link rel="stylesheet" href="styles.css?v=202609260326" />
     <script>
       // Light mode is the default on a first visit. Only a previously stored
       // explicit "dark" choice (set by the theme toggle) opts into dark mode.
@@ -93,6 +98,9 @@
       </div>
     </aside>
 
+    <!-- Every route, including the contact form (#/contact), is rendered into
+         this container by renderContact() in app.js. The contact form markup,
+         its required fields, and its submit handling live there, not here. -->
     <main id="app" tabindex="-1"></main>
 
     <section id="bangla-namelipi" class="view-section" aria-labelledby="bangla-namelipi-title">
@@ -195,13 +203,25 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=1043"></script>
-    <script src="data/thumbnails.js?v=1043"></script>
-    <script src="data/videos.js?v=1043"></script>
-    <script src="data/bangla-namelipi.js?v=1043"></script>
-    <script src="data/arabic-calligraphy.js?v=1043"></script>
-    <script src="data/islamic-corner.js?v=1043"></script>
-    <script src="data/prompt-library.js?v=1043"></script>
-    <script src="app.js?v=1043"></script>
+    <script src="data/graphic-design.js?v=202609260326"></script>
+    <script src="data/thumbnails.js?v=202609260326"></script>
+    <script src="data/videos.js?v=202609260326"></script>
+    <script src="data/bangla-namelipi.js?v=202609260326"></script>
+    <script src="data/arabic-calligraphy.js?v=202609260326"></script>
+    <script src="data/islamic-corner.js?v=202609260326"></script>
+    <script src="data/prompt-library.js?v=202609260326"></script>
+    <script src="app.js?v=202609260326"></script>
+
+    <!-- PWA: register the service worker. Requires HTTPS (or localhost);
+         it is skipped silently anywhere else, so this is safe on any host. -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch((error) => {
+            console.warn('Service worker registration failed:', error);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

@@ -223,6 +223,14 @@
   const iconArrow = '<span aria-hidden="true">↗</span>';
   const iconRight = '<span aria-hidden="true">→</span>';
 
+  // Contact form → Google Sheets, via a Google Apps Script Web App.
+  // Apps Script does not return CORS headers, so the request must be sent with
+  // mode: 'no-cors'. The response is therefore opaque: the browser can confirm
+  // the request left the page, but it cannot read a status code back.
+  const CONTACT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzcBKg65XVc15rakk6jUdgBaSjxnN4oAWVrY6k5c3PVg2n5GHhZlT7VWUG2FIHjKpO_/exec';
+  const CONTACT_BUTTON_LABEL = `Send message ${iconArrow}`;
+  const CONTACT_BUTTON_SENDING = 'Sending...';
+
   function escapeHtml(value) {
     return String(value)
       .replaceAll('&', '&amp;')
@@ -822,7 +830,7 @@
   function renderContact() {
     return `
       <div class="page">
-        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'Email and social links are live below. The message form remains a visual placeholder.', 'Contact details / Email + social')}
+        ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'Email and social links are live below, and the message form posts straight to my workspace.', 'Contact details / Email + social')}
         <section class="page-section reveal">
           <div class="contact-layout">
             <div>
@@ -836,14 +844,14 @@
                 <li><span>WhatsApp</span><a href="https://wa.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
                 <li><span>Telegram</span><a href="https://t.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
               </ul>
-              <div class="note-box">The form below is a visual interaction placeholder and does not send a message yet — email is the reliable route for now.</div>
+              <div class="note-box">The form below is live — messages arrive directly in my workspace, and replies come from emdadulhoqueemon@outlook.com.</div>
             </div>
-            <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-              <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" /></div>
-              <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" /></div>
-              <div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="What would you like to say?"></textarea></div>
-              <div class="button-row"><button class="button-link button-link--filled" type="submit">Preview submission ${iconArrow}</button></div>
-              <p class="form-note">Visual prototype only. No message will be sent in this phase.</p>
+            <form class="contact-form" id="contact-form" action="${CONTACT_ENDPOINT}" method="POST">
+              <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" required /></div>
+              <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></div>
+              <div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="What would you like to say?" required></textarea></div>
+              <div class="button-row"><button class="button-link button-link--filled" type="submit">${CONTACT_BUTTON_LABEL}</button></div>
+              <p class="form-note">Your message will be securely sent directly to my workspace.</p>
               <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
             </form>
           </div>
@@ -1125,14 +1133,42 @@
     }
   });
 
-  document.addEventListener('submit', (event) => {
-    if (event.target.id !== 'contact-form') return;
+  // Contact form → Google Sheets (Apps Script Web App).
+  // Delegated from document because renderContact() re-renders the form on every
+  // route change, which would discard a listener bound directly to the element.
+  document.addEventListener('submit', async (event) => {
     const form = event.target;
-    const status = document.getElementById('form-status');
-    // Until a real Formspree ID is configured, keep the form client-side only.
-    if (!form.action || form.action.includes('YOUR_FORM_ID')) {
-      event.preventDefault();
-      if (status) status.textContent = 'Form backend not connected yet — no message was sent.';
+    if (!form || form.id !== 'contact-form') return;
+
+    // Keep the browser from navigating away with the form data.
+    event.preventDefault();
+
+    const button = form.querySelector('button[type="submit"]');
+    const formData = new FormData(form);
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = CONTACT_BUTTON_SENDING;
+    }
+
+    try {
+      await fetch(CONTACT_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+      form.reset();
+      alert('Message sent successfully!');
+    } catch (error) {
+      // A rejected fetch means the request never left the browser (offline, DNS,
+      // blocked request). Errors reported by the Apps Script itself stay invisible
+      // here, because a no-cors response cannot be read.
+      alert('Message could not be sent. Please email emdadulhoqueemon@outlook.com instead.');
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.innerHTML = CONTACT_BUTTON_LABEL;
+      }
     }
   });
 
