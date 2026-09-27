@@ -2049,8 +2049,24 @@ body.drawer-open .site-drawer {
 
 .contact-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.84fr) minmax(16rem, 0.7fr);
+  /* Column 1 = contact form, column 2 = "Open line." + social links.
+     Column widths are unchanged; only the sides are swapped, so the form
+     keeps its narrower card column and the display headline keeps the
+     wider one. The form is also first in the DOM (see renderContact in
+     app.js), so it is first on top when the grid collapses on mobile. */
+  grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 0.84fr);
   gap: clamp(2rem, 8vw, 9rem);
+}
+
+/* Explicit placement: form first, "Open line." + social links second.
+   These match the DOM order, so keyboard focus order stays in sync with
+   the visual order at every breakpoint. */
+.contact-form {
+  order: 1;
+}
+
+.contact-intro {
+  order: 2;
 }
 
 .contact-title {
@@ -2422,6 +2438,17 @@ body.drawer-open .site-drawer {
   .contact-layout,
   .story-layout {
     grid-template-columns: 1fr;
+  }
+
+  /* Single column: the contact form stacks on top, the "Open line."
+     intro and social links fall below it. Restated here so the mobile
+     order holds even if the base ordering is ever edited. */
+  .contact-form {
+    order: 1;
+  }
+
+  .contact-intro {
+    order: 2;
   }
 
   .story-aside {
