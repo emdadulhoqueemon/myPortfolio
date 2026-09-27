@@ -1,6 +1,16 @@
 (() => {
-  // Image download protection: block the context menu and drag-to-save on images.
-  document.addEventListener('contextmenu', (event) => event.preventDefault());
+  // Image download protection: block the context menu and drag-to-save on
+  // images only. The previous handler blocked `contextmenu` on the whole
+  // document, which also removed the long-press "Paste / Copy" menu from
+  // inputs and textareas on mobile and stopped text from being selected.
+  // Text-entry fields are now always allowed their native menu.
+  const isTextEntry = (node) =>
+    !!(node && node.closest && node.closest('input, textarea, select, [contenteditable="true"]'));
+
+  document.addEventListener('contextmenu', (event) => {
+    if (isTextEntry(event.target)) return;
+    if (event.target && event.target.tagName === 'IMG') event.preventDefault();
+  });
   document.addEventListener('dragstart', (event) => {
     if (event.target && event.target.tagName === 'IMG') event.preventDefault();
   });
@@ -833,7 +843,15 @@
         ${pageHeader('07 / Contact', 'Get in<br /><span>touch.</span>', 'Email and social links are live below, and the message form posts straight to my workspace.', 'Contact details / Email + social')}
         <section class="page-section reveal">
           <div class="contact-layout">
-            <div>
+            <form class="contact-form" id="contact-form" action="${CONTACT_ENDPOINT}" method="POST">
+              <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" required /></div>
+              <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></div>
+              <div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="What would you like to say?" required></textarea></div>
+              <div class="button-row"><button class="button-link button-link--filled" type="submit">${CONTACT_BUTTON_LABEL}</button></div>
+              <p class="form-note">Your message will be securely sent directly to my workspace.</p>
+              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="contact-intro">
               <h2 class="contact-title">Open<br /><span>line.</span></h2>
               <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
               <ul class="contact-channels">
@@ -844,16 +862,8 @@
                 <li><span>WhatsApp</span><a href="https://wa.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
                 <li><span>Telegram</span><a href="https://t.me/emdadulhoqueemon" target="_blank" rel="noopener noreferrer">emdadulhoqueemon</a></li>
               </ul>
-              <div class="note-box">The form below is live — messages arrive directly in my workspace, and replies come from emdadulhoqueemon@outlook.com.</div>
+              <div class="note-box">The form is live — messages arrive directly in my workspace, and replies come from emdadulhoqueemon@outlook.com.</div>
             </div>
-            <form class="contact-form" id="contact-form" action="${CONTACT_ENDPOINT}" method="POST">
-              <div class="form-field"><label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" required /></div>
-              <div class="form-field"><label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></div>
-              <div class="form-field"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="What would you like to say?" required></textarea></div>
-              <div class="button-row"><button class="button-link button-link--filled" type="submit">${CONTACT_BUTTON_LABEL}</button></div>
-              <p class="form-note">Your message will be securely sent directly to my workspace.</p>
-              <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-            </form>
           </div>
         </section>
       </div>

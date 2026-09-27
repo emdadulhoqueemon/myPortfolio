@@ -370,8 +370,6 @@ html {
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  user-select: none;
-  -webkit-user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
 }
@@ -1151,14 +1149,13 @@ body.drawer-open .site-drawer {
   color: #ffffff;
 }
 
-/* Image download protection: gallery / case-study images cannot be selected,
-   dragged, or targeted directly (clicks fall through to the card control). */
+/* Image download protection: gallery / case-study images cannot be dragged
+   or targeted directly (clicks fall through to the card control). Text
+   selection is left alone so body copy and form fields stay selectable. */
 .media-asset img,
 .story-aside__avatar img,
 .modal-media-grid img,
 .project-card img {
-  user-select: none;
-  -webkit-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
   pointer-events: none;
@@ -2052,8 +2049,24 @@ body.drawer-open .site-drawer {
 
 .contact-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.84fr) minmax(16rem, 0.7fr);
+  /* Column 1 = contact form, column 2 = "Open line." + social links.
+     Column widths are unchanged; only the sides are swapped, so the form
+     keeps its narrower card column and the display headline keeps the
+     wider one. The form is also first in the DOM (see renderContact in
+     app.js), so it is first on top when the grid collapses on mobile. */
+  grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 0.84fr);
   gap: clamp(2rem, 8vw, 9rem);
+}
+
+/* Explicit placement: form first, "Open line." + social links second.
+   These match the DOM order, so keyboard focus order stays in sync with
+   the visual order at every breakpoint. */
+.contact-form {
+  order: 1;
+}
+
+.contact-intro {
+  order: 2;
 }
 
 .contact-title {
@@ -2425,6 +2438,17 @@ body.drawer-open .site-drawer {
   .contact-layout,
   .story-layout {
     grid-template-columns: 1fr;
+  }
+
+  /* Single column: the contact form stacks on top, the "Open line."
+     intro and social links fall below it. Restated here so the mobile
+     order holds even if the base ordering is ever edited. */
+  .contact-form {
+    order: 1;
+  }
+
+  .contact-intro {
+    order: 2;
   }
 
   .story-aside {
@@ -4233,10 +4257,6 @@ body,
 /* 1. Image security: block dragging and long-press/right-click saving. */
 img {
   pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   -webkit-user-drag: none;
   -webkit-touch-callout: none;
 }
@@ -4915,8 +4935,6 @@ span.arabic-text,
   filter: grayscale(100%);
   transition: filter 0.3s ease;
   flex: 0 0 80px;
-  user-select: none;
-  -webkit-user-select: none;
   -webkit-user-drag: none;
 }
 
@@ -6279,3 +6297,21 @@ body {
 /* If day_mode.svg is ever swapped for a BLACK-on-transparent version,
    uncomment this to bring it back to white on the dark ground: */
 /* :root[data-theme="dark"] .theme-btn img { filter: invert(1); } */
+
+/* ===================================================================
+   TEXT SELECTION + PASTE FIX (appended last so it wins the cascade)
+   Every earlier `user-select: none` declaration has been removed. This
+   block guarantees body copy stays selectable and that contact-form
+   fields accept the native long-press "Paste" menu on mobile.
+   =================================================================== */
+
+body, html, * {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+input, textarea {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  pointer-events: auto !important;
+}
