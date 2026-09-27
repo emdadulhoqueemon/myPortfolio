@@ -1,6 +1,16 @@
 (() => {
-  // Image download protection: block the context menu and drag-to-save on images.
-  document.addEventListener('contextmenu', (event) => event.preventDefault());
+  // Image download protection: block the context menu and drag-to-save on
+  // images only. The previous handler blocked `contextmenu` on the whole
+  // document, which also removed the long-press "Paste / Copy" menu from
+  // inputs and textareas on mobile and stopped text from being selected.
+  // Text-entry fields are now always allowed their native menu.
+  const isTextEntry = (node) =>
+    !!(node && node.closest && node.closest('input, textarea, select, [contenteditable="true"]'));
+
+  document.addEventListener('contextmenu', (event) => {
+    if (isTextEntry(event.target)) return;
+    if (event.target && event.target.tagName === 'IMG') event.preventDefault();
+  });
   document.addEventListener('dragstart', (event) => {
     if (event.target && event.target.tagName === 'IMG') event.preventDefault();
   });
