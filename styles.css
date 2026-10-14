@@ -6082,7 +6082,8 @@ input, textarea {
 }
 
 /* ===================================================================
-   COLOR MOTION TITLES — moving black/red/blue gradient on the text
+   COLOR MOTION TITLES — moving red/orange gradient on the text, plus a
+   physical ripple nudge every 5 seconds.
    The gradient is clipped to the glyphs themselves
    (background-clip: text + transparent fill), so there is no
    background spill: only the letters change colour as the gradient
@@ -6093,35 +6094,50 @@ input, textarea {
    would never match.
    =================================================================== */
 .motion-color-title {
-    background: linear-gradient(90deg, #000000 0%, #e60000 33%, #0033cc 66%, #000000 100%) !important;
+    background: linear-gradient(90deg, #ff0000 0%, #ff7f00 50%, #ff0000 100%) !important;
     background-size: 200% auto !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    animation: color-motion 3s linear infinite !important;
+    /* Continuous color motion + 5-second ripple interval */
+    animation: color-motion 3s linear infinite, text-ripple 5s infinite !important;
     display: inline-block;
+    transform-origin: center;
 }
 body.dark-mode .motion-color-title {
-    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
     background-size: 200% auto !important;
 }
+/* Kept from the previous build: the gradient keeps sweeping behind
+   the glyphs while the ripple nudges the whole title. */
 @keyframes color-motion {
     0% { background-position: 200% center; }
     100% { background-position: -200% center; }
 }
 
-/* Dark mode as this site actually implements it: white takes the
-   place of black so the gradient stays legible on a black ground,
-   while the red and blue stops are unchanged. */
+/* The Ripple Animation */
+@keyframes text-ripple {
+    0%, 80% { transform: scale(1) translateY(0); } /* Stays still for 4 seconds */
+    85% { transform: scale(1.05) translateY(-2px) skewX(-2deg); } /* Ripple starts */
+    90% { transform: scale(0.96) translateY(1px) skewX(1deg); }
+    95% { transform: scale(1.02) translateY(-1px) skewX(-1deg); }
+    100% { transform: scale(1) translateY(0); } /* Returns to normal */
+}
+
+/* Dark mode as this site actually implements it: lighter red/orange
+   stops so the gradient stays legible on a black ground. The two
+   animation chain is repeated here because that selector out-specifies
+   .motion-color-title, so without it the ripple would be dropped in
+   dark mode. */
 :root[data-theme="dark"] .motion-color-title {
-    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
     background-size: 200% auto !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    animation: color-motion 3s linear infinite !important;
+    animation: color-motion 3s linear infinite, text-ripple 5s infinite !important;
 }
 
 /* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
