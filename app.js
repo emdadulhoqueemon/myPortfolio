@@ -205,23 +205,9 @@
   // Content archives live in their own data files so new work can be added without changing UI components.
   const projects = [...baseProjects, ...graphicDesignArchive, ...thumbnailArchive, ...videoArchive, ...banglaNamelipiArchive, ...arabicCalligraphyArchive];
 
-  const fathMakkah = {
-    slug: 'fath-makkah',
-    title: 'Fath Makkah',
-    label: 'Featured / Flagship Case Study',
-    visual: 'fath',
-    categories: ['graphic-design', 'video-editing', 'motion-animation', 'editorial-storytelling', 'islamic-corner'],
-    status: 'Published e-book',
-    featured: true,
-    imageSrc: 'assets/case-study/fath-makkah-ebook-cover.webp',
-    imageAlt: 'Front cover of the Fath Makkah e-book',
-    summary: 'An evidence-based historical e-book on the conquest of Makkah by Muhammad Emdadul Hoque, drawing on the Qur\'an, Sahih Hadith, and trusted early sources.'
-  };
-
   const routeTitles = {
     '/': 'Home',
     '/work': 'Work',
-    '/project/fath-makkah': 'Fath Makkah',
     '/islamic-corner': 'Islamic Corner',
     '/bangla-namelipi': 'Bangla Namelipi',
     '/arabic-calligraphy': 'Arabic Calligraphy',
@@ -260,7 +246,6 @@
   }
 
   function getProject(slug) {
-    if (slug === fathMakkah.slug) return fathMakkah;
     return projects.find((project) => project.slug === slug || project.legacySlug === slug);
   }
 
@@ -313,12 +298,10 @@
 
   function projectCard(project, index = '') {
     const displayTitle = projectDisplayTitle(project);
-    const action = project.slug === 'fath-makkah'
-      ? `<a class="project-card__anchor" href="#/project/fath-makkah" aria-label="Open ${escapeHtml(displayTitle)} case study">`
-      : project.video
+    const action = project.video
         ? `<button class="project-card__button" type="button" data-open-video="${escapeHtml(project.slug)}" aria-label="Play ${escapeHtml(displayTitle)}">`
         : `<button class="project-card__button" type="button" data-open-project="${escapeHtml(project.slug)}" aria-label="Open ${escapeHtml(displayTitle)} details">`;
-    const close = project.slug === 'fath-makkah' ? '</a>' : '</button>';
+    const close = '</button>';
     return `
       <article class="project-card${project.video ? ' project-card--video' : ''}${project.aspectRatio === '9:16' ? ' project-card--portrait' : ''} reveal reveal-delay-${Math.min(Number(index) || 0, 3)}">
         ${action}
@@ -503,7 +486,7 @@
           ${note ? `<div class="page-header__note"><span>${escapeHtml(note)}</span><span aria-hidden="true">↘</span></div>` : ''}
         </div>
         <div class="page-header__copy">
-          <h1>${title}</h1>
+          <h1 class="motion-color-title">${title}</h1>
           <p class="page-header__intro">${escapeHtml(intro)}</p>
         </div>
       </section>
@@ -529,7 +512,7 @@
           </div>
           <div class="hero-layout">
             <div class="hero-column hero-column--text">
-              <h1 class="hero-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
+              <h1 class="hero-title motion-color-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
               <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
             </div>
@@ -542,23 +525,11 @@
           <div class="scroll-cue">Scroll to explore</div>
         </section>
 
-        <section class="page-section feature-block feature-block--compact reveal reveal-delay-1">
-          <div class="feature-topline">
-            <span>Selected project / 01</span>
-            <span>Flagship case study</span>
-          </div>
-          <div class="flagship-card">
-            <h2 class="flagship-card__title">Fath <span>Makkah</span></h2>
-            <p class="flagship-card__desc">An evidence-based historical e-book on the conquest of Makkah — from the Treaty of Hudaybiyyah to the eve of Hunayn — built on the Qur'an, Sahih Hadith, and trusted early sources.</p>
-            ${routeLink('/project/fath-makkah', 'Open flagship case study', 'button-link button-link--filled flagship-card__cta')}
-          </div>
-        </section>
-
-        <section class="page-section reveal reveal-delay-2">
+        <section class="page-section reveal reveal-delay-1">
           <div class="section-heading">
             <div>
-              <div class="section-topline"><span>Practice index / 02</span><span>Dedicated category routes</span></div>
-              <h2 class="section-title">Explore<br /><span>by practice.</span></h2>
+              <div class="section-topline"><span>Practice index / 01</span><span>Dedicated category routes</span></div>
+              <h2 class="section-title motion-color-title">Explore<br /><span>by practice.</span></h2>
             </div>
             <p class="section-heading__side">Each route is reusable for future project additions and can cross-index the same project without duplicating it.</p>
           </div>
@@ -567,12 +538,12 @@
 
         <section class="page-section split-promos reveal">
           <a class="promo-card" href="#/islamic-corner">
-            <div class="promo-card__top"><span class="promo-card__number">03 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M15.2 3.3a9 9 0 1 0 5.5 15.9 7.2 7.2 0 1 1-5.5-15.9Z"/><path d="m18.7 3 .82 2.05L21.6 5.9l-2.08.85L18.7 8.8l-.82-2.05L15.8 5.9l2.08-.85L18.7 3Z"/></svg></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">02 / Dedicated section</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M15.2 3.3a9 9 0 1 0 5.5 15.9 7.2 7.2 0 1 1-5.5-15.9Z"/><path d="m18.7 3 .82 2.05L21.6 5.9l-2.08.85L18.7 8.8l-.82-2.05L15.8 5.9l2.08-.85L18.7 3Z"/></svg></span></div>
             <h3>Islamic <em>Corner.</em></h3>
             <div class="promo-card__bottom"><span>Dawah / Islamic visual content / Calligraphy</span><span aria-hidden="true">↗</span></div>
           </a>
           <a class="promo-card promo-card--warm" href="#/prompt-archive">
-            <div class="promo-card__top"><span class="promo-card__number">04 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M4.5 5.8a1.2 1.2 0 0 1 1.9-1.5l4.8 6a1.2 1.2 0 0 1 0 1.5l-4.8 6a1.2 1.2 0 0 1-1.9-1.5L8.6 11 4.5 5.8Z"/><rect x="11.4" y="16.6" width="8.6" height="2.4" rx="1.2"/></svg></span></div>
+            <div class="promo-card__top"><span class="promo-card__number">03 / Process archive</span><span class="promo-card__symbol" aria-hidden="true"><svg class="promo-card__icon" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M4.5 5.8a1.2 1.2 0 0 1 1.9-1.5l4.8 6a1.2 1.2 0 0 1 0 1.5l-4.8 6a1.2 1.2 0 0 1-1.9-1.5L8.6 11 4.5 5.8Z"/><rect x="11.4" y="16.6" width="8.6" height="2.4" rx="1.2"/></svg></span></div>
             <h3>Prompt <em>Archive.</em></h3>
             <div class="promo-card__bottom"><span>AI-assisted creative work / Iteration notes</span><span aria-hidden="true">↗</span></div>
           </a>
@@ -595,22 +566,8 @@
       <div class="page">
         ${pageHeader('02 / Portfolio index', 'Selected work.', 'A reusable work index for graphic design, video editing, thumbnails, motion, social content, calligraphy, and editorial visual storytelling.', 'Curated placeholders only')}
         <section class="page-section reveal">
-          <div class="feature-topline"><span>Flagship / 01</span><span>Fath Makkah</span></div>
-          <div class="feature-grid">
-            <div class="feature-visual">${visualPlaceholder('fath', 'Fath Makkah / flagship case study placeholder', '01')}</div>
-            <div class="feature-copy">
-              <div class="feature-copy__top">
-                ${metaLine(['Flagship', 'Case study scaffold'])}
-                <h2 class="feature-title">Fath <span>Makkah</span></h2>
-                <p>The flagship route is ready for the project's supplied context, visual assets, process notes, and video links.</p>
-              </div>
-              <div class="feature-copy__bottom">${routeLink('/project/fath-makkah', 'Open case study', 'button-link button-link--filled')}</div>
-            </div>
-          </div>
-        </section>
-        <section class="page-section reveal">
           <div class="section-heading">
-            <div><div class="section-topline"><span>Work set / 02</span><span>Future-ready structure</span></div><h2 class="section-title">Initial<br /><span>placeholders.</span></h2></div>
+            <div><div class="section-topline"><span>Work set / 01</span><span>Future-ready structure</span></div><h2 class="section-title motion-color-title">Initial<br /><span>placeholders.</span></h2></div>
             <p class="section-heading__side">No archive population has been added in this phase. These cards are only layout and interaction scaffolds.</p>
           </div>
           <div class="project-grid">${cards}</div>
@@ -642,7 +599,7 @@
         ${hasVideo ? `
           <section class="page-section reveal">
             <div class="section-heading">
-              <div><div class="section-topline"><span>Video facade / 01</span><span>Link-driven workflow</span></div><h2 class="section-title">Watch<br /><span>when ready.</span></h2></div>
+              <div><div class="section-topline"><span>Video facade / 01</span><span>Link-driven workflow</span></div><h2 class="section-title motion-color-title">Watch<br /><span>when ready.</span></h2></div>
               <p class="section-heading__side">The facade is designed to hold a poster frame and load an external player only when a real video link is available.</p>
             </div>
             ${videoProject ? videoFacade(videoProject.slug, videoProject.title) : videoFacade('short-form-video-placeholder', 'Short-form video placeholder')}
@@ -650,71 +607,10 @@
         ` : ''}
         <section class="page-section reveal">
           <div class="section-heading">
-            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Category<br /><span>work.</span></h2></div>
+            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title motion-color-title">Category<br /><span>work.</span></h2></div>
             <p class="section-heading__side">The category can later support filters, project metadata, related work, and a full archive without changing its route.</p>
           </div>
           ${cards}
-        </section>
-      </div>
-    `;
-  }
-
-  function renderFathMakkah() {
-    const ebookPath = 'assets/case-study/fath-makkah-ebook.pdf';
-    return `
-      <div class="page page--fath-makkah">
-        ${pageHeader('03 / Featured project', 'Fath<br /><span style="color: var(--acid);">Makkah.</span>', 'Fath Makkah — An Evidence-Based Historical E-Book.', 'Flagship / Complete case study')}
-
-        <section class="page-section reveal">
-          <div class="media-grid">
-            <figure class="media-asset media-asset--plain">
-              <img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="eager" decoding="async" />
-            </figure>
-            <div class="story-copy" style="padding: clamp(1.4rem, 3vw, 3rem); background: var(--paper-light);">
-              <span class="eyebrow">Project / Historical e-book</span>
-              <h2 style="margin-top: 1.4rem;">An evidence-based<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">history.</span></h2>
-              <p>Fath Makkah — An Evidence-Based Historical E-Book. The book uses only real and strong proofs, drawn from the Qur'an, Sahih Hadith, and trusted early sources. It follows the story from the Treaty of Hudaybiyyah to the preparation for the Battle of Hunayn. The main goal of this victory was peace.</p>
-              <p class="bengali-text" lang="bn">ফাতহে মক্কা - একটি প্রমাণভিত্তিক ঐতিহাসিক বিবরণ। বইটিতে কেবল বিশুদ্ধ ও শক্তিশালী প্রমাণ ব্যবহার করা হয়েছে — কুরআন, সহিহ হাদিস এবং নির্ভরযোগ্য প্রাচীন উৎস থেকে। এই বিজয়ের মূল লক্ষ্য ছিল শান্তি।</p>
-              <div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div>
-              <div class="note-box">The case study is built from the supplied brief. No client, date, result, or unsupported claim has been added.</div>
-            </div>
-          </div>
-        </section>
-
-        <section class="page-section reveal">
-          <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Project facts</p><span class="story-aside__number">15</span><p class="story-aside__label">parts in the e-book</p></aside>
-            <div class="story-copy">
-              <h2>A clear path from <span style="color: var(--acid);">Hudaybiyyah</span> to Hunayn.</h2>
-              <p>The e-book presents a timeline of the events, evidence for each event, and a discussion of what modern writers think about this victory.</p>
-              <div class="project-spine">
-                <div class="project-spine__item"><span class="project-spine__index">01</span><span class="project-spine__title">The beginning</span><span class="project-spine__detail">The story starts with the Treaty of Hudaybiyyah.</span><span aria-hidden="true">→</span></div>
-                <div class="project-spine__item"><span class="project-spine__index">02</span><span class="project-spine__title">Evidence-led history</span><span class="project-spine__detail">The book uses the Qur'an, Sahih Hadith, and old and trusted history books.</span><span aria-hidden="true">→</span></div>
-                <div class="project-spine__item"><span class="project-spine__index">03</span><span class="project-spine__title">Fifteen parts</span><span class="project-spine__detail">A clear timeline and a table show the exact proof for every event.</span><span aria-hidden="true">→</span></div>
-                <div class="project-spine__item"><span class="project-spine__index">04</span><span class="project-spine__title">The ending</span><span class="project-spine__detail">The narrative ends with preparation for the Battle of Hunayn.</span><span aria-hidden="true">→</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Why this project / 02</span><span>Evidence over popular retelling</span></div><h2 class="section-title">What makes<br /><span>it special.</span></h2></div><p class="section-heading__side">These statements are taken from the supplied project brief and are presented as the project’s stated approach.</p></div>
-          <div class="callout"><h2>Proof<br /><em>first.</em></h2><div class="callout__copy"><p>The book points out fake or weak popular stories while drawing from the Qur'an, Sahih Hadith, and trusted historical sources. Its main message is that the goal of the victory was peace: Prophet Muhammad (PBUH) forgave the people of Makkah and won the city without shedding blood.</p><p class="bengali-text" lang="bn">এই বিজয়ের মূল লক্ষ্য ছিল শান্তি। রাসুলুল্লাহ (সা.) মক্কার মানুষদের ক্ষমা করে দিয়েছিলেন। তিনি রক্তপাত ছাড়াই শহরটি জয় করেছিলেন।</p></div></div>
-        </section>
-
-        <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Cover system / 03</span><span>Front + back</span></div><h2 class="section-title">The book<br /><span>as object.</span></h2></div><p class="section-heading__side">Both supplied cover images are kept visible as part of the case study rather than being reduced to a single thumbnail.</p></div>
-          <div class="cover-pair">
-            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-cover.webp" alt="Front cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
-            <figure class="cover-pair__item"><img src="assets/case-study/fath-makkah-ebook-back-cover.webp" alt="Back cover of the Fath Makkah e-book" loading="lazy" decoding="async" /></figure>
-          </div>
-        </section>
-
-        <section class="page-section reveal">
-          <div class="story-layout">
-            <aside class="story-aside"><p class="story-aside__label">Author</p><span class="story-aside__avatar"><img src="assets/case-study/fath-makkah-author.jpg" alt="Portrait of Muhammad Emdadul Hoque, author of Fath Makkah" loading="lazy" decoding="async" onerror="this.style.display='none'" /></span></aside>
-            <div class="story-copy"><h2>Muhammad<br /><span style="color: var(--acid);">Emdadul Hoque.</span></h2><p class="bengali-text" lang="bn">লেখক: মুহাম্মদ ইমদাদুল হক।</p><p>The supplied brief identifies the author as Muhammad Emdadul Hoque. The portfolio presents this information as part of the e-book project, without adding biography or credentials that were not supplied.</p><div class="button-row"><a class="button-link button-link--filled" href="${ebookPath}" target="_blank" rel="noopener noreferrer">Read / Download Ebook ${iconArrow}</a></div></div>
-          </div>
         </section>
       </div>
     `;
@@ -736,25 +632,25 @@
 
     const ayatSection = ayats.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title motion-color-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
           ${verseGrid(ayats)}
         </section>` : '';
 
     const hadithSection = hadiths.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title motion-color-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
           ${verseGrid(hadiths)}
         </section>` : '';
 
     const reminderSection = reminders.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title motion-color-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
           ${verseGrid(reminders)}
         </section>` : '';
 
     const masalahSection = masalah.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title motion-color-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
           <div class="guideline-list">${masalah.map((entry, index) => `<article class="guideline-item reveal${index % 2 === 1 ? ' reveal-delay-1' : ''}"><span class="guideline-item__index">${String(index + 1).padStart(2, '0')}</span><div class="guideline-item__body"><p class="bengali-text" lang="bn">${escapeHtml(entry.bengali)}</p><p class="guideline-item__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</p></div></article>`).join('')}</div>
         </section>` : '';
 
@@ -764,7 +660,7 @@
         ${hadithSection}
         ${reminderSection}
         ${masalahSection}
-        <section class="page-section reveal"><div class="callout"><h2>Context<br /><em>matters.</em></h2><div class="callout__copy"><p>Every entry carries the information needed to distinguish the artwork from its source material and to keep presentation accurate.</p><div class="button-row">${routeLink('/project/fath-makkah', 'Visit Fath Makkah', 'button-link button-link--filled')}</div></div></div></section>
+        <section class="page-section reveal"><div class="callout"><h2>Context<br /><em>matters.</em></h2><div class="callout__copy"><p>Every entry carries the information needed to distinguish the artwork from its source material and to keep presentation accurate.</p></div></div></section>
       </div>
     `;
   }
@@ -789,7 +685,7 @@
     const totalCommands = promptLibrary.reduce((sum, group) => sum + group.blocks.filter((block) => block.type === 'commands').reduce((groupSum, block) => groupSum + block.items.length, 0), 0);
     const librarySection = promptLibrary.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Prompt Archive / 02</span><span>Slash-command library</span></div><h2 class="section-title">A working<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">vocabulary.</span></h2></div><p class="section-heading__side">${promptLibrary.length} command groups and ${totalCommands}+ slash commands for AI-assisted image work — style, camera, light, composition, era, and constraint controls, with tested combinations.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Prompt Archive / 02</span><span>Slash-command library</span></div><h2 class="section-title motion-color-title">A working<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">vocabulary.</span></h2></div><p class="section-heading__side">${promptLibrary.length} command groups and ${totalCommands}+ slash commands for AI-assisted image work — style, camera, light, composition, era, and constraint controls, with tested combinations.</p></div>
           <div class="prompt-library">${promptLibrary.map((group) => groupCard(group)).join('')}</div>
         </section>
         <section class="page-section reveal"><div class="callout"><h2>Stack the<br /><em>commands.</em></h2><div class="callout__copy"><p>A slash prompt reads as a sentence: Subject → Purpose → Era → Composition → Camera → Light → Style → Detail → Constraints. Groups 41–45 show combinations, short magic prompts, and a personal custom vocabulary built from the same system.</p></div></div></section>` : '';
@@ -852,7 +748,7 @@
               <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
             </form>
             <div class="contact-intro">
-              <h2 class="contact-title">Open<br /><span>line.</span></h2>
+              <h2 class="contact-title motion-color-title">Open<br /><span>line.</span></h2>
               <p class="contact-copy">Reach out by email, or follow the work on social platforms.</p>
               <ul class="contact-channels">
                 <li><span>Email</span><a href="mailto:emdadulhoqueemon@outlook.com" target="_blank" rel="noopener noreferrer">emdadulhoqueemon@outlook.com</a></li>
@@ -908,7 +804,6 @@
     if (isStaticSection) output = '';
     else if (path === '/') output = renderHome();
     else if (path === '/work') output = renderWork();
-    else if (path === '/project/fath-makkah') output = renderFathMakkah();
     else if (path === '/islamic-corner') output = renderIslamicCorner();
     else if (path === '/prompt-archive') output = renderPromptArchive();
     else if (path === '/about') output = renderAbout();
@@ -917,6 +812,14 @@
     else output = renderNotFound();
 
     app.innerHTML = output;
+    // Color motion: apply the moving text gradient to every headline this
+    // SPA render just produced — page <h1>s (Graphic Design, Video Editing
+    // and the other category hubs, Work, About, Contact, ...), section and
+    // contact <h2>s and callout headings — plus the static archive titles
+    // outside #app. Runs on every render, so hash navigation can never
+    // produce a headline without the effect.
+    app.querySelectorAll('h1, h2.section-title, h2.contact-title, .callout h2').forEach((el) => el.classList.add('motion-color-title'));
+    document.querySelectorAll('#bangla-namelipi h1, #bangla-namelipi h2.section-title, #arabic-calligraphy h1, #arabic-calligraphy h2.section-title').forEach((el) => el.classList.add('motion-color-title'));
     // The Bangla Namelipi and Arabic Calligraphy sections are static markup
     // outside #app, so the router swaps between the rendered page and those
     // sections instead of overwriting them.
@@ -966,7 +869,7 @@
 
   function openProjectModal(slug) {
     const project = slug === 'islamic-content-placeholder'
-      ? { slug, title: 'Dawah visual content placeholder', label: 'Dawah / Islamic visual content', visual: 'fath', categories: ['Islamic Corner'], status: 'Placeholder content', summary: 'A temporary project-detail interaction for Islamic visual content. Supplied artwork, context, and source information will replace this placeholder.' }
+      ? { slug, title: 'Dawah visual content placeholder', label: 'Dawah / Islamic visual content', visual: 'archive', categories: ['Islamic Corner'], status: 'Placeholder content', summary: 'A temporary project-detail interaction for Islamic visual content. Supplied artwork, context, and source information will replace this placeholder.' }
       : getProject(slug) || { slug, title: 'Project detail placeholder', label: 'Category placeholder', visual: 'archive', categories: ['To be supplied'], status: 'Placeholder content', summary: 'This interaction is a reusable project-detail scaffold. Real project information will be added only when supplied.' };
     if (!project) return;
     const displayTitle = projectDisplayTitle(project);

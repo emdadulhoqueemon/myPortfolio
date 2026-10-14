@@ -568,35 +568,10 @@ body.drawer-open .site-drawer {
   letter-spacing: -0.04em;
 }
 
-.drawer-link--feature {
-  color: var(--paper);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  background: transparent;
-}
-
-.drawer-link--feature small {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: rgba(255, 255, 255, 0.45);
-  font-size: 0.54rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  vertical-align: middle;
-}
-
 .drawer-link:hover,
 .drawer-link[aria-current="page"] {
   color: var(--orange);
   transform: translateX(0.3rem);
-}
-
-.drawer-link--feature:hover,
-.drawer-link--feature[aria-current="page"] {
-  background: transparent;
-  color: var(--orange);
 }
 
 
@@ -989,16 +964,6 @@ body.drawer-open .site-drawer {
   transform: rotate(25deg);
 }
 
-.visual-placeholder--fath {
-  min-height: 100%;
-  background: linear-gradient(135deg, #fff4ef 0 43%, #ffd6c9 43.2% 59%, #f4f5f6 59.2%);
-}
-
-.visual-placeholder--fath::before {
-  border-color: rgba(26, 26, 26, 0.24);
-  transform: rotate(17deg) skewX(-12deg);
-}
-
 .visual-placeholder--poster {
   background: linear-gradient(135deg, #fff4ef 0 45%, #f1f3f4 45.2%);
 }
@@ -1153,7 +1118,6 @@ body.drawer-open .site-drawer {
    or targeted directly (clicks fall through to the card control). Text
    selection is left alone so body copy and form fields stay selectable. */
 .media-asset img,
-.story-aside__avatar img,
 .modal-media-grid img,
 .project-card img {
   -webkit-user-drag: none;
@@ -1262,8 +1226,7 @@ body.drawer-open .site-drawer {
   transform: translateY(-4px);
 }
 
-.project-card__button,
-.project-card__anchor {
+.project-card__button {
   display: block;
   width: 100%;
   padding: 0;
@@ -1746,25 +1709,6 @@ body.drawer-open .site-drawer {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 8vw, 7.5rem);
   line-height: 0.8;
-}
-
-.story-aside__avatar {
-  display: block;
-  margin-top: 1.3rem;
-  width: clamp(7rem, 14vw, 11rem);
-  height: clamp(7rem, 14vw, 11rem);
-  border: 3px solid var(--orange);
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.11);
-}
-
-.story-aside__avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .story-copy h2 {
@@ -2460,11 +2404,6 @@ body.drawer-open .site-drawer {
     margin: 0.8rem 0 0;
   }
 
-  .story-aside__avatar {
-    display: inline-block;
-    margin: 0.8rem 0 0;
-  }
-
   .hero-layout,
   .feature-grid,
   .media-grid {
@@ -2479,10 +2418,6 @@ body.drawer-open .site-drawer {
     min-height: 24rem;
     border-right: 0;
     border-bottom: 1px solid var(--line);
-  }
-
-  .visual-placeholder--fath {
-    min-height: 24rem;
   }
 
   .feature-copy {
@@ -3157,18 +3092,6 @@ textarea:focus-visible {
 
 /* 1b. Background gradients ------------------------------------------ */
 
-/* Case-study author avatar ring */
-.story-aside__avatar {
-  position: relative;
-  border: 0;
-  padding: 3px;
-  background: var(--accent-gradient);
-  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.story-aside__avatar img {
-  border-radius: 50%;
-}
 
 /* Islamic Corner + Prompt Archive card symbols */
 .promo-card__symbol {
@@ -3184,7 +3107,7 @@ textarea:focus-visible {
   transform: rotate(45deg);
 }
 
-/* Accent rule beside "Read / Download Ebook" — reduced opacity */
+/* Accent rule beside note boxes — reduced opacity */
 .note-box {
   position: relative;
   border-left: 0;
@@ -3324,9 +3247,7 @@ textarea:focus-visible {
 .site-drawer .drawer-link:hover,
 .site-drawer .drawer-link[aria-current="page"],
 .site-drawer .drawer-link:hover strong,
-.site-drawer .drawer-link[aria-current="page"] strong,
-.site-drawer .drawer-link--feature:hover,
-.site-drawer .drawer-link--feature[aria-current="page"] {
+.site-drawer .drawer-link[aria-current="page"] strong {
   background-color: transparent;
   color: #e6e4d8;
   -webkit-text-fill-color: #e6e4d8;
@@ -3376,7 +3297,7 @@ textarea:focus-visible {
 
 /* 1b. Header is strictly flat — the premium bottom curve is removed. */
 
-/* 2a. Case-study title reads "Fath Makkah", not "FATH MAKKAH". */
+/* 2a. Display titles keep their supplied casing, not ALL CAPS. */
 .page-header h1,
 .hero-title,
 .feature-title,
@@ -3454,16 +3375,6 @@ textarea:focus-visible {
   .hero-mark::after {
     animation: none;
   }
-}
-
-/* 4b. Cap the flagship poster so it stops swallowing the viewport. */
-.feature-visual .media-asset--poster {
-  max-height: 70vh;
-}
-
-.feature-visual .media-asset--poster img {
-  max-height: 70vh;
-  object-fit: contain;
 }
 
 /* 5. Footer social links inherit the footer's forced-white treatment. */
@@ -3668,8 +3579,7 @@ textarea:focus-visible {
 }
 
 .site-drawer .drawer-link,
-.site-drawer .drawer-link--primary,
-.site-drawer .drawer-link--feature {
+.site-drawer .drawer-link--primary {
   font-family: var(--font-ui);
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -3677,8 +3587,7 @@ textarea:focus-visible {
   -webkit-text-fill-color: #ffffff;
 }
 
-.site-drawer .drawer-link--primary,
-.site-drawer .drawer-link--feature {
+.site-drawer .drawer-link--primary {
   font-size: 1.02rem;
   padding: 0.56rem 0;
 }
@@ -3696,7 +3605,7 @@ textarea:focus-visible {
   font-size: clamp(1.5rem, 3.2vw, 2.2rem);
 }
 
-/* 5. Case-study posters must not swallow the screen. */
+/* 5. Poster media must not swallow the screen. */
 .media-asset--poster,
 .media-grid .media-asset--poster,
 .feature-visual .media-asset--poster {
@@ -3710,11 +3619,7 @@ textarea:focus-visible {
   object-fit: contain;
 }
 
-.page--fath-makkah .media-asset--poster {
-  max-height: 62vh;
-}
-
-/* Title stays "Fath Makkah", never ALL CAPS. */
+/* Display titles keep their supplied casing, never ALL CAPS. */
 .page-header h1,
 .feature-title,
 .hero-title,
@@ -3934,7 +3839,6 @@ textarea:focus-visible {
 :root[data-theme="dark"] .site-drawer .drawer-link strong,
 :root[data-theme="dark"] .site-drawer .drawer-link small,
 :root[data-theme="dark"] .site-drawer .drawer-link--primary,
-:root[data-theme="dark"] .site-drawer .drawer-link--feature,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em,
 :root[data-theme="dark"] .site-drawer .eyebrow,
@@ -4060,7 +3964,6 @@ body,
 :root[data-theme="dark"] .site-drawer .drawer-link strong,
 :root[data-theme="dark"] .site-drawer .drawer-link span,
 :root[data-theme="dark"] .site-drawer .drawer-link--primary,
-:root[data-theme="dark"] .site-drawer .drawer-link--feature,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
   background: #000000;
@@ -4300,7 +4203,6 @@ img {
 :root[data-theme="dark"] .site-drawer .drawer-link strong,
 :root[data-theme="dark"] .site-drawer .drawer-link span,
 :root[data-theme="dark"] .site-drawer .drawer-link--primary,
-:root[data-theme="dark"] .site-drawer .drawer-link--feature,
 :root[data-theme="dark"] .site-drawer .drawer-subnav .drawer-link,
 :root[data-theme="dark"] .site-drawer .drawer-heading p,
 :root[data-theme="dark"] .site-drawer .drawer-heading em {
@@ -4339,11 +4241,9 @@ img {
    excluded from the colour cross-fade so nothing reflows mid-transition. */
 .drawer-link,
 .drawer-link--primary,
-.drawer-link--feature,
 
 .site-drawer .drawer-link,
-.site-drawer .drawer-link--primary,
-.site-drawer .drawer-link--feature {
+.site-drawer .drawer-link--primary {
   font-weight: 600;
   letter-spacing: 0.06em;
 }
@@ -5494,42 +5394,6 @@ body {
 }
 
 /* ===================================================================
-   FATH MAKKAH — text-only feature block
-   The cover image was removed, so the copy is centred on its own.
-   =================================================================== */
-.feature-grid--textonly {
-  display: block;
-  max-width: 62rem;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.feature-grid--textonly .feature-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.6rem;
-}
-
-.feature-grid--textonly .feature-copy__top,
-.feature-grid--textonly .feature-copy__bottom {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.feature-grid--textonly .feature-copy p {
-  max-width: 58ch;
-  margin: 0 auto;
-}
-
-.feature-grid--textonly .project-meta {
-  justify-content: center;
-}
-
-/* ===================================================================
    PROMO CARD SYMBOLS — centred icons inside the circle / diamond
    The shapes are filled with --accent-gradient (black in light mode,
    white in dark mode), so the icon takes --canvas to stay in perfect
@@ -5566,48 +5430,6 @@ body {
 }
 
 /* ===================================================================
-   FATH MAKKAH — compact flagship card
-   Was a full-width feature block; now a small, self-contained card.
-   =================================================================== */
-.feature-block--compact {
-  padding-top: clamp(1.6rem, 3vw, 2.4rem);
-  padding-bottom: clamp(1.6rem, 3vw, 2.4rem);
-}
-
-.flagship-card {
-  display: flex;
-  max-width: 34rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.85rem;
-  margin-top: 1.1rem;
-  padding: clamp(1.25rem, 2.4vw, 1.75rem);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: transparent;
-}
-
-.flagship-card__title {
-  margin: 0;
-  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-}
-
-.flagship-card__desc {
-  margin: 0;
-  max-width: 46ch;
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.flagship-card__cta {
-  margin-top: 0.35rem;
-}
-
-/* ===================================================================
    PRACTICE LIST — compact rows
    The row height was driven mostly by an oversized title, so the type
    scale is reduced alongside the padding.
@@ -5636,85 +5458,6 @@ body {
   .practice-item__title {
     font-size: 1.05rem;
   }
-}
-
-/* ===================================================================
-   FATH MAKKAH — cover pair
-   The covers previously sat on large black (--ink-soft) slabs that
-   dominated the page. They now sit directly on the page background,
-   side by side, at a restrained size.
-   =================================================================== */
-.cover-pair {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-}
-
-.cover-pair__item {
-  flex: 0 1 auto;
-  max-width: 300px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
-}
-
-.cover-pair__item img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
-/* Top-of-page cover: no slab, no forced min-height. */
-.media-asset--plain {
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
-}
-
-.media-asset--plain img {
-  display: block;
-  width: 100%;
-  max-width: 340px;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 6px;
-  object-fit: contain;
-}
-
-@media (max-width: 640px) {
-  .cover-pair__item {
-    max-width: 46%;
-  }
-}
-
-/* ===================================================================
-   AUTHOR AVATAR — clean borderless circle
-   Overrides the earlier ring (3px border, gradient padding ring) and
-   the outer box-shadow halo.
-   =================================================================== */
-.story-aside__avatar {
-  padding: 0;
-  border: 0;
-  background: none;
-  box-shadow: none;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.story-aside__avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 /* ===================================================================
@@ -5827,30 +5570,6 @@ body {
 
 .theme-switch__handle {
   border-radius: 50%;
-}
-
-/* ===================================================================
-   AUTHOR AVATAR — smaller, grayscale until hover
-   =================================================================== */
-.story-aside__avatar {
-  width: 80px;
-  height: 80px;
-  min-width: 0;
-  min-height: 0;
-}
-
-.story-aside__avatar img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  filter: grayscale(100%);
-  transition: filter 0.4s ease;
-}
-
-.story-aside__avatar img:hover,
-.story-aside__avatar:hover img {
-  filter: grayscale(0%);
 }
 
 /* ===================================================================
@@ -6188,15 +5907,10 @@ body {
   font-weight: 700;
 }
 
-/* 2. The 12 category links read lighter than the heading. */
+/* 2. The 11 category links read lighter than the heading. */
 .site-drawer .drawer-nav .drawer-link,
 .site-drawer .drawer-nav .drawer-link--primary,
-.site-drawer .drawer-nav .drawer-link--feature,
 .site-drawer .drawer-nav .drawer-link strong {
-  font-weight: 400;
-}
-
-.site-drawer .drawer-nav .drawer-link--feature small {
   font-weight: 400;
 }
 
@@ -6314,4 +6028,68 @@ input, textarea {
   user-select: text !important;
   -webkit-user-select: text !important;
   pointer-events: auto !important;
+}
+
+/* ===================================================================
+   COLOR MOTION TITLES — moving black/red/blue gradient on the text
+   The gradient is clipped to the glyphs themselves
+   (background-clip: text + transparent fill), so there is no
+   background spill: only the letters change colour as the gradient
+   sweeps. Injected exactly as specified, with the site's real dark
+   hook added next to body.dark-mode — this site toggles dark mode
+   via :root[data-theme="dark"] on <html> and never puts a
+   .dark-mode class on <body>, so without it the dark variant
+   would never match.
+   =================================================================== */
+.motion-color-title {
+    background: linear-gradient(90deg, #000000 0%, #e60000 33%, #0033cc 66%, #000000 100%) !important;
+    background-size: 200% auto !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    animation: color-motion 3s linear infinite !important;
+    display: inline-block;
+}
+body.dark-mode .motion-color-title {
+    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background-size: 200% auto !important;
+}
+@keyframes color-motion {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* Dark mode as this site actually implements it: white takes the
+   place of black so the gradient stays legible on a black ground,
+   while the red and blue stops are unchanged. */
+:root[data-theme="dark"] .motion-color-title {
+    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background-size: 200% auto !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    animation: color-motion 3s linear infinite !important;
+}
+
+/* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
+   "the Qur'an.") carry inline colours and an earlier ink-fill
+   !important rule. They must turn transparent too, or that word
+   would stay a flat solid colour while the rest of the title runs
+   the gradient — with a transparent fill the parent's clipped
+   gradient paints through the whole title as one piece of text. */
+.motion-color-title span,
+.motion-color-title em {
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-color-title {
+    animation: none !important;
+  }
 }
