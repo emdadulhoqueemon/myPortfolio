@@ -518,7 +518,9 @@
             </div>
             <div class="hero-column hero-column--media">
               <div class="hero-photo">
-                <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
+                <div class="portrait-wrapper">
+                  <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
+                </div>
               </div>
             </div>
           </div>

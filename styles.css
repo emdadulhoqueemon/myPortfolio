@@ -5532,6 +5532,56 @@ body {
   filter: grayscale(100%) contrast(1.1);
 }
 
+/* -------------------------------------------------------------------
+   PORTRAIT WRAPPER — the yellow/orange circle behind the head + collar
+   The portrait is a transparent PNG cutout, so the circle shows through
+   the empty space around the subject. It is drawn with a pseudo-element
+   pinned behind the image (z-index 1 vs 2), so it never intercepts
+   clicks and never sits on top of the subject.
+
+   Geometry is derived from the cutout itself (4500x4500 source):
+     - top of the head sits at ~4% of the image height
+     - the jaw/neck narrows around ~40%, collar + shoulders from ~45%
+     - the head is centred at ~46% of the image width
+   So the circle starts just above the head (top: 5%) and runs down
+   through the collar to ~63%, sitting slightly left of centre to track
+   the head rather than the shoulders.
+
+   260px is the design size at the 450px-wide portrait; min() lets it
+   scale down with the image on narrow screens instead of overflowing.
+   ------------------------------------------------------------------- */
+.portrait-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 450px;
+  /* Kill the inline-block baseline gap so the layout is unchanged. */
+  vertical-align: top;
+  line-height: 0;
+}
+
+.portrait-wrapper::before {
+  content: '';
+  position: absolute;
+  /* Aligns behind the head and collar based on the image scale. */
+  top: 5%;
+  left: 48%;
+  transform: translateX(-50%);
+  width: min(260px, 58%);
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #ffd700 0%, #ff6b00 100%); /* Yellow to Orange mix */
+  border-radius: 50%;
+  z-index: 1;
+  /* Decorative only — never steals pointer events from the portrait. */
+  pointer-events: none;
+}
+
+.portrait-wrapper img {
+  position: relative;
+  z-index: 2; /* Ensures the image stays in front of the circle */
+  display: block;
+}
+
 /* The hero column is right-aligned; let the portrait fill its side. */
 .hero-column--media {
   justify-content: center;
@@ -5539,6 +5589,7 @@ body {
 
 @media (max-width: 860px) {
   .hero-photo,
+  .portrait-wrapper,
   .hero-photo__img {
     max-width: 340px;
   }
