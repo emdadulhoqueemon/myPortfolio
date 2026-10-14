@@ -486,7 +486,7 @@
           ${note ? `<div class="page-header__note"><span>${escapeHtml(note)}</span><span aria-hidden="true">↘</span></div>` : ''}
         </div>
         <div class="page-header__copy">
-          <h1 class="glossy-title">${title}</h1>
+          <h1>${title}</h1>
           <p class="page-header__intro">${escapeHtml(intro)}</p>
         </div>
       </section>
@@ -512,7 +512,7 @@
           </div>
           <div class="hero-layout">
             <div class="hero-column hero-column--text">
-              <h1 class="hero-title glossy-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
+              <h1 class="hero-title">Visual Designer<br /><span>&amp; Video Editor.</span></h1>
               <p class="hero-bio">Emdadul Hoque — <strong>Visual Designer · Video Editor · Creative Content Creator</strong>. Selected work in graphic design, video editing and AI-assisted visual storytelling.</p>
               <div class="hero-support__meta">Short-form video / Poster + graphic design</div>
             </div>
@@ -529,7 +529,7 @@
           <div class="section-heading">
             <div>
               <div class="section-topline"><span>Practice index / 01</span><span>Dedicated category routes</span></div>
-              <h2 class="section-title glossy-title">Explore<br /><span>by practice.</span></h2>
+              <h2 class="section-title">Explore<br /><span>by practice.</span></h2>
             </div>
             <p class="section-heading__side">Each route is reusable for future project additions and can cross-index the same project without duplicating it.</p>
           </div>
@@ -567,7 +567,7 @@
         ${pageHeader('02 / Portfolio index', 'Selected work.', 'A reusable work index for graphic design, video editing, thumbnails, motion, social content, calligraphy, and editorial visual storytelling.', 'Curated placeholders only')}
         <section class="page-section reveal">
           <div class="section-heading">
-            <div><div class="section-topline"><span>Work set / 01</span><span>Future-ready structure</span></div><h2 class="section-title glossy-title">Initial<br /><span>placeholders.</span></h2></div>
+            <div><div class="section-topline"><span>Work set / 01</span><span>Future-ready structure</span></div><h2 class="section-title">Initial<br /><span>placeholders.</span></h2></div>
             <p class="section-heading__side">No archive population has been added in this phase. These cards are only layout and interaction scaffolds.</p>
           </div>
           <div class="project-grid">${cards}</div>
@@ -599,7 +599,7 @@
         ${hasVideo ? `
           <section class="page-section reveal">
             <div class="section-heading">
-              <div><div class="section-topline"><span>Video facade / 01</span><span>Link-driven workflow</span></div><h2 class="section-title glossy-title">Watch<br /><span>when ready.</span></h2></div>
+              <div><div class="section-topline"><span>Video facade / 01</span><span>Link-driven workflow</span></div><h2 class="section-title">Watch<br /><span>when ready.</span></h2></div>
               <p class="section-heading__side">The facade is designed to hold a poster frame and load an external player only when a real video link is available.</p>
             </div>
             ${videoProject ? videoFacade(videoProject.slug, videoProject.title) : videoFacade('short-form-video-placeholder', 'Short-form video placeholder')}
@@ -607,7 +607,7 @@
         ` : ''}
         <section class="page-section reveal">
           <div class="section-heading">
-            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title glossy-title">Category<br /><span>work.</span></h2></div>
+            <div><div class="section-topline"><span>Category work / 02</span><span>${escapeHtml(category.label)}</span></div><h2 class="section-title">Category<br /><span>work.</span></h2></div>
             <p class="section-heading__side">The category can later support filters, project metadata, related work, and a full archive without changing its route.</p>
           </div>
           ${cards}
@@ -632,25 +632,25 @@
 
     const ayatSection = ayats.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title glossy-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 01</span><span lang="bn" class="bengali-text">কুরআনের আয়াত</span></div><h2 class="section-title">Words of<br /><span style="color: var(--acid);">the Qur'an.</span></h2></div><p class="section-heading__side">Selected ayats presented in the original Arabic with Bengali translation. Each entry carries its surah and verse reference.</p></div>
           ${verseGrid(ayats)}
         </section>` : '';
 
     const hadithSection = hadiths.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title glossy-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 02</span><span lang="bn" class="bengali-text">হাদিস</span></div><h2 class="section-title">From the<br /><span style="color: var(--acid);">Sunnah.</span></h2></div><p class="section-heading__side">Sahih hadiths on intention, character, purity, kindness, honest work, and the safety of others — each with its collection and number.</p></div>
           ${verseGrid(hadiths)}
         </section>` : '';
 
     const reminderSection = reminders.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title glossy-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 03</span><span lang="bn" class="bengali-text">ইসলামিক রিমাইন্ডার</span></div><h2 class="section-title">Gentle<br /><span style="color: var(--acid);">reminders.</span></h2></div><p class="section-heading__side">Short reflections in Bengali on tawakkul, prayer, the akhirah, patience with loss, tawbah, and self-accountability.</p></div>
           ${verseGrid(reminders)}
         </section>` : '';
 
     const masalahSection = masalah.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title glossy-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Islamic Corner / 04</span><span lang="bn" class="bengali-text">প্রাত্যহিক মাসআলা ও সুন্নাহ</span></div><h2 class="section-title">Daily<br /><span style="color: var(--acid);">guidance.</span></h2></div><p class="section-heading__side">Everyday masalah and sunnah etiquette — wudu, salam, meals, sleep, sneezing, and seeking permission — with sources noted per entry.</p></div>
           <div class="guideline-list">${masalah.map((entry, index) => `<article class="guideline-item reveal${index % 2 === 1 ? ' reveal-delay-1' : ''}"><span class="guideline-item__index">${String(index + 1).padStart(2, '0')}</span><div class="guideline-item__body"><p class="bengali-text" lang="bn">${escapeHtml(entry.bengali)}</p><p class="guideline-item__source bengali-text" lang="bn">— ${escapeHtml(entry.source)}</p></div></article>`).join('')}</div>
         </section>` : '';
 
@@ -685,7 +685,7 @@
     const totalCommands = promptLibrary.reduce((sum, group) => sum + group.blocks.filter((block) => block.type === 'commands').reduce((groupSum, block) => groupSum + block.items.length, 0), 0);
     const librarySection = promptLibrary.length ? `
         <section class="page-section reveal">
-          <div class="section-heading"><div><div class="section-topline"><span>Prompt Archive / 02</span><span>Slash-command library</span></div><h2 class="section-title glossy-title">A working<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">vocabulary.</span></h2></div><p class="section-heading__side">${promptLibrary.length} command groups and ${totalCommands}+ slash commands for AI-assisted image work — style, camera, light, composition, era, and constraint controls, with tested combinations.</p></div>
+          <div class="section-heading"><div><div class="section-topline"><span>Prompt Archive / 02</span><span>Slash-command library</span></div><h2 class="section-title">A working<br /><span style="color: var(--coral); font-family: var(--font-brand); font-weight: 400;">vocabulary.</span></h2></div><p class="section-heading__side">${promptLibrary.length} command groups and ${totalCommands}+ slash commands for AI-assisted image work — style, camera, light, composition, era, and constraint controls, with tested combinations.</p></div>
           <div class="prompt-library">${promptLibrary.map((group) => groupCard(group)).join('')}</div>
         </section>
         <section class="page-section reveal"><div class="callout"><h2>Stack the<br /><em>commands.</em></h2><div class="callout__copy"><p>A slash prompt reads as a sentence: Subject → Purpose → Era → Composition → Camera → Light → Style → Detail → Constraints. Groups 41–45 show combinations, short magic prompts, and a personal custom vocabulary built from the same system.</p></div></div></section>` : '';
@@ -812,14 +812,6 @@
     else output = renderNotFound();
 
     app.innerHTML = output;
-    // Aggressively apply the glossy shine sweep to every large title this
-    // SPA render just produced — page <h1>s (Graphic Design, Video Editing
-    // and the other category hubs, Work, About, Contact, ...), section
-    // <h2>s and callout headings — plus the two static archive titles
-    // outside #app. Runs on every render, so hash navigation can never
-    // produce an un-glossed title even if a template forgets the class.
-    app.querySelectorAll('h1, h2.section-title, .callout h2').forEach((el) => el.classList.add('glossy-title'));
-    document.querySelectorAll('#bangla-namelipi h1, #arabic-calligraphy h1').forEach((el) => el.classList.add('glossy-title'));
     // The Bangla Namelipi and Arabic Calligraphy sections are static markup
     // outside #app, so the router swaps between the rendered page and those
     // sections instead of overwriting them.
