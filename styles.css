@@ -6029,3 +6029,48 @@ input, textarea {
   -webkit-user-select: text !important;
   pointer-events: auto !important;
 }
+
+/* ===================================================================
+   MOVING SAND BLURRY — sweeping sand/dust blur over page headlines
+   A skewed band carrying backdrop-filter: blur(6px) plus an SVG
+   fractal-noise texture travels across each headline; the part of
+   the text under the band becomes physically blurry/unreadable as
+   it passes, then sharp again behind it. Applied via
+   .blurry-sand-title on every page <h1>/<h2> (see app.js/index.html).
+   =================================================================== */
+.blurry-sand-title {
+    position: relative;
+    display: inline-block;
+    padding-right: 10px; /* Prevent cutoff */
+}
+.blurry-sand-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    /* The Blur Effect */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    /* The Sand/Noise Texture */
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.15%22/%3E%3C/svg%3E');
+    /* Fade the edges of the moving band */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 50%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 50%, transparent);
+    /* The Movement Animation */
+    animation: sand-sweep 4s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes sand-sweep {
+    0% { transform: translateX(-150%) skewX(-15deg); }
+    100% { transform: translateX(350%) skewX(-15deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blurry-sand-title::after {
+    animation: none;
+  }
+}
