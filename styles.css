@@ -6031,46 +6031,65 @@ input, textarea {
 }
 
 /* ===================================================================
-   MOVING SAND BLURRY — sweeping sand/dust blur over page headlines
-   A skewed band carrying backdrop-filter: blur(6px) plus an SVG
-   fractal-noise texture travels across each headline; the part of
-   the text under the band becomes physically blurry/unreadable as
-   it passes, then sharp again behind it. Applied via
-   .blurry-sand-title on every page <h1>/<h2> (see app.js/index.html).
+   COLOR MOTION TITLES — moving black/red/blue gradient on the text
+   The gradient is clipped to the glyphs themselves
+   (background-clip: text + transparent fill), so there is no
+   background spill: only the letters change colour as the gradient
+   sweeps. Injected exactly as specified, with the site's real dark
+   hook added next to body.dark-mode — this site toggles dark mode
+   via :root[data-theme="dark"] on <html> and never puts a
+   .dark-mode class on <body>, so without it the dark variant
+   would never match.
    =================================================================== */
-.blurry-sand-title {
-    position: relative;
+.motion-color-title {
+    background: linear-gradient(90deg, #000000 0%, #e60000 33%, #0033cc 66%, #000000 100%) !important;
+    background-size: 200% auto !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    animation: color-motion 3s linear infinite !important;
     display: inline-block;
-    padding-right: 10px; /* Prevent cutoff */
 }
-.blurry-sand-title::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    /* The Blur Effect */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    /* The Sand/Noise Texture */
-    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.15%22/%3E%3C/svg%3E');
-    /* Fade the edges of the moving band */
-    -webkit-mask-image: linear-gradient(to right, transparent, black 50%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 50%, transparent);
-    /* The Movement Animation */
-    animation: sand-sweep 4s infinite ease-in-out;
-    pointer-events: none;
-    z-index: 10;
+body.dark-mode .motion-color-title {
+    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background-size: 200% auto !important;
+}
+@keyframes color-motion {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
 }
 
-@keyframes sand-sweep {
-    0% { transform: translateX(-150%) skewX(-15deg); }
-    100% { transform: translateX(350%) skewX(-15deg); }
+/* Dark mode as this site actually implements it: white takes the
+   place of black so the gradient stays legible on a black ground,
+   while the red and blue stops are unchanged. */
+:root[data-theme="dark"] .motion-color-title {
+    background: linear-gradient(90deg, #ffffff 0%, #e60000 33%, #0033cc 66%, #ffffff 100%) !important;
+    background-size: 200% auto !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    animation: color-motion 3s linear infinite !important;
+}
+
+/* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
+   "the Qur'an.") carry inline colours and an earlier ink-fill
+   !important rule. They must turn transparent too, or that word
+   would stay a flat solid colour while the rest of the title runs
+   the gradient — with a transparent fill the parent's clipped
+   gradient paints through the whole title as one piece of text. */
+.motion-color-title span,
+.motion-color-title em {
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blurry-sand-title::after {
-    animation: none;
+  .motion-color-title {
+    animation: none !important;
   }
 }
