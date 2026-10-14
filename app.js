@@ -486,7 +486,7 @@
           ${note ? `<div class="page-header__note"><span>${escapeHtml(note)}</span><span aria-hidden="true">↘</span></div>` : ''}
         </div>
         <div class="page-header__copy">
-          <h1>${title}</h1>
+          <h1 class="glossy-title">${title}</h1>
           <p class="page-header__intro">${escapeHtml(intro)}</p>
         </div>
       </section>

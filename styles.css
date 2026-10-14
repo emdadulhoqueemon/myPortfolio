@@ -6029,3 +6029,73 @@ input, textarea {
   -webkit-user-select: text !important;
   pointer-events: auto !important;
 }
+
+/* ===================================================================
+   GLOSSY PAGE TITLES — continuous oblique shine sweep
+   Applied to the main page titles (category hubs such as Graphic
+   Design / Video Editing, plus Work, About, Contact, Prompt Archive
+   and the static Bangla Namelipi / Arabic Calligraphy titles) via
+   .glossy-title in pageHeader() (app.js) and index.html.
+   Light mode: near-black type with a soft silver band sweeping
+   through. Dark mode: white type with a graphite band. The theme
+   hook is :root[data-theme="dark"] — this site never puts a
+   .dark-mode class on <body> — so that selector is used alongside
+   body.dark-mode to guarantee the dark gradient actually applies.
+   Parkinsans is --font-display, so the display face is unchanged;
+   the weight is lifted to 700 so the shine reads clearly.
+   =================================================================== */
+.glossy-title {
+  background: linear-gradient(110deg, #111111 35%, #a1a1a1 50%, #111111 65%);
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shine-sweep 4s linear infinite;
+}
+
+:root[data-theme="dark"] .glossy-title,
+body.dark-mode .glossy-title {
+  background: linear-gradient(110deg, #ffffff 35%, #444444 50%, #ffffff 65%);
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes shine-sweep {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* Keep the titles on Parkinsans, large and bold. Scoped to
+   .page-header h1 so it also wins over the base display rule
+   (.page-header h1 sets font-weight: 400); the large clamp size
+   from the page-header rules above is intentionally kept. */
+.page-header h1.glossy-title {
+  font-family: "Parkinsans", "Noto Sans Bengali", Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* Titles such as "About the practice." wrap their second word in
+   an accent <span>. Those spans must not stay solid or carry their
+   own background, or the word would sit flat while the rest of the
+   title shines — the parent's clipped gradient paints through
+   descendant text once the span's fill is transparent. This wins
+   over the earlier .page-header h1 span ink-fill rule (higher
+   specificity, same !important) and over the spans' inline
+   accent colours. */
+.page-header h1.glossy-title span {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossy-title {
+    animation: none;
+  }
+}
