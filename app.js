@@ -20,7 +20,8 @@
   const drawer = document.getElementById('site-drawer');
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
-  const themeToggle = document.getElementById('theme-toggle-btn') || document.querySelector('[data-theme-toggle]');
+  const bgToggle = document.getElementById('bg-toggle-btn') || document.querySelector('[data-bg-toggle]');
+  const cinematicBg = document.getElementById('cinematic-bg');
   // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
   const banglaSection = document.getElementById('bangla-namelipi');
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
@@ -31,85 +32,27 @@
   const arabicGrid = document.getElementById('arabic-calligraphy-grid');
   const arabicCount = document.getElementById('arabic-calligraphy-count');
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
+  // ---- Play / Pause cinematic background ------------------------------
+  const PLAY_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  const PAUSE_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 
-  // ---- Theme (light / dark) -------------------------------------------
-  // The key is versioned. Any value written before this version (including
-  // a stale 'dark' left over from an earlier visit, when the site still
-  // followed the OS preference) is discarded, so every visitor gets a
-  // genuine first-visit experience: LIGHT MODE.
-  const THEME_KEY = 'eh-theme-v3';
-  const LEGACY_THEME_KEYS = ['eh-theme', 'eh-theme-v2'];
-
-  function purgeLegacyTheme() {
-    try {
-      LEGACY_THEME_KEYS.forEach((key) => window.localStorage.removeItem(key));
-    } catch (error) {
-      /* Storage unavailable; nothing to purge. */
+  function setBgPaused(paused) {
+    if (cinematicBg) {
+      cinematicBg.classList.toggle('paused', paused);
+    }
+    if (bgToggle) {
+      bgToggle.innerHTML = paused ? PLAY_SVG : PAUSE_SVG;
+      bgToggle.setAttribute('aria-pressed', String(paused));
+      bgToggle.setAttribute('aria-label', paused ? 'Play background' : 'Pause background');
     }
   }
 
-  // Returns 'dark' ONLY if the user explicitly chose it via the toggle.
-  // Everything else — no value, an unreadable store, a legacy value, or
-  // any unrecognised string — resolves to light.
-  function readStoredTheme() {
-    try {
-      return window.localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light';
-    } catch (error) {
-      return 'light';
-    }
-  }
-
-  // Escape hatch: '?theme=light' (or '?theme=dark') forces a theme and
-  // rewrites storage. Useful to prove the default without hunting through
-  // browser settings to clear site data.
-  function readThemeOverride() {
-    try {
-      const value = new URLSearchParams(window.location.search).get('theme');
-      if (value === 'light' || value === 'dark') return value;
-    } catch (error) {
-      /* URLSearchParams unavailable; ignore. */
-    }
-    return null;
-  }
-
-  function storeTheme(theme) {
-    try {
-      window.localStorage.setItem(THEME_KEY, theme);
-    } catch (error) {
-      /* Storage can be unavailable (private mode); the toggle still works. */
-    }
-  }
-
-  // Theme button artwork. These are the uploaded files, referenced as
-  // <img> rather than inline SVG.
-  //   light mode -> night_mode.svg (moon: "switch to dark")
-  //   dark  mode -> day_mode.svg   (sun:  "switch to light")
-  const ICON_MOON = 'assets/night_mode.svg';
-  const ICON_SUN = 'assets/day_mode.svg';
-
-  function applyTheme(theme) {
-    const isDark = theme === 'dark';
-    document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
-    if (themeToggle) {
-      // The button's content is ONLY the uploaded artwork.
-      //   light mode -> night_mode.svg (tap to go dark)
-      //   dark  mode -> day_mode.svg   (tap to go light)
-      const iconSrc = isDark ? ICON_SUN : ICON_MOON;
-      const iconAlt = isDark ? 'Light Mode' : 'Dark Mode';
-      themeToggle.innerHTML = '<img src="' + iconSrc + '" alt="' + iconAlt + '" width="28" height="28" />';
-      themeToggle.setAttribute('aria-pressed', String(isDark));
-      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-    }
-    state.theme = isDark ? 'dark' : 'light';
-  }
-
-  function toggleTheme() {
-    applyTheme(state.theme === 'dark' ? 'light' : 'dark');
-    storeTheme(state.theme);
+  function toggleBg() {
+    const paused = !(cinematicBg && cinematicBg.classList.contains('paused'));
+    setBgPaused(paused);
   }
 
   const state = {
-    theme: 'light',
     drawerOpen: false,
     modalOpen: false,
     drawerReturnFocus: null,
@@ -979,9 +922,10 @@
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
-    if (event.target.closest('#theme-toggle-btn, [data-theme-toggle]')) {
+    // The header button now controls the cinematic background, not a theme.
+    if (event.target.closest('#bg-toggle-btn, [data-bg-toggle]')) {
       event.preventDefault();
-      toggleTheme();
+      toggleBg();
       return;
     }
 
@@ -1145,17 +1089,10 @@
     render();
   });
 
-  // Honour an explicit stored choice only; otherwise always start in light mode.
-  // The site never auto-switches to dark from the OS preference — dark theme is
-  // opt-in via the theme toggle button.
-  purgeLegacyTheme();
-  const themeOverride = readThemeOverride();
-  if (themeOverride) {
-    applyTheme(themeOverride);
-    storeTheme(themeOverride);
-  } else {
-    applyTheme(readStoredTheme() === 'dark' ? 'dark' : 'light');
-  }
+  // Permanent dark mode: the theme is fixed, so there is nothing to restore.
+  // The header button now plays/pauses the cinematic background instead.
+  document.documentElement.setAttribute('data-theme', 'dark');
+  setBgPaused(false);
 
   render();
 
