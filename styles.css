@@ -77,30 +77,33 @@
   --font-arabic: "Amiri", "Noto Sans Bengali", serif;
 
   /* ---------------------------------------------------------------
-     STRICT MONOCHROME — light mode (default).
-     Background is absolute #FFFFFF, every glyph is absolute #000000.
-     Filled shapes/buttons are solid black carrying white text.
-     There are exactly two ink values; no greys, tints, or gradients.
+     PERMANENT DARK MODE.
+     There is no light palette any more: the site opens dark, stays
+     dark, and the theme toggle has been replaced by a play/pause
+     control for the cinematic background.
+       ground  #050505 — near-black, lets the floating posters read
+       ink     #ffffff — every glyph
+       panels  translucent near-black so the background shows through
      --------------------------------------------------------------- */
-  --canvas: #ffffff;
-  --surface: #ffffff;
-  --surface-strong: #ffffff;
-  --ink: #000000;
-  --ink-soft: #000000;
-  --paper: #ffffff;
-  --paper-light: #ffffff;
-  --paper-deep: #ffffff;
-  /* Legacy accent names all collapse onto pure black so any remaining
+  --canvas: #050505;
+  --surface: rgba(9, 9, 11, 0.66);
+  --surface-strong: rgba(12, 12, 15, 0.82);
+  --ink: #ffffff;
+  --ink-soft: #ffffff;
+  --paper: #050505;
+  --paper-light: #050505;
+  --paper-deep: rgba(9, 9, 11, 0.72);
+  /* Legacy accent names all collapse onto pure white so any remaining
      var(--orange)/var(--acid) reference renders monochrome. */
-  --acid: #000000;
-  --orange: #000000;
-  --orange-deep: #000000;
-  --coral: #000000;
-  --gold: #000000;
-  --muted: #000000;
-  --muted-dark: #000000;
-  --line: #000000;
-  --line-dark: #000000;
+  --acid: #ffffff;
+  --orange: #ffffff;
+  --orange-deep: #ffffff;
+  --coral: #ffffff;
+  --gold: #ffffff;
+  --muted: #ffffff;
+  --muted-dark: #ffffff;
+  --line: #ffffff;
+  --line-dark: #ffffff;
   /* Ultra-minimalist: no coloured depth. Shadows are removed entirely. */
   --shadow-sm: none;
   --shadow-md: none;
@@ -111,11 +114,11 @@
   --radius-md: 1.15rem;
   --radius-lg: 1.7rem;
   --pill: 999px;
-  /* "Gradients" are now flat black/white so gradient-clipped text and
+  /* "Gradients" are now flat white so gradient-clipped text and
      filled buttons stay strictly monochrome. */
-  --accent-gradient: #000000;
-  --accent-gradient-deep: #000000;
-  --accent-solid: #000000;
+  --accent-gradient: #ffffff;
+  --accent-gradient-deep: #ffffff;
+  --accent-solid: #ffffff;
   --accent-shadow: transparent;
   --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
 }
@@ -126,21 +129,24 @@
 
 html {
   background: var(--canvas);
-  color-scheme: light;
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
-/* Light is the explicit default: any document without an opt-in
-   data-theme="dark" renders the light palette, regardless of the
-   operating system's colour-scheme preference. */
-:root:not([data-theme="dark"]) {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  color-scheme: light;
+/* Dark is the only mode. A data-theme attribute is still written on
+   <html> for compatibility, but every colour below is dark regardless
+   of the operating system's colour-scheme preference. */
+:root,
+:root[data-theme="dark"] {
+  --bg-color: #050505;
+  --text-color: #ffffff;
+  color-scheme: dark;
 }
 
-:root:not([data-theme="dark"]) html,
-:root:not([data-theme="dark"]) body {
+:root html,
+:root[data-theme="dark"] html,
+:root body,
+:root[data-theme="dark"] body {
   background: var(--canvas);
   color: var(--ink);
 }
@@ -149,11 +155,17 @@ body {
   min-width: 320px;
   margin: 0;
   overflow-x: hidden;
-  background: var(--canvas);
-  color: var(--ink);
+  /* The permanent dark ground. #050505 (not pure black) so the 3D
+     poster layer reads as depth rather than a flat void.
+     `isolation` makes <body> a stacking context: without it the
+     z-index:-10 poster layer would paint *under* this background and
+     the floating posters would be invisible. */
+  background-color: #050505;
+  color: #ffffff;
   font-family: var(--font-ui);
   font-size: 1rem;
   line-height: 1.5;
+  isolation: isolate;
 }
 
 body.drawer-open,
@@ -3667,31 +3679,33 @@ textarea:focus-visible {
 }
 
 /* ---------------------------------------------------------------
-   Dark theme — token overrides. Because the site is built on these
-   variables, remapping them re-themes nearly every surface at once.
+   Dark theme — token set. Because the site is built on these
+   variables, they re-theme nearly every surface at once. These are
+   the PERMANENT values: the theme can no longer be switched back.
    --------------------------------------------------------------- */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  color-scheme: light;
+  --bg-color: #050505;
+  --text-color: #ffffff;
+  color-scheme: dark;
 }
 
 :root[data-theme="dark"] {
-  /* STRICT MONOCHROME — dark mode is the exact inversion.
-     Background absolute #000000, every glyph absolute #FFFFFF,
-     filled shapes/buttons invert to solid white with black text. */
-  --bg-color: #000000;
+  /* Strict monochrome, dark side.
+     Ground #050505, every glyph #FFFFFF, filled shapes/buttons carry
+     dark text on a white fill. Panels are translucent so the
+     cinematic background stays visible behind them. */
+  --bg-color: #050505;
   --text-color: #ffffff;
   color-scheme: dark;
 
-  --canvas: #000000;
-  --surface: #000000;
-  --surface-strong: #000000;
+  --canvas: #050505;
+  --surface: rgba(9, 9, 11, 0.66);
+  --surface-strong: rgba(12, 12, 15, 0.82);
   --ink: #ffffff;
   --ink-soft: #ffffff;
-  --paper: #000000;
-  --paper-light: #000000;
-  --paper-deep: #000000;
+  --paper: #050505;
+  --paper-light: #050505;
+  --paper-deep: rgba(9, 9, 11, 0.72);
   --acid: #ffffff;
   --orange: #ffffff;
   --orange-deep: #ffffff;
@@ -6082,70 +6096,69 @@ input, textarea {
 }
 
 /* ===================================================================
-   COLOR MOTION TITLES — moving red/orange gradient on the text, plus a
-   physical ripple nudge every 5 seconds.
-   The gradient is clipped to the glyphs themselves
-   (background-clip: text + transparent fill), so there is no
-   background spill: only the letters change colour as the gradient
-   sweeps. Injected exactly as specified, with the site's real dark
-   hook added next to body.dark-mode — this site toggles dark mode
-   via :root[data-theme="dark"] on <html> and never puts a
-   .dark-mode class on <body>, so without it the dark variant
-   would never match.
+   CENTER-OUT WATER WAVE RIPPLE
+   The display headlines run a sweeping red/orange gradient clipped to
+   the glyphs themselves (background-clip: text + transparent fill), so
+   no background spills outside the letters. Every 5 seconds a shockwave
+   expands from the centre of the title and the text takes a short blur
+   kick, which reads as a water/heat-haze distortion travelling outwards.
    =================================================================== */
 .motion-color-title {
-    background: linear-gradient(90deg, #ff0000 0%, #ff7f00 50%, #ff0000 100%) !important;
+    position: relative;
+    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
     background-size: 200% auto !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    /* Continuous color motion + 5-second ripple interval */
-    animation: color-motion 3s linear infinite, text-ripple 5s infinite !important;
+    animation: color-motion 3s linear infinite, text-distort 5s infinite !important;
     display: inline-block;
-    transform-origin: center;
 }
-body.dark-mode .motion-color-title {
-    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
-    background-size: 200% auto !important;
+.motion-color-title::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, rgba(255,100,0,0.5) 50%, transparent 80%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: center-shockwave 5s infinite;
+    pointer-events: none;
+    z-index: -1;
 }
-/* Kept from the previous build: the gradient keeps sweeping behind
-   the glyphs while the ripple nudges the whole title. */
+@keyframes center-shockwave {
+    0%, 80% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    90% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+}
+@keyframes text-distort {
+    0%, 80% { filter: blur(0); transform: scale(1); }
+    85% { filter: blur(2px); transform: scale(1.05); }
+    90%, 100% { filter: blur(0); transform: scale(1); }
+}
+
+/* The gradient keeps sweeping behind the glyphs; the shockwave is timed
+   to it. Kept from the previous build, unchanged. */
 @keyframes color-motion {
     0% { background-position: 200% center; }
     100% { background-position: -200% center; }
 }
 
-/* The Ripple Animation */
-@keyframes text-ripple {
-    0%, 80% { transform: scale(1) translateY(0); } /* Stays still for 4 seconds */
-    85% { transform: scale(1.05) translateY(-2px) skewX(-2deg); } /* Ripple starts */
-    90% { transform: scale(0.96) translateY(1px) skewX(1deg); }
-    95% { transform: scale(1.02) translateY(-1px) skewX(-1deg); }
-    100% { transform: scale(1) translateY(0); } /* Returns to normal */
-}
-
-/* Dark mode as this site actually implements it: lighter red/orange
-   stops so the gradient stays legible on a black ground. The two
-   animation chain is repeated here because that selector out-specifies
-   .motion-color-title, so without it the ripple would be dropped in
-   dark mode. */
-:root[data-theme="dark"] .motion-color-title {
-    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
-    background-size: 200% auto !important;
-    color: transparent !important;
-    -webkit-text-fill-color: transparent !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    animation: color-motion 3s linear infinite, text-ripple 5s infinite !important;
+/* The z-index:-1 shockwave is positioned against the nearest ancestor
+   stacking context. This site paints its sections on opaque grounds, so
+   without isolating the title the wave would be painted behind the page
+   and never seen. `isolate` keeps it inside the title: above the title's
+   own (glyph-clipped) background layer, below the glyphs themselves. */
+.motion-color-title {
+    isolation: isolate;
 }
 
 /* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
    "the Qur'an.") carry inline colours and an earlier ink-fill
-   !important rule. They must turn transparent too, or that word
-   would stay a flat solid colour while the rest of the title runs
-   the gradient — with a transparent fill the parent's clipped
-   gradient paints through the whole title as one piece of text. */
+   !important rule. They must turn transparent too, or that word would
+   stay a flat solid colour while the rest of the title runs the
+   gradient — with a transparent fill the parent's clipped gradient
+   paints through the whole title as one piece of text. */
 .motion-color-title span,
 .motion-color-title em {
     background: none !important;
@@ -6155,8 +6168,186 @@ body.dark-mode .motion-color-title {
     -webkit-text-fill-color: transparent !important;
 }
 
+/* ===================================================================
+   3D CINEMATIC FLOATING BACKGROUND
+   Three poster-shaped planes drifting across the viewport at different
+   depths and speeds, sitting 10 layers behind the content. Dark
+   placeholders for now (#222 at 15% opacity); drop a background-image
+   on .poster-left / .poster-right / .poster-delay to swap in artwork.
+   =================================================================== */
+#cinematic-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; overflow: hidden; perspective: 1000px; }
+.poster { position: absolute; top: 20%; width: 250px; height: 350px; background-color: #222; border-radius: 8px; opacity: 0.15; background-size: cover; background-position: center; }
+.poster-left { animation: floatLtoR 20s linear infinite; }
+.poster-right { top: 40%; animation: floatRtoL 25s linear infinite; }
+.poster-delay { top: 10%; animation: floatLtoR 22s linear infinite 10s; }
+#cinematic-bg.paused .poster { animation-play-state: paused !important; }
+
+@keyframes floatLtoR {
+    0% { transform: translateX(-300px) rotateY(-30deg) rotateZ(5deg); opacity: 0; }
+    20% { opacity: 0.15; }
+    80% { opacity: 0.15; }
+    100% { transform: translateX(120vw) rotateY(30deg) rotateZ(-5deg); opacity: 0; }
+}
+@keyframes floatRtoL {
+    0% { transform: translateX(120vw) rotateY(30deg) rotateZ(-5deg); opacity: 0; }
+    20% { opacity: 0.15; }
+    80% { opacity: 0.15; }
+    100% { transform: translateX(-300px) rotateY(-30deg) rotateZ(5deg); opacity: 0; }
+}
+
+/* The third plane waits 10s before its first pass. Without a fill mode
+   it would sit fully visible at the left edge during that wait, so the
+   delay borrows the 0% frame (off-canvas, invisible). */
+#cinematic-bg .poster-delay {
+    animation-fill-mode: backwards;
+}
+
+/* A little depth: the right-hand plane is a touch softer than the others
+   and every plane drops a shadow, so they read as lit panels floating at
+   different distances rather than flat rectangles. */
+#cinematic-bg .poster {
+    will-change: transform, opacity;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+#cinematic-bg .poster-right {
+    filter: blur(0.4px);
+}
+
+/* Artwork hook — swap the dark placeholders for real posters by adding
+   the files below (any image works; background-size/position are already
+   set to cover/center):
+     .poster-left  { background-image: url("assets/..."); }
+     .poster-right { background-image: url("assets/..."); }
+     .poster-delay { background-image: url("assets/..."); }
+*/
+
 @media (prefers-reduced-motion: reduce) {
-  .motion-color-title {
-    animation: none !important;
-  }
+    #cinematic-bg .poster {
+        animation: none !important;
+    }
+}
+
+/* ===================================================================
+   PERMANENT DARK MODE — enforcement layer
+   Appended last so it wins the cascade against every earlier block that
+   still carries a light value.
+   =================================================================== */
+
+/* 1. The ground is always #050505 with white ink. */
+html,
+body,
+body.drawer-open,
+body.modal-open {
+    background-color: #050505;
+    color: #ffffff;
+}
+
+html {
+    color-scheme: dark;
+}
+
+/* 2. Nothing full-page may drop an opaque ground over the poster layer.
+      The page shell is transparent; the dark ground comes from <body>. */
+.site-header,
+.site-footer,
+#app,
+.view-section,
+main,
+section {
+    background-color: transparent;
+}
+
+/* 3. Cards and panels keep a hairline, but their ground is translucent
+      so the floating posters stay faintly visible through them. */
+.project-card,
+.feature-grid,
+.promo-card,
+.archive-entry,
+.project-spine__item,
+.modal-panel,
+.contact-form,
+.media-asset,
+.visual-placeholder,
+.hero-mark,
+.prompt-modal__prompt,
+.prompt-modal__prompt pre,
+.prompt-modal__prompt code,
+.view-section code,
+.verse-card {
+    background: var(--surface-strong);
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+/* The drawer list and archive bodies are text on the dark ground; they
+   must not pick up a panel fill from the rule above. */
+.site-drawer .drawer-link,
+.archive-entry__body {
+    background: transparent;
+}
+
+/* Panels that were filled with the page colour must not stay opaque. */
+.promo-card--warm,
+.promo-card--warm:hover {
+    background: rgba(20, 20, 22, 0.68);
+}
+
+/* 4. Text inputs sit on the dark ground instead of a white box. */
+input,
+textarea,
+select {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* 5. Legacy light-mode hooks are dead: if any stale rule or script still
+      sets these, they can no longer repaint the page white. */
+body.light-mode,
+html[data-theme="light"],
+html[data-theme="light"] body {
+    background-color: #050505 !important;
+    color: #ffffff !important;
+}
+
+/* 6. The header control is now play/pause artwork (inline SVG), so the
+      old <img> re-tint hooks are neutralised and the glyph follows the
+      header's ink colour. */
+.site-header .theme-btn {
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+}
+
+.theme-btn svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    pointer-events: none;
+}
+
+/* 7. Scrollbars were tuned for a white page (solid black thumb); on the
+      #050505 ground they vanished, so they invert too. */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32);
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.32) rgba(255, 255, 255, 0.06);
 }

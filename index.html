@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#050505" />
     <meta name="description" content="The portfolio of Emdadul Hoque Emon — Visual Designer, Video Editor, Creative Content Creator." />
     <title>Emdadul Hoque Emon — Visual Designer &amp; Video Editor</title>
     <link rel="manifest" href="/manifest.json" />
@@ -16,30 +16,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=202610141556" />
+    <link rel="stylesheet" href="styles.css?v=202610150543" />
     <script>
-      // Light mode is the default on a first visit. Only a previously stored
-      // explicit "dark" choice (set by the theme toggle) opts into dark mode.
-      // Runs before paint so the correct theme is applied with no flash.
+      // Permanent dark mode. The theme is fixed, so it only needs to be
+      // asserted before paint (and any stale light/dark choice retired).
       (function () {
-        var theme = 'light';
         try {
-          // Retire any pre-v2 value so a stale 'dark' from an earlier
-          // visit can never override the light default.
           window.localStorage.removeItem('eh-theme');
           window.localStorage.removeItem('eh-theme-v2');
-          if (window.localStorage.getItem('eh-theme-v3') === 'dark') theme = 'dark';
-          // '?theme=light' / '?theme=dark' wins over storage.
-          var q = (window.location.search.match(/[?&]theme=(light|dark)/) || [])[1];
-          if (q) theme = q;
+          window.localStorage.removeItem('eh-theme-v3');
         } catch (error) {
-          /* Storage unavailable (private mode) — stay on the light default. */
+          /* Storage unavailable (private mode) — nothing to retire. */
         }
-        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme', 'dark');
       })();
     </script>
 </head>
   <body>
+    <div id="cinematic-bg"><div class="poster poster-left"></div><div class="poster poster-right"></div><div class="poster poster-delay"></div></div>
+
     <div class="site-ambience" aria-hidden="true">
       <span class="ambient-wave ambient-wave--one"></span>
       <span class="ambient-wave ambient-wave--two"></span>
@@ -63,9 +58,9 @@
         <span class="brand-name">Emdadul Hoque <span class="name-pulse">Emon</span></span>
       </a>
 
-      <!-- Right: circular theme button. Shows a solid moon in light mode
-           and a solid sun in dark mode; app.js swaps the SVG on click. -->
-      <button id="theme-toggle-btn" class="theme-btn" type="button" data-theme-toggle aria-label="Toggle Theme" title="Toggle theme"></button>
+      <!-- Right: circular background button. Plays/pauses the cinematic
+           floating background; app.js swaps the play/pause SVG on click. -->
+      <button id="bg-toggle-btn" class="theme-btn" type="button" data-bg-toggle aria-label="Pause background" aria-pressed="false" title="Pause background"></button>
     </header>
 
     <div class="drawer-backdrop" data-close-drawer></div>
@@ -202,14 +197,14 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=202610141556"></script>
-    <script src="data/thumbnails.js?v=202610141556"></script>
-    <script src="data/videos.js?v=202610141556"></script>
-    <script src="data/bangla-namelipi.js?v=202610141556"></script>
-    <script src="data/arabic-calligraphy.js?v=202610141556"></script>
-    <script src="data/islamic-corner.js?v=202610141556"></script>
-    <script src="data/prompt-library.js?v=202610141556"></script>
-    <script src="app.js?v=202610141556"></script>
+    <script src="data/graphic-design.js?v=202610150543"></script>
+    <script src="data/thumbnails.js?v=202610150543"></script>
+    <script src="data/videos.js?v=202610150543"></script>
+    <script src="data/bangla-namelipi.js?v=202610150543"></script>
+    <script src="data/arabic-calligraphy.js?v=202610150543"></script>
+    <script src="data/islamic-corner.js?v=202610150543"></script>
+    <script src="data/prompt-library.js?v=202610150543"></script>
+    <script src="app.js?v=202610150543"></script>
 
     <!-- PWA: register the service worker. Requires HTTPS (or localhost);
          it is skipped silently anywhere else, so this is safe on any host. -->
