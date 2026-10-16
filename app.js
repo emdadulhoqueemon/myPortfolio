@@ -1136,48 +1136,43 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    const btnHome = document.getElementById('easter-egg-home');
-    const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
+    // Find the button forcefully
+    const btnHome = document.getElementById('easter-egg-home') || document.querySelector('.easter-btn-home');
 
-    if (btnHome && targetContainer) {
-        btnHome.addEventListener('click', () => {
-            // 1. Play Continuous Synthesized Beep (Earthquake Alarm)
-            let audioCtx = null;
+    if (btnHome) {
+        // Clone and replace to kill any old conflicting event listeners
+        const newBtn = btnHome.cloneNode(true);
+        btnHome.parentNode.replaceChild(newBtn, btnHome);
+
+        newBtn.addEventListener('click', () => {
+            // 1. Play Synthesized Alarm Beep
             try {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.value = 800;
 
-                osc.type = 'sawtooth'; // Harsh alarm sound
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime); // High pitch
-
-                // Add a vibrato effect to the beep
+                // Vibrato for the glitchy alarm feel
                 const lfo = audioCtx.createOscillator();
-                lfo.type = 'sine';
-                lfo.frequency.value = 15; // Fast vibration
+                lfo.type = 'square';
+                lfo.frequency.value = 25;
                 const lfoGain = audioCtx.createGain();
-                lfoGain.gain.value = 100;
+                lfoGain.gain.value = 200;
                 lfo.connect(lfoGain);
                 lfoGain.connect(osc.frequency);
                 lfo.start();
 
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
                 osc.start();
-                // Stop sound after 4 seconds
-                setTimeout(() => {
-                    osc.stop();
-                    if(audioCtx) audioCtx.close();
-                }, 4000);
-            } catch(e) { console.log('AudioContext not supported or blocked'); }
+                setTimeout(() => { osc.stop(); }, 4000);
+            } catch(e) { console.log('Audio error', e); }
 
-            // 2. Start Earthquake Effect
-            targetContainer.classList.add('earthquake-mode');
-
-            // 3. Stop Earthquake after 4 seconds
+            // 2. Trigger Earthquake on the whole Body
+            document.body.classList.add('earthquake-mode');
             setTimeout(() => {
-                targetContainer.classList.remove('earthquake-mode');
+                document.body.classList.remove('earthquake-mode');
             }, 4000);
         });
     }

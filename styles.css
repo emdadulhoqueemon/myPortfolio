@@ -6354,3 +6354,39 @@ html {
     33% { filter: hue-rotate(90deg) invert(0.2) blur(1px); }
     66% { filter: hue-rotate(-90deg) invert(0.4) blur(2px); }
 }
+
+.easter-btn-home {
+    position: absolute !important;
+    top: 65% !important;
+    right: -15px !important;
+    background: #e60000 !important; /* Solid Red */
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important; /* White Border */
+    border-radius: 20px !important;
+    padding: 6px 16px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+}
+.portrait-wrapper::before {
+    background: linear-gradient(135deg, #ffcc00, #ff6600) !important;
+}
+.earthquake-mode {
+    animation: violent-earthquake 0.2s infinite, glitch-colors 0.4s infinite !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+}
+@keyframes violent-earthquake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-20px, 20px) rotate(-2deg); }
+    40% { transform: translate(20px, -20px) rotate(2deg); }
+    60% { transform: translate(-20px, 5px) rotate(-1deg); }
+    80% { transform: translate(20px, -5px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+@keyframes glitch-colors {
+    0%, 100% { filter: hue-rotate(0deg) invert(0); }
+    50% { filter: hue-rotate(90deg) invert(0.2) blur(3px); }
+}
