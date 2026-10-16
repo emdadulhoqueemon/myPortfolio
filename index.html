@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=202610160854" />
+    <link rel="stylesheet" href="styles.css?v=202610160905" />
     <script>
       // Permanent dark mode. The theme is fixed, so it only needs to be
       // asserted before paint (and any stale light/dark choice retired).
@@ -35,7 +35,12 @@
   <body>
     <div id="video-bg-container">
       <video id="bg-video" autoplay loop muted playsinline>
+        <!-- The loop is not in the repository yet. Both likely locations are
+             listed so whichever one the file is uploaded to resolves: the
+             browser tries each <source> in order and falls through to the
+             next on a 404. Remove the unused line once it has landed. -->
         <source src="./assets/bg-video.mp4" type="video/mp4" />
+        <source src="/bg-video.mp4" type="video/mp4" />
       </video>
     </div>
 
@@ -213,14 +218,14 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=202610160854"></script>
-    <script src="data/thumbnails.js?v=202610160854"></script>
-    <script src="data/videos.js?v=202610160854"></script>
-    <script src="data/bangla-namelipi.js?v=202610160854"></script>
-    <script src="data/arabic-calligraphy.js?v=202610160854"></script>
-    <script src="data/islamic-corner.js?v=202610160854"></script>
-    <script src="data/prompt-library.js?v=202610160854"></script>
-    <script src="app.js?v=202610160854"></script>
+    <script src="data/graphic-design.js?v=202610160905"></script>
+    <script src="data/thumbnails.js?v=202610160905"></script>
+    <script src="data/videos.js?v=202610160905"></script>
+    <script src="data/bangla-namelipi.js?v=202610160905"></script>
+    <script src="data/arabic-calligraphy.js?v=202610160905"></script>
+    <script src="data/islamic-corner.js?v=202610160905"></script>
+    <script src="data/prompt-library.js?v=202610160905"></script>
+    <script src="app.js?v=202610160905"></script>
 
     <!-- PWA: register the service worker. Requires HTTPS (or localhost);
          it is skipped silently anywhere else, so this is safe on any host. -->
