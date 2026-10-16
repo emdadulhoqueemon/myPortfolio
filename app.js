@@ -480,7 +480,7 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
-                  <img id="easter-egg-home" class="easter-svg-btn" src="./assets/Donot%20Click.svg" alt="Do Not Click" style="position: absolute !important; top: 65% !important; right: -10px !important; width: 40px !important; height: auto !important; cursor: pointer !important; z-index: 100 !important; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important;">
+                  <img id="easter-egg-home" class="easter-svg-btn" src="./assets/Donot-Click.svg" alt="Do Not Click" style="position: absolute !important; top: 65% !important; right: -10px !important; width: 40px !important; height: auto !important; cursor: pointer !important; z-index: 9999 !important; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important; display: block !important;">
                 </div>
               </div>
             </div>
