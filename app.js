@@ -480,6 +480,7 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
+                  <button id="easter-egg-home" class="easter-btn-home">Don't Click</button>
                 </div>
               </div>
             </div>
@@ -1133,3 +1134,51 @@
     lastScrollY = window.scrollY;
   }, { passive: true });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnHome = document.getElementById('easter-egg-home');
+    const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
+
+    if (btnHome && targetContainer) {
+        btnHome.addEventListener('click', () => {
+            // 1. Play Continuous Synthesized Beep (Earthquake Alarm)
+            let audioCtx = null;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                osc.type = 'sawtooth'; // Harsh alarm sound
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime); // High pitch
+
+                // Add a vibrato effect to the beep
+                const lfo = audioCtx.createOscillator();
+                lfo.type = 'sine';
+                lfo.frequency.value = 15; // Fast vibration
+                const lfoGain = audioCtx.createGain();
+                lfoGain.gain.value = 100;
+                lfo.connect(lfoGain);
+                lfoGain.connect(osc.frequency);
+                lfo.start();
+
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                osc.start();
+                // Stop sound after 4 seconds
+                setTimeout(() => {
+                    osc.stop();
+                    if(audioCtx) audioCtx.close();
+                }, 4000);
+            } catch(e) { console.log('AudioContext not supported or blocked'); }
+
+            // 2. Start Earthquake Effect
+            targetContainer.classList.add('earthquake-mode');
+
+            // 3. Stop Earthquake after 4 seconds
+            setTimeout(() => {
+                targetContainer.classList.remove('earthquake-mode');
+            }, 4000);
+        });
+    }
+});
