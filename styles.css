@@ -6096,61 +6096,31 @@ input, textarea {
 }
 
 /* ===================================================================
-   CENTER-OUT WATER WAVE RIPPLE
-   The display headlines run a sweeping red/orange gradient clipped to
-   the glyphs themselves (background-clip: text + transparent fill), so
-   no background spills outside the letters. Every 5 seconds a shockwave
-   expands from the centre of the title and the text takes a short blur
-   kick, which reads as a water/heat-haze distortion travelling outwards.
+   REAL WATER RIPPLE (SVG DISPLACEMENT)
+   The display headlines run a sweeping orange/yellow gradient clipped to
+   the glyphs themselves (background-clip: text + transparent fill), so no
+   background spills outside the letters. Every 5 seconds the #water-ripple
+   SVG filter (see index.html, right after <body>) pulses its fractalNoise
+   turbulence and feDisplacementMap scale, physically displacing the pixels
+   of the text with a stone-in-a-pond shockwave. The older CSS-only
+   text-distort blur kick and its ::after shockwave layer were removed —
+   the SVG displacement map replaces both.
    =================================================================== */
 .motion-color-title {
     position: relative;
-    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
+    background: linear-gradient(90deg, #ff8c00 0%, #ffd700 50%, #ff8c00 100%) !important; /* Orange to Yellow */
     background-size: 200% auto !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    animation: color-motion 3s linear infinite, text-distort 5s infinite !important;
+    animation: color-motion 3s linear infinite !important;
     display: inline-block;
+    filter: url('#water-ripple') !important; /* Applies the physical water distortion */
 }
-.motion-color-title::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, transparent 20%, rgba(255,100,0,0.5) 50%, transparent 80%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    animation: center-shockwave 5s infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-@keyframes center-shockwave {
-    0%, 80% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-    90% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
-    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-}
-@keyframes text-distort {
-    0%, 80% { filter: blur(0); transform: scale(1); }
-    85% { filter: blur(2px); transform: scale(1.05); }
-    90%, 100% { filter: blur(0); transform: scale(1); }
-}
-
-/* The gradient keeps sweeping behind the glyphs; the shockwave is timed
-   to it. Kept from the previous build, unchanged. */
 @keyframes color-motion {
     0% { background-position: 200% center; }
     100% { background-position: -200% center; }
-}
-
-/* The z-index:-1 shockwave is positioned against the nearest ancestor
-   stacking context. This site paints its sections on opaque grounds, so
-   without isolating the title the wave would be painted behind the page
-   and never seen. `isolate` keeps it inside the title: above the title's
-   own (glyph-clipped) background layer, below the glyphs themselves. */
-.motion-color-title {
-    isolation: isolate;
 }
 
 /* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
