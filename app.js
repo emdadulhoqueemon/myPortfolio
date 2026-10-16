@@ -480,7 +480,7 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
-                  <button id="easter-egg-home" class="easter-btn-home">Don't Click</button>
+                  <img id="easter-egg-home" class="easter-svg-btn" src="./assets/Donot%20Click.svg" alt="Don't Click" />
                 </div>
               </div>
             </div>

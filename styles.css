@@ -6390,3 +6390,18 @@ html {
     0%, 100% { filter: hue-rotate(0deg) invert(0); }
     50% { filter: hue-rotate(90deg) invert(0.2) blur(3px); }
 }
+
+.easter-svg-btn {
+    position: absolute !important;
+    top: 65% !important;
+    right: -10px !important; /* Brought it slightly closer to the portrait */
+    width: 40px !important; /* EXACTLY 40px to make it VERY SMALL and subtle */
+    height: auto !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    transition: transform 0.2s ease-in-out;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important; /* Subtle shadow for depth */
+}
+.easter-svg-btn:hover {
+    transform: scale(1.1) rotate(-5deg) !important; /* Slight tilt on hover */
+}
