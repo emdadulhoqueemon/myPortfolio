@@ -480,6 +480,7 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
+                  <img id="easter-egg-home" class="easter-svg-btn" src="./assets/Donot-Click.svg" alt="Do Not Click" style="position: absolute !important; top: 65% !important; right: -10px !important; width: 40px !important; height: auto !important; cursor: pointer !important; z-index: 9999 !important; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important; display: block !important;">
                 </div>
               </div>
             </div>
@@ -1133,3 +1134,46 @@
     lastScrollY = window.scrollY;
   }, { passive: true });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Find the button forcefully
+    const btnHome = document.getElementById('easter-egg-home') || document.querySelector('.easter-btn-home');
+
+    if (btnHome) {
+        // Clone and replace to kill any old conflicting event listeners
+        const newBtn = btnHome.cloneNode(true);
+        btnHome.parentNode.replaceChild(newBtn, btnHome);
+
+        newBtn.addEventListener('click', () => {
+            // 1. Play Synthesized Alarm Beep
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.value = 800;
+
+                // Vibrato for the glitchy alarm feel
+                const lfo = audioCtx.createOscillator();
+                lfo.type = 'square';
+                lfo.frequency.value = 25;
+                const lfoGain = audioCtx.createGain();
+                lfoGain.gain.value = 200;
+                lfo.connect(lfoGain);
+                lfoGain.connect(osc.frequency);
+                lfo.start();
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                setTimeout(() => { osc.stop(); }, 4000);
+            } catch(e) { console.log('Audio error', e); }
+
+            // 2. Trigger Earthquake on the whole Body
+            document.body.classList.add('earthquake-mode');
+            setTimeout(() => {
+                document.body.classList.remove('earthquake-mode');
+            }, 4000);
+        });
+    }
+});
