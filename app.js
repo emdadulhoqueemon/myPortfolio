@@ -480,6 +480,7 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
+                  <button id="easter-egg-home" class="easter-btn-home">Don't Click</button>
                 </div>
               </div>
             </div>
@@ -1135,43 +1136,36 @@
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-    const eggBtn = document.getElementById('easter-egg-btn');
-    const zPlane = document.getElementById('z-plane');
+    const btnHome = document.getElementById('easter-egg-home');
+    const btnGlobal = document.getElementById('easter-egg-global');
+    const fighterPlane = document.getElementById('fighter-plane');
     const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
 
-    if (eggBtn && zPlane && targetContainer) {
-        eggBtn.addEventListener('click', () => {
-            // 1. Play Synthesized Beep Sound
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                osc.type = 'square'; osc.frequency.setValueAtTime(440, ctx.currentTime);
-                osc.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.2);
-            } catch(e) {}
+    const triggerEasterEgg = () => {
+        // 1. Scroll to Top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // 2. Play Custom Fighter Sound
+        setTimeout(() => {
+            const fighterSound = new Audio('./assets/fighter-sound.mp3');
+            fighterSound.play().catch(e => console.log('Audio requires user interaction or file is missing.'));
+            
+            // 3. Launch Plane
+            fighterPlane.classList.add('jet-strike');
 
-            // 2. Wait 0.4s, then Scroll to Top
+            // 4. Screen Shake
             setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                targetContainer.classList.add('camera-shake');
                 
-                // 3. Wait for scroll (~1s), play swoosh and launch plane
+                // 5. Restore
                 setTimeout(() => {
-                    const swoosh = new Audio('./assets/swoosh.mp3');
-                    swoosh.play().catch(() => console.log('Upload swoosh.mp3 to assets'));
-                    
-                    zPlane.classList.add('jet-strike');
+                    targetContainer.classList.remove('camera-shake');
+                    fighterPlane.classList.remove('jet-strike');
+                }, 800);
+            }, 300); // Shake syncs with plane position
+        }, 800); // Waits for smooth scroll to mostly finish
+    };
 
-                    // 4. Screen shakes as plane hits center
-                    setTimeout(() => {
-                        targetContainer.classList.add('camera-shake');
-                        
-                        // 5. Restore after plane passes
-                        setTimeout(() => {
-                            targetContainer.classList.remove('camera-shake');
-                            zPlane.classList.remove('jet-strike');
-                        }, 800);
-                    }, 400); // 400ms after plane launches
-                }, 1000);
-            }, 400);
-        });
-    }
+    if (btnHome) btnHome.addEventListener('click', triggerEasterEgg);
+    if (btnGlobal) btnGlobal.addEventListener('click', triggerEasterEgg);
 });
