@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=202610160517" />
+    <link rel="stylesheet" href="styles.css?v=202610160555" />
     <script>
       // Permanent dark mode. The theme is fixed, so it only needs to be
       // asserted before paint (and any stale light/dark choice retired).
@@ -33,6 +33,13 @@
     </script>
 </head>
   <body>
+    <div id="video-bg-container">
+      <video id="bg-video" autoplay loop muted playsinline>
+        <source src="bg-video.mp4" type="video/mp4" />
+      </video>
+      <div id="video-overlay"></div>
+    </div>
+
     <svg style="width: 0; height: 0; position: absolute;" aria-hidden="true" focusable="false">
       <filter id="water-ripple" x="-20%" y="-20%" width="140%" height="140%">
         <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="2" result="rippleNoise">
@@ -43,8 +50,6 @@
         </feDisplacementMap>
       </filter>
     </svg>
-
-    <div id="cinematic-bg"><div class="poster poster-left"></div><div class="poster poster-right"></div><div class="poster poster-delay"></div></div>
 
     <div class="site-ambience" aria-hidden="true">
       <span class="ambient-wave ambient-wave--one"></span>
@@ -69,8 +74,9 @@
         <span class="brand-name">Emdadul Hoque <span class="name-pulse">Emon</span></span>
       </a>
 
-      <!-- Right: circular background button. Plays/pauses the cinematic
-           floating background; app.js swaps the play/pause SVG on click. -->
+      <!-- Right: circular background button. Plays/pauses the full-screen
+           background <video>; app.js swaps the play/pause SVG and mirrors the
+           video's real state on click. -->
       <button id="bg-toggle-btn" class="theme-btn" type="button" data-bg-toggle aria-label="Pause background" aria-pressed="false" title="Pause background"></button>
     </header>
 
@@ -208,14 +214,14 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=202610160517"></script>
-    <script src="data/thumbnails.js?v=202610160517"></script>
-    <script src="data/videos.js?v=202610160517"></script>
-    <script src="data/bangla-namelipi.js?v=202610160517"></script>
-    <script src="data/arabic-calligraphy.js?v=202610160517"></script>
-    <script src="data/islamic-corner.js?v=202610160517"></script>
-    <script src="data/prompt-library.js?v=202610160517"></script>
-    <script src="app.js?v=202610160517"></script>
+    <script src="data/graphic-design.js?v=202610160555"></script>
+    <script src="data/thumbnails.js?v=202610160555"></script>
+    <script src="data/videos.js?v=202610160555"></script>
+    <script src="data/bangla-namelipi.js?v=202610160555"></script>
+    <script src="data/arabic-calligraphy.js?v=202610160555"></script>
+    <script src="data/islamic-corner.js?v=202610160555"></script>
+    <script src="data/prompt-library.js?v=202610160555"></script>
+    <script src="app.js?v=202610160555"></script>
 
     <!-- PWA: register the service worker. Requires HTTPS (or localhost);
          it is skipped silently anywhere else, so this is safe on any host. -->
