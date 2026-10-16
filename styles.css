@@ -6369,16 +6369,13 @@ html {
 }
 
 .easter-link-global {
-    display: block;
-    color: #ff3333;
-    font-size: 12px;
-    margin-top: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: bold;
+    font-size: 11px;
+    color: #444; /* Very subtle color */
+    font-weight: normal;
+    transition: 0.3s;
 }
 .easter-link-global:hover {
-    text-decoration: underline;
+    color: #ff3333;
 }
 
 .footer-bottom {

@@ -163,21 +163,10 @@
     </section>
 
     <footer class="site-footer">
-      <div class="footer-rule"></div>
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <span class="eyebrow">Emdadul Hoque Emon</span>
-          <div class="footer-subtitle">Visual Designer &middot; Video Editor</div>
-          <div class="footer-headline">
-            <p class="footer-title">Still images.<br /><em>Moving ideas.</em></p>
-            <nav class="footer-textlinks" aria-label="Footer navigation">
-              <a href="#about" class="text-link">About</a>
-              <a href="#contact" class="text-link">Contact</a>
-            </nav>
-          </div>
-        </div>
-        <div class="footer-links">
-          <nav class="footer-social" aria-label="Social links">
+  <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: flex-end; width: 100%;">
+    <div class="footer-left">
+      <div class="social-icons">
+<nav class="footer-social" aria-label="Social links">
             <a class="footer-social__link" href="https://www.facebook.com/emdadulhoqueemo" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
               <img class="footer-social__icon" src="assets/facebook.svg" alt="" aria-hidden="true" width="24" height="24" loading="lazy" decoding="async" />
             </a>
@@ -206,25 +195,21 @@
               <img class="footer-social__icon" src="assets/telegram.svg" alt="" aria-hidden="true" width="24" height="24" loading="lazy" decoding="async" />
             </a>
           </nav>
-        </div>
       </div>
-      <div class="footer-bottom">
-        <div class="footer-left">
-            <span>Chattogram, Bangladesh</span>
-        </div>
-        <div class="footer-right" style="text-align: right;">
-            <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-            </div>
-            <!-- New subtle global trigger -->
-            <a href="#" id="easter-egg-global" class="easter-link-global">Don't Click</a>
-        </div>
+      <!-- Add the hidden trigger here, subtle and small -->
+      <span id="easter-egg-global" class="easter-link-global" style="display:inline-block; margin-top:15px; cursor:pointer;">Don't Click</span>
+      <p style="margin-top:5px;">Chattogram, Bangladesh</p>
+    </div>
+    <div class="footer-right" style="text-align: right;">
+      <div class="footer-links">
+        <!-- Original single instance of About and Contact -->
+        <a href="#about" class="text-link">About</a>
+        <a href="#contact" class="text-link">Contact</a>
       </div>
-      <div class="footer-copyright" style="text-align: right; width: 100%;">
-        <span>&copy; Emdadul Hoque 2026. All rights reserved.</span>
-      </div>
-    </footer>
+      <p style="margin-top:15px;">&copy; Emdadul Hoque 2026. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
     <div id="modal-root"></div>
 
