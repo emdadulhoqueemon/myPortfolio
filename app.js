@@ -480,7 +480,6 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
-                  <button id="easter-egg-home" class="easter-btn-home">Don't Click</button>
                 </div>
               </div>
             </div>
@@ -1134,38 +1133,3 @@
     lastScrollY = window.scrollY;
   }, { passive: true });
 })();
-
-document.addEventListener('DOMContentLoaded', () => {
-    const btnHome = document.getElementById('easter-egg-home');
-    const btnGlobal = document.getElementById('easter-egg-global');
-    const fighterPlane = document.getElementById('fighter-plane');
-    const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
-
-    const triggerEasterEgg = () => {
-        // 1. Scroll to Top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // 2. Play Custom Fighter Sound
-        setTimeout(() => {
-            const fighterSound = new Audio('./assets/fighter-sound.mp3');
-            fighterSound.play().catch(e => console.log('Audio requires user interaction or file is missing.'));
-            
-            // 3. Launch Plane
-            fighterPlane.classList.add('jet-strike');
-
-            // 4. Screen Shake
-            setTimeout(() => {
-                targetContainer.classList.add('camera-shake');
-                
-                // 5. Restore
-                setTimeout(() => {
-                    targetContainer.classList.remove('camera-shake');
-                    fighterPlane.classList.remove('jet-strike');
-                }, 800);
-            }, 300); // Shake syncs with plane position
-        }, 800); // Waits for smooth scroll to mostly finish
-    };
-
-    if (btnHome) btnHome.addEventListener('click', triggerEasterEgg);
-    if (btnGlobal) btnGlobal.addEventListener('click', triggerEasterEgg);
-});

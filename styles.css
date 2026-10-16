@@ -5609,7 +5609,6 @@ body {
   transform: translateX(-50%);
   width: min(260px, 58%);
   aspect-ratio: 1 / 1;
-  height: 280px !important; /* Made the background shape slightly taller */
   background: linear-gradient(135deg, #ffd700 0%, #ff6b00 100%); /* Yellow to Orange mix */
   border-radius: 50%;
   z-index: 1;
@@ -6319,70 +6318,4 @@ html[data-theme="light"] body {
 html {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.32) rgba(255, 255, 255, 0.06);
-}
-
-/* Home Page Button - Right neck position */
-.easter-btn-home {
-    position: absolute;
-    top: 65%; /* Neck level */
-    right: -25px; /* Right side of the portrait */
-    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%); /* Glossy Yellow & Orange */
-    color: #111; /* Dark text for contrast */
-    padding: 8px 18px;
-    border-radius: 25px;
-    border: none !important; /* Removed border */
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-}
-.easter-btn-home:hover { transform: scale(1.05); }
-
-/* Global Danger Button (Footer) */
-/* Custom Fighter Plane */
-#fighter-plane {
-    position: fixed; top: -500px; left: 50%;
-    transform: translateX(-50%) rotate(180deg) scale(1.5);
-    z-index: 9999; pointer-events: none; opacity: 0; width: 250px;
-}
-.jet-strike {
-    animation: fly-down 1s cubic-bezier(.17,.84,.44,1) forwards;
-    opacity: 1 !important;
-}
-.camera-shake {
-    animation: violent-shake 0.4s ease-in-out infinite;
-    filter: hue-rotate(20deg) invert(0.1) blur(4px) grayscale(0.2);
-}
-
-@keyframes fly-down {
-    0% { top: -500px; opacity: 1; }
-    100% { top: 120vh; opacity: 1; }
-}
-@keyframes violent-shake {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-20px, 20px) rotate(-3deg); }
-    40% { transform: translate(20px, -20px) rotate(3deg); }
-    60% { transform: translate(-25px, 10px) rotate(-1deg); }
-    80% { transform: translate(25px, -10px) rotate(2deg); }
-}
-
-.easter-link-global {
-    font-size: 11px;
-    color: #444; /* Very subtle color */
-    font-weight: normal;
-    transition: 0.3s;
-}
-.easter-link-global:hover {
-    color: #ff3333;
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 2.2rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
