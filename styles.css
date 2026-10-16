@@ -1,6 +1,33 @@
 @charset "UTF-8";
 
 /* ===================================================================
+   BACKGROUND VIDEO VISIBILITY — nothing opaque above the video
+   The fixed background <video> (z-index:-1, see the rule near the end
+   of this file) sits behind the whole page. Every wrapper layer that
+   could paint a solid ground over it is forced transparent here.
+   `!important` so this wins against the later `background: var(--canvas)`
+   declarations on the page shell.
+   =================================================================== */
+body,
+#app,
+main,
+.main-container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* The one deliberate exception is the root canvas. The <html> background
+   propagates to the canvas, and the canvas is painted *beneath everything*
+   — including negative z-index content — so it can never cover the video.
+   Keeping it near-black means the permanent dark theme still holds if the
+   video is missing, still loading, or paused on a frame that has not
+   arrived, instead of the browser's white default ground showing through
+   white text. */
+html {
+    background-color: #050505 !important;
+}
+
+/* ===================================================================
    PARKINSANS — self-hosted from assets/fonts/parkinsans/
    Served from the repository, not the Google Fonts CDN.
 
@@ -80,10 +107,10 @@
      PERMANENT DARK MODE.
      There is no light palette any more: the site opens dark, stays
      dark, and the theme toggle has been replaced by a play/pause
-     control for the cinematic background.
-       ground  #050505 — near-black, lets the floating posters read
+     control for the background video.
+       ground  #050505 — near-black, sits under the background video
        ink     #ffffff — every glyph
-       panels  translucent near-black so the background shows through
+       panels  translucent near-black so the video shows through
      --------------------------------------------------------------- */
   --canvas: #050505;
   --surface: rgba(9, 9, 11, 0.66);
@@ -155,11 +182,10 @@ body {
   min-width: 320px;
   margin: 0;
   overflow-x: hidden;
-  /* The permanent dark ground. #050505 (not pure black) so the 3D
-     poster layer reads as depth rather than a flat void.
-     `isolation` makes <body> a stacking context: without it the
-     z-index:-10 poster layer would paint *under* this background and
-     the floating posters would be invisible. */
+  /* The permanent dark ground, kept on the canvas below the video. The
+     video layer needs `isolation` on <body>: it makes <body> a stacking
+     context, so the z-index:-1 backdrop paints above this background
+     rather than slipping underneath it. */
   background-color: #050505;
   color: #ffffff;
   font-family: var(--font-ui);
@@ -3693,7 +3719,7 @@ textarea:focus-visible {
   /* Strict monochrome, dark side.
      Ground #050505, every glyph #FFFFFF, filled shapes/buttons carry
      dark text on a white fill. Panels are translucent so the
-     cinematic background stays visible behind them. */
+     background video stays visible behind them. */
   --bg-color: #050505;
   --text-color: #ffffff;
   color-scheme: dark;
@@ -6096,61 +6122,31 @@ input, textarea {
 }
 
 /* ===================================================================
-   CENTER-OUT WATER WAVE RIPPLE
-   The display headlines run a sweeping red/orange gradient clipped to
-   the glyphs themselves (background-clip: text + transparent fill), so
-   no background spills outside the letters. Every 5 seconds a shockwave
-   expands from the centre of the title and the text takes a short blur
-   kick, which reads as a water/heat-haze distortion travelling outwards.
+   REAL WATER RIPPLE (SVG DISPLACEMENT)
+   The display headlines run a sweeping orange/yellow gradient clipped to
+   the glyphs themselves (background-clip: text + transparent fill), so no
+   background spills outside the letters. Every 5 seconds the #water-ripple
+   SVG filter (see index.html, right after <body>) pulses its fractalNoise
+   turbulence and feDisplacementMap scale, physically displacing the pixels
+   of the text with a stone-in-a-pond shockwave. The older CSS-only
+   text-distort blur kick and its ::after shockwave layer were removed —
+   the SVG displacement map replaces both.
    =================================================================== */
 .motion-color-title {
     position: relative;
-    background: linear-gradient(90deg, #ff3333 0%, #ff9933 50%, #ff3333 100%) !important;
+    background: linear-gradient(90deg, #ff8c00 0%, #ffd700 50%, #ff8c00 100%) !important; /* Orange to Yellow */
     background-size: 200% auto !important;
     color: transparent !important;
     -webkit-text-fill-color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    animation: color-motion 3s linear infinite, text-distort 5s infinite !important;
+    animation: color-motion 3s linear infinite !important;
     display: inline-block;
+    filter: url('#water-ripple') !important; /* Applies the physical water distortion */
 }
-.motion-color-title::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, transparent 20%, rgba(255,100,0,0.5) 50%, transparent 80%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    animation: center-shockwave 5s infinite;
-    pointer-events: none;
-    z-index: -1;
-}
-@keyframes center-shockwave {
-    0%, 80% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-    90% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
-    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-}
-@keyframes text-distort {
-    0%, 80% { filter: blur(0); transform: scale(1); }
-    85% { filter: blur(2px); transform: scale(1.05); }
-    90%, 100% { filter: blur(0); transform: scale(1); }
-}
-
-/* The gradient keeps sweeping behind the glyphs; the shockwave is timed
-   to it. Kept from the previous build, unchanged. */
 @keyframes color-motion {
     0% { background-position: 200% center; }
     100% { background-position: -200% center; }
-}
-
-/* The z-index:-1 shockwave is positioned against the nearest ancestor
-   stacking context. This site paints its sections on opaque grounds, so
-   without isolating the title the wave would be painted behind the page
-   and never seen. `isolate` keeps it inside the title: above the title's
-   own (glyph-clipped) background layer, below the glyphs themselves. */
-.motion-color-title {
-    isolation: isolate;
 }
 
 /* Accent <span>/<em> words inside the headlines (e.g. "by practice.",
@@ -6169,63 +6165,35 @@ input, textarea {
 }
 
 /* ===================================================================
-   3D CINEMATIC FLOATING BACKGROUND
-   Three poster-shaped planes drifting across the viewport at different
-   depths and speeds, sitting 10 layers behind the content. Dark
-   placeholders for now (#222 at 15% opacity); drop a background-image
-   on .poster-left / .poster-right / .poster-delay to swap in artwork.
+   FULL-SCREEN BACKGROUND VIDEO
+   A 9:16 (vertical) loop painted behind the whole site. `object-fit:
+   cover` crops it to fill any viewport, so on a desktop 16:9 window the
+   video is scaled up and centre-cropped rather than letterboxed. It sits
+   at z-index:-1: the bottom-most painted layer of <body>'s stacking
+   context, above the root canvas ground, behind every section's content.
+   The loop is natively dark and textured, so it is shown exactly as it
+   is: no overlay, no filters, nothing between the video and the page.
    =================================================================== */
-#cinematic-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -10; pointer-events: none; overflow: hidden; perspective: 1000px; }
-.poster { position: absolute; top: 20%; width: 250px; height: 350px; background-color: #222; border-radius: 8px; opacity: 0.15; background-size: cover; background-position: center; }
-.poster-left { animation: floatLtoR 20s linear infinite; }
-.poster-right { top: 40%; animation: floatRtoL 25s linear infinite; }
-.poster-delay { top: 10%; animation: floatLtoR 22s linear infinite 10s; }
-#cinematic-bg.paused .poster { animation-play-state: paused !important; }
-
-@keyframes floatLtoR {
-    0% { transform: translateX(-300px) rotateY(-30deg) rotateZ(5deg); opacity: 0; }
-    20% { opacity: 0.15; }
-    80% { opacity: 0.15; }
-    100% { transform: translateX(120vw) rotateY(30deg) rotateZ(-5deg); opacity: 0; }
+#video-bg-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1 !important; /* Bring it right behind the content */
+    overflow: hidden;
+    /* Purely decorative: without this the full-viewport layer would become
+       the hit target for clicks and taps that land on empty page space. */
+    pointer-events: none;
 }
-@keyframes floatRtoL {
-    0% { transform: translateX(120vw) rotateY(30deg) rotateZ(-5deg); opacity: 0; }
-    20% { opacity: 0.15; }
-    80% { opacity: 0.15; }
-    100% { transform: translateX(-300px) rotateY(-30deg) rotateZ(5deg); opacity: 0; }
+#bg-video {
+    width: 100%; height: 100%;
+    object-fit: cover; /* This makes the 9:16 video fit perfectly on desktop too */
+    opacity: 1 !important;
+    display: block !important;
 }
 
-/* The third plane waits 10s before its first pass. Without a fill mode
-   it would sit fully visible at the left edge during that wait, so the
-   delay borrows the 0% frame (off-canvas, invisible). */
-#cinematic-bg .poster-delay {
-    animation-fill-mode: backwards;
-}
-
-/* A little depth: the right-hand plane is a touch softer than the others
-   and every plane drops a shadow, so they read as lit panels floating at
-   different distances rather than flat rectangles. */
-#cinematic-bg .poster {
-    will-change: transform, opacity;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-}
-#cinematic-bg .poster-right {
-    filter: blur(0.4px);
-}
-
-/* Artwork hook — swap the dark placeholders for real posters by adding
-   the files below (any image works; background-size/position are already
-   set to cover/center):
-     .poster-left  { background-image: url("assets/..."); }
-     .poster-right { background-image: url("assets/..."); }
-     .poster-delay { background-image: url("assets/..."); }
-*/
-
-@media (prefers-reduced-motion: reduce) {
-    #cinematic-bg .poster {
-        animation: none !important;
-    }
-}
+/* Reduced motion is handled in app.js rather than here: the loop is started
+   paused, the header button shows the Play icon, and the backdrop holds the
+   video's first frame instead of animating. */
 
 /* ===================================================================
    PERMANENT DARK MODE — enforcement layer

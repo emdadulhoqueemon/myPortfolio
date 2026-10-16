@@ -21,7 +21,7 @@
   const drawerToggle = document.querySelector('[data-open-drawer]');
   const drawerClose = document.querySelector('[data-close-drawer]');
   const bgToggle = document.getElementById('bg-toggle-btn') || document.querySelector('[data-bg-toggle]');
-  const cinematicBg = document.getElementById('cinematic-bg');
+  const bgVideo = document.getElementById('bg-video');
   // Static Bangla Namelipi section (rendered by data/bangla-namelipi.js).
   const banglaSection = document.getElementById('bangla-namelipi');
   const banglaGrid = document.getElementById('bangla-namelipi-grid');
@@ -32,24 +32,41 @@
   const arabicGrid = document.getElementById('arabic-calligraphy-grid');
   const arabicCount = document.getElementById('arabic-calligraphy-count');
   const arabicEmpty = document.getElementById('arabic-calligraphy-empty');
-  // ---- Play / Pause cinematic background ------------------------------
+  // ---- Play / Pause the background video --------------------------------
+  // The header button physically controls the HTML5 <video> that paints the
+  // page backdrop, instead of toggling a CSS animation class. The icon is
+  // re-synced from the video's own `play`/`pause` events, so it stays honest
+  // when autoplay is refused, when the browser pauses media in a background
+  // tab, or when a reduced-motion preference starts the loop paused.
   const PLAY_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
   const PAUSE_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
 
-  function setBgPaused(paused) {
-    if (cinematicBg) {
-      cinematicBg.classList.toggle('paused', paused);
-    }
-    if (bgToggle) {
-      bgToggle.innerHTML = paused ? PLAY_SVG : PAUSE_SVG;
-      bgToggle.setAttribute('aria-pressed', String(paused));
-      bgToggle.setAttribute('aria-label', paused ? 'Play background' : 'Pause background');
-    }
+  function syncBgButton() {
+    if (!bgToggle) return;
+    const paused = !bgVideo || bgVideo.paused;
+    bgToggle.innerHTML = paused ? PLAY_SVG : PAUSE_SVG;
+    bgToggle.setAttribute('aria-pressed', String(paused));
+    bgToggle.setAttribute('aria-label', paused ? 'Play background' : 'Pause background');
+    bgToggle.setAttribute('title', paused ? 'Play background' : 'Pause background');
   }
 
   function toggleBg() {
-    const paused = !(cinematicBg && cinematicBg.classList.contains('paused'));
-    setBgPaused(paused);
+    if (!bgVideo) return;
+    if (bgVideo.paused) {
+      // play() returns a promise that rejects if playback is refused (iOS Low
+      // Power Mode, battery saver). Swallowing it keeps the console clean —
+      // the play/pause events below put the button back in sync either way.
+      const attempt = bgVideo.play();
+      if (attempt && typeof attempt.catch === 'function') attempt.catch(() => syncBgButton());
+    } else {
+      bgVideo.pause();
+    }
+    syncBgButton();
+  }
+
+  if (bgVideo) {
+    bgVideo.addEventListener('play', syncBgButton);
+    bgVideo.addEventListener('pause', syncBgButton);
   }
 
   const state = {
@@ -922,7 +939,7 @@
     const route = event.target.closest('a[href^="#/"]');
     if (route) closeDrawer(false);
 
-    // The header button now controls the cinematic background, not a theme.
+    // The header button now controls the background video, not a theme.
     if (event.target.closest('#bg-toggle-btn, [data-bg-toggle]')) {
       event.preventDefault();
       toggleBg();
@@ -1090,9 +1107,17 @@
   });
 
   // Permanent dark mode: the theme is fixed, so there is nothing to restore.
-  // The header button now plays/pauses the cinematic background instead.
+  // The header button now plays/pauses the background video instead.
   document.documentElement.setAttribute('data-theme', 'dark');
-  setBgPaused(false);
+
+  // The <video autoplay loop muted playsinline> starts itself; mirror its real
+  // state on the button (it will read "Play" if autoplay was refused). A
+  // reduced-motion visitor gets the first frame only, in the same shape the
+  // old poster animation honoured that preference, and can start it manually.
+  if (bgVideo && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    bgVideo.pause();
+  }
+  syncBgButton();
 
   render();
 
