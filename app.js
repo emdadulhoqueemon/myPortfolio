@@ -1133,3 +1133,28 @@
     lastScrollY = window.scrollY;
   }, { passive: true });
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const eggBtn = document.getElementById('easter-egg-btn');
+    const plane = document.getElementById('kamikaze-plane');
+    const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
+
+    if (eggBtn && plane && targetContainer) {
+        eggBtn.addEventListener('click', () => {
+            plane.classList.add('plane-fly');
+            // Wait for plane impact (1.1s)
+            setTimeout(() => {
+                targetContainer.classList.add('shatter-mode');
+            }, 1100);
+            // Auto-repair after 5 seconds
+            setTimeout(() => {
+                targetContainer.classList.remove('shatter-mode');
+                targetContainer.classList.add('repair-glitch');
+                setTimeout(() => {
+                    targetContainer.classList.remove('repair-glitch');
+                    plane.classList.remove('plane-fly');
+                }, 500);
+            }, 6100);
+        });
+    }
+});
