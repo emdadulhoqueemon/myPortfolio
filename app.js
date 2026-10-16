@@ -1136,25 +1136,42 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     const eggBtn = document.getElementById('easter-egg-btn');
-    const plane = document.getElementById('kamikaze-plane');
+    const zPlane = document.getElementById('z-plane');
     const targetContainer = document.querySelector('.main-container') || document.querySelector('#app') || document.body;
 
-    if (eggBtn && plane && targetContainer) {
+    if (eggBtn && zPlane && targetContainer) {
         eggBtn.addEventListener('click', () => {
-            plane.classList.add('plane-fly');
-            // Wait for plane impact (1.1s)
+            // 1. Play Synthesized Beep Sound
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                osc.type = 'square'; osc.frequency.setValueAtTime(440, ctx.currentTime);
+                osc.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.2);
+            } catch(e) {}
+
+            // 2. Wait 0.4s, then Scroll to Top
             setTimeout(() => {
-                targetContainer.classList.add('shatter-mode');
-            }, 1100);
-            // Auto-repair after 5 seconds
-            setTimeout(() => {
-                targetContainer.classList.remove('shatter-mode');
-                targetContainer.classList.add('repair-glitch');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // 3. Wait for scroll (~1s), play swoosh and launch plane
                 setTimeout(() => {
-                    targetContainer.classList.remove('repair-glitch');
-                    plane.classList.remove('plane-fly');
-                }, 500);
-            }, 6100);
+                    const swoosh = new Audio('./assets/swoosh.mp3');
+                    swoosh.play().catch(() => console.log('Upload swoosh.mp3 to assets'));
+                    
+                    zPlane.classList.add('jet-strike');
+
+                    // 4. Screen shakes as plane hits center
+                    setTimeout(() => {
+                        targetContainer.classList.add('camera-shake');
+                        
+                        // 5. Restore after plane passes
+                        setTimeout(() => {
+                            targetContainer.classList.remove('camera-shake');
+                            zPlane.classList.remove('jet-strike');
+                        }, 800);
+                    }, 400); // 400ms after plane launches
+                }, 1000);
+            }, 400);
         });
     }
 });

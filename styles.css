@@ -6323,26 +6323,29 @@ html {
 .easter-trigger { background: transparent; border: none; color: #444; font-size: 11px; cursor: pointer; transition: 0.3s; position: relative; z-index: 50; }
 .easter-trigger:hover { color: #ff3333; }
 
-#kamikaze-plane { position: fixed; top: -100px; left: -100px; z-index: 9999; pointer-events: none; opacity: 0; transform: rotate(45deg); }
-.plane-fly { animation: flight-path 1.2s cubic-bezier(.25,.1,.25,1) forwards; opacity: 1 !important; }
-
-.shatter-mode { animation: shatter-impact 5s forwards !important; pointer-events: none; }
-.repair-glitch { animation: glitch-fix 0.5s forwards !important; }
-
-@keyframes flight-path {
-    0% { top: -50px; left: -50px; transform: rotate(45deg) scale(1); opacity: 1; }
-    100% { top: 50%; left: 50%; transform: rotate(45deg) scale(4); opacity: 0; }
+#z-plane {
+    position: fixed; top: -300px; left: 50%;
+    transform: translateX(-50%) rotate(180deg) scale(2);
+    z-index: 9999; pointer-events: none; opacity: 0; width: 150px;
 }
-@keyframes shatter-impact {
-    0% { transform: scale(1) rotate(0); filter: blur(0); }
-    2% { transform: scale(1.1) rotate(3deg) skew(15deg); filter: invert(1) blur(3px); }
-    5% { transform: scale(0.9) rotate(-5deg) translateY(30px); filter: grayscale(1) blur(1px); }
-    10%, 95% { transform: scale(0.95) rotate(2deg) translateY(20px) skew(-3deg); filter: drop-shadow(8px 8px 0px rgba(255,0,0,0.7)) drop-shadow(-8px -8px 0px rgba(0,50,255,0.7)); opacity: 0.8; }
-    100% { transform: scale(0.95) rotate(2deg) translateY(20px) skew(-3deg); opacity: 0.8; }
+.jet-strike {
+    animation: fly-down 1.2s cubic-bezier(.17,.84,.44,1) forwards;
+    opacity: 1 !important;
 }
-@keyframes glitch-fix {
-    0% { transform: translate(10px, 10px); filter: invert(1); }
-    25% { transform: translate(-10px, -5px); filter: hue-rotate(90deg); }
-    50% { transform: translate(5px, -10px); filter: blur(4px); }
-    100% { transform: translate(0, 0); filter: none; }
+.camera-shake {
+    animation: violent-shake 0.4s ease-in-out infinite;
+    filter: hue-rotate(45deg) invert(0.2) blur(3px) grayscale(0.5);
+}
+
+@keyframes fly-down {
+    0% { top: -300px; opacity: 1; }
+    100% { top: 120vh; opacity: 1; }
+}
+@keyframes violent-shake {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-15px, 15px) rotate(-2deg); }
+    40% { transform: translate(15px, -15px) rotate(2deg); }
+    60% { transform: translate(-20px, 5px) rotate(-1deg); }
+    80% { transform: translate(20px, -5px) rotate(1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
 }
