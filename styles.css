@@ -6139,13 +6139,14 @@ input, textarea {
 }
 
 /* ===================================================================
-   FULL-SCREEN BACKGROUND VIDEO + DARK OVERLAY
+   FULL-SCREEN BACKGROUND VIDEO
    A 9:16 (vertical) loop painted behind the whole site. `object-fit:
    cover` crops it to fill any viewport, so on a desktop 16:9 window the
    video is scaled up and centre-cropped rather than letterboxed. It sits
    at z-index:-20, i.e. behind every section, but above <body>'s own
    background because <body> is a stacking context (see `isolation`).
-   A heavy 85% near-black overlay keeps body copy readable on top.
+   The loop is natively dark and textured, so it is shown exactly as it
+   is: no overlay, no filters, nothing between the video and the page.
    =================================================================== */
 #video-bg-container {
     position: fixed;
@@ -6155,25 +6156,15 @@ input, textarea {
     overflow: hidden;
     pointer-events: none;
 }
-/* The video is positioned with its own (more negative) stack level so the
-   overlay below can sit *on top* of it: inside this stacking context the
-   negative levels paint in ascending order, video first, overlay second.
-   Left static, the video would land in the in-flow layer and paint over the
-   overlay, and the darkening would never be seen. */
+/* The video keeps its own (more negative) stack level so it stays at the
+   bottom of this container's stacking context, i.e. behind every painted
+   layer of the page. Artwork on the video itself is left untouched. */
 #bg-video {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover; /* This makes the 9:16 video fit perfectly on desktop too */
-    filter: grayscale(30%); /* Optional: slightly desaturates to blend better */
     z-index: -20;
-}
-#video-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(5, 5, 5, 0.85); /* Heavy dark overlay */
-    z-index: -19;
 }
 
 /* Reduced motion is handled in app.js rather than here: the loop is started
