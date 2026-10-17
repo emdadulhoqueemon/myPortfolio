@@ -480,16 +480,6 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
-                  <svg id="easter-egg-home" viewBox="0 0 100 100" style="position: absolute; top: 25%; right: -30px; width: 100px; height: 100px; z-index: 9999; cursor: pointer; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.8)); display: block !important;">
-                    <!-- An invisible curved path for the text to follow -->
-                    <path id="curvePath" d="M 20,5 A 45,45 0 0,1 20,95" fill="transparent" />
-                    <!-- The curved text -->
-                    <text font-size="12" font-family="sans-serif" font-weight="bold" fill="#ffffff" letter-spacing="1">
-                        <textPath href="#curvePath" startOffset="50%" text-anchor="middle">
-                            Donot Click
-                        </textPath>
-                    </text>
-                </svg>
                 </div>
               </div>
             </div>
@@ -1144,45 +1134,64 @@
   }, { passive: true });
 })();
 
+// Easter egg: tapping the hero portrait circle gives a short digital beep and
+// breaks the "screen" with progressive LCD damage lines.
+//
+// Bound with delegation on document rather than directly on the node found at
+// DOMContentLoaded: the hero is re-rendered by the router on every hash change
+// (app.innerHTML = output), which would otherwise throw away the listener the
+// first time a visitor navigated away from #/ and came back.
 document.addEventListener('DOMContentLoaded', () => {
-    // Find the button forcefully
-    const btnHome = document.getElementById('easter-egg-home') || document.querySelector('.easter-btn-home');
+    // Ensure old triggers are removed
+    const oldTrigger = document.getElementById('easter-egg-home');
+    if (oldTrigger) oldTrigger.remove();
+});
 
-    if (btnHome) {
-        // Clone and replace to kill any old conflicting event listeners
-        const newBtn = btnHome.cloneNode(true);
-        btnHome.parentNode.replaceChild(newBtn, btnHome);
+document.addEventListener('click', (event) => {
+    const portraitWrapper = event.target.closest?.('.portrait-wrapper');
+    if (!portraitWrapper) return;
 
-        newBtn.addEventListener('click', () => {
-            // 1. Play Synthesized Alarm Beep
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.value = 800;
+    // Prevent multiple clicks spawning multiple overlays
+    if (document.querySelector('.broken-screen-overlay')) return;
 
-                // Vibrato for the glitchy alarm feel
-                const lfo = audioCtx.createOscillator();
-                lfo.type = 'square';
-                lfo.frequency.value = 25;
-                const lfoGain = audioCtx.createGain();
-                lfoGain.gain.value = 200;
-                lfo.connect(lfoGain);
-                lfoGain.connect(osc.frequency);
-                lfo.start();
+    // 1. Single Short Digital Beep
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(900, audioCtx.currentTime);
+        osc.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.15); // 150ms short beep
+    } catch (e) {}
 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                setTimeout(() => { osc.stop(); }, 4000);
-            } catch(e) { console.log('Audio error', e); }
+    // 2. Create the Broken Screen Overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'broken-screen-overlay';
+    document.body.appendChild(overlay);
 
-            // 2. Trigger Earthquake on the whole Body
-            document.body.classList.add('earthquake-mode');
-            setTimeout(() => {
-                document.body.classList.remove('earthquake-mode');
-            }, 4000);
-        });
-    }
+    const colors = ['#00ff00', '#ff0000', '#0000ff', '#ff00ff', '#00ffff'];
+
+    // 3. Progressively add vertical lines simulating screen damage
+    const glitchInterval = setInterval(() => {
+        const linesToAdd = Math.floor(Math.random() * 4) + 1; // Add 1 to 4 lines per tick
+        for (let i = 0; i < linesToAdd; i++) {
+            const line = document.createElement('div');
+            line.className = 'lcd-line';
+            line.style.left = Math.random() * 100 + 'vw';
+            line.style.width = (Math.random() * 3 + 1) + 'px'; // 1px to 4px thick
+            line.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            line.style.color = line.style.backgroundColor;
+            overlay.appendChild(line);
+        }
+    }, 150); // Add lines every 150ms
+
+    // 4. Fade out after 6 seconds, completely remove at 7 seconds
+    setTimeout(() => {
+        clearInterval(glitchInterval);
+        overlay.style.opacity = '0'; // Starts the fade-out
+        setTimeout(() => {
+            overlay.remove();
+        }, 1000);
+    }, 6000);
 });

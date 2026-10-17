@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=202610170342" />
+    <link rel="stylesheet" href="styles.css?v=202610170438" />
     <script>
       // Permanent dark mode. The theme is fixed, so it only needs to be
       // asserted before paint (and any stale light/dark choice retired).
@@ -32,23 +32,6 @@
       })();
     </script>
 <style>
-    .earthquake-mode {
-        animation: violent-earthquake 0.2s infinite, glitch-colors 0.4s infinite !important;
-        pointer-events: none !important;
-        overflow: hidden !important;
-    }
-    @keyframes violent-earthquake {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        20% { transform: translate(-20px, 20px) rotate(-2deg); }
-        40% { transform: translate(20px, -20px) rotate(2deg); }
-        60% { transform: translate(-20px, 5px) rotate(-1deg); }
-        80% { transform: translate(20px, -5px) rotate(1deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
-    @keyframes glitch-colors {
-        0%, 100% { filter: hue-rotate(0deg) invert(0); }
-        50% { filter: hue-rotate(90deg) invert(0.2) blur(3px); }
-    }
     .easter-svg-btn {
         position: absolute !important;
         top: 65% !important;
@@ -248,14 +231,14 @@
 
     <div id="modal-root"></div>
 
-    <script src="data/graphic-design.js?v=202610170342"></script>
-    <script src="data/thumbnails.js?v=202610170342"></script>
-    <script src="data/videos.js?v=202610170342"></script>
-    <script src="data/bangla-namelipi.js?v=202610170342"></script>
-    <script src="data/arabic-calligraphy.js?v=202610170342"></script>
-    <script src="data/islamic-corner.js?v=202610170342"></script>
-    <script src="data/prompt-library.js?v=202610170342"></script>
-    <script src="app.js?v=202610170342"></script>
+    <script src="data/graphic-design.js?v=202610170438"></script>
+    <script src="data/thumbnails.js?v=202610170438"></script>
+    <script src="data/videos.js?v=202610170438"></script>
+    <script src="data/bangla-namelipi.js?v=202610170438"></script>
+    <script src="data/arabic-calligraphy.js?v=202610170438"></script>
+    <script src="data/islamic-corner.js?v=202610170438"></script>
+    <script src="data/prompt-library.js?v=202610170438"></script>
+    <script src="app.js?v=202610170438"></script>
 
     <!-- PWA: register the service worker. Requires HTTPS (or localhost);
          it is skipped silently anywhere else, so this is safe on any host. -->
@@ -268,44 +251,5 @@
         });
       }
     </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('easter-egg-home') || document.querySelector('.easter-btn-home');
-        if (btn) {
-            // Clone to kill old conflicting listeners
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-
-            newBtn.addEventListener('click', () => {
-                try {
-                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.value = 800;
-
-                    const lfo = audioCtx.createOscillator();
-                    lfo.type = 'square';
-                    lfo.frequency.value = 25;
-                    const lfoGain = audioCtx.createGain();
-                    lfoGain.gain.value = 200;
-                    lfo.connect(lfoGain);
-                    lfoGain.connect(osc.frequency);
-                    lfo.start();
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    setTimeout(() => { osc.stop(); audioCtx.close(); }, 4000);
-                } catch(e) {}
-
-                document.body.classList.add('earthquake-mode');
-                setTimeout(() => {
-                    document.body.classList.remove('earthquake-mode');
-                }, 4000);
-            });
-        }
-    });
-</script>
 </body>
 </html>
