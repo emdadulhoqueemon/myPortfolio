@@ -1144,6 +1144,7 @@ function initializeBlurAnimations() {
     '.portfolio-item',
     'section',
     '.box',
+    '.prompt-box',
     '.accordion-item',
     '.practice-item',
     '.archive-entry',
@@ -1157,15 +1158,26 @@ function initializeBlurAnimations() {
   ].join(', ');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const registeredItems = new WeakSet();
+  const fallbackTimers = new WeakMap();
   const blurObserver = !reducedMotion && 'IntersectionObserver' in window
     ? new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add('in-focus');
+          revealItem(entry.target);
           observer.unobserve(entry.target);
         });
-      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' })
+      }, { threshold: 0.02, rootMargin: '50px 0px' })
     : null;
+
+  function revealItem(item) {
+    item.classList.add('in-focus');
+    blurObserver?.unobserve(item);
+    const timer = fallbackTimers.get(item);
+    if (timer !== undefined) {
+      window.clearTimeout(timer);
+      fallbackTimers.delete(item);
+    }
+  }
 
   function prepareItems(root) {
     if (!root || typeof root.querySelectorAll !== 'function') return;
@@ -1181,12 +1193,21 @@ function initializeBlurAnimations() {
       // Clear any inline positional transforms left by the former parallax effect.
       item.style.transform = '';
       item.style.translate = '';
-      if (blurObserver) blurObserver.observe(item);
-      else item.classList.add('in-focus');
+      if (blurObserver) {
+        blurObserver.observe(item);
+        // Reveal individually as a safety net, including route content added later.
+        fallbackTimers.set(item, window.setTimeout(() => revealItem(item), 1500));
+      } else {
+        item.classList.add('in-focus');
+      }
     });
   }
 
   prepareItems(document);
+  window.setTimeout(() => {
+    document.querySelectorAll('.cinematic-blur:not(.in-focus)').forEach(revealItem);
+  }, 1500);
+
   const contentObserver = new MutationObserver((records) => {
     records.forEach((record) => {
       record.addedNodes.forEach((node) => {
