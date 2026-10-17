@@ -1134,9 +1134,9 @@
   }, { passive: true });
 })();
 
-// Staggered viewport reveal for portfolio content. A mutation observer keeps
-// newly rendered SPA route content in sync with the same cascade observer.
-function initializeCascadeAnimations() {
+// Cinematic blur reveal and subtle content parallax for portfolio elements.
+// Observe added nodes as well so SPA route changes receive the same treatment.
+function initializeScrollAnimations() {
   const targetSelector = [
     '.gallery-item',
     '.project-card',
@@ -1151,50 +1151,84 @@ function initializeCascadeAnimations() {
     '.prompt-group',
     '.verse-card',
     '.promo-card',
-    '.note-box'
+    '.note-box',
+    '.media-asset',
+    '.accordion-thumb'
   ].join(', ');
-  const observedItems = new WeakSet();
-  const cascadeObserver = 'IntersectionObserver' in window
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const registeredItems = new WeakSet();
+  const parallaxItems = new Set();
+  let itemIndex = 0;
+  let framePending = false;
+
+  const blurObserver = !reducedMotion && 'IntersectionObserver' in window
     ? new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add('show-cascade');
+          entry.target.classList.add('in-focus');
           observer.unobserve(entry.target);
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' })
     : null;
 
-  function prepareCascade(root) {
-    if (!(root instanceof Element || root instanceof Document)) return;
+  function updateParallax() {
+    const scrolled = window.pageYOffset || window.scrollY || 0;
+    parallaxItems.forEach((item) => {
+      if (!item.isConnected) {
+        parallaxItems.delete(item);
+        blurObserver?.unobserve(item);
+        return;
+      }
+      const speed = Number.parseFloat(item.dataset.speed) || 0;
+      // Use the individual translate property so hover transforms and existing
+      // reveal animations on cards remain intact.
+      item.style.translate = `0px ${scrolled * speed}px`;
+    });
+    framePending = false;
+  }
+
+  function requestParallaxUpdate() {
+    if (reducedMotion || framePending) return;
+    framePending = true;
+    window.requestAnimationFrame(updateParallax);
+  }
+
+  function prepareItems(root) {
+    if (!root || typeof root.querySelectorAll !== 'function') return;
     const candidates = [];
-    if (root instanceof Element && root.matches(targetSelector)) candidates.push(root);
+    if (root.nodeType === 1 && root.matches(targetSelector)) candidates.push(root);
     candidates.push(...root.querySelectorAll(targetSelector));
 
     candidates.forEach((item) => {
-      if (item.closest('nav, .site-header, .site-footer, .portrait-wrapper')) return;
-      if (observedItems.has(item)) return;
-      observedItems.add(item);
-      item.classList.add('cascade-item');
-      if (cascadeObserver) cascadeObserver.observe(item);
-      else item.classList.add('show-cascade');
+      if (item.closest('nav, .site-header, .site-footer, .portrait-wrapper') || item.querySelector('.portrait-wrapper')) return;
+      if (registeredItems.has(item)) return;
+      registeredItems.add(item);
+      item.classList.add('cinematic-blur', 'parallax-wrapper');
+      item.dataset.speed = String(0.03 + (itemIndex % 3) * 0.025);
+      itemIndex += 1;
+      if (blurObserver) blurObserver.observe(item);
+      else item.classList.add('in-focus');
+      if (!reducedMotion) parallaxItems.add(item);
     });
+    requestParallaxUpdate();
   }
 
-  prepareCascade(document);
+  prepareItems(document);
   const contentObserver = new MutationObserver((records) => {
     records.forEach((record) => {
       record.addedNodes.forEach((node) => {
-        if (node instanceof Element) prepareCascade(node);
+        if (node.nodeType === 1) prepareItems(node);
       });
     });
   });
   contentObserver.observe(document.body, { childList: true, subtree: true });
+  window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeCascadeAnimations, { once: true });
+  document.addEventListener('DOMContentLoaded', initializeScrollAnimations, { once: true });
 } else {
-  initializeCascadeAnimations();
+  initializeScrollAnimations();
 }
 
 // Easter egg: tapping the hero portrait circle gives a short digital beep and
