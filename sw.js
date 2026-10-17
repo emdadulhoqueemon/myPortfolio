@@ -8,7 +8,7 @@
 //     written back into the cache so the versioned asset URLs are covered too.
 //   - Everything else (non-GET, cross-origin) is left alone.
 
-const CACHE_NAME = 'emon-portfolio-v2';
+const CACHE_NAME = 'emon-portfolio-v3';
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
