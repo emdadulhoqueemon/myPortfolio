@@ -1145,12 +1145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure old triggers are removed
     const oldTrigger = document.getElementById('easter-egg-home');
     if (oldTrigger) oldTrigger.remove();
-
-    // Keep the branded splash visible briefly, then fade it away.
-    const splashScreen = document.getElementById('custom-splash-screen');
-    if (splashScreen) {
-      window.setTimeout(() => splashScreen.classList.add('hide-splash'), 2000);
-    }
 });
 
 document.addEventListener('click', (event) => {
