@@ -1134,6 +1134,69 @@
   }, { passive: true });
 })();
 
+// Staggered viewport reveal for portfolio content. A mutation observer keeps
+// newly rendered SPA route content in sync with the same cascade observer.
+function initializeCascadeAnimations() {
+  const targetSelector = [
+    '.gallery-item',
+    '.project-card',
+    '.portfolio-thumbnail',
+    '.portfolio-item',
+    'section',
+    '.box',
+    '.accordion-item',
+    '.practice-item',
+    '.archive-entry',
+    '.guideline-item',
+    '.prompt-group',
+    '.verse-card',
+    '.promo-card',
+    '.note-box'
+  ].join(', ');
+  const observedItems = new WeakSet();
+  const cascadeObserver = 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('show-cascade');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' })
+    : null;
+
+  function prepareCascade(root) {
+    if (!(root instanceof Element || root instanceof Document)) return;
+    const candidates = [];
+    if (root instanceof Element && root.matches(targetSelector)) candidates.push(root);
+    candidates.push(...root.querySelectorAll(targetSelector));
+
+    candidates.forEach((item) => {
+      if (item.closest('nav, .site-header, .site-footer, .portrait-wrapper')) return;
+      if (observedItems.has(item)) return;
+      observedItems.add(item);
+      item.classList.add('cascade-item');
+      if (cascadeObserver) cascadeObserver.observe(item);
+      else item.classList.add('show-cascade');
+    });
+  }
+
+  prepareCascade(document);
+  const contentObserver = new MutationObserver((records) => {
+    records.forEach((record) => {
+      record.addedNodes.forEach((node) => {
+        if (node instanceof Element) prepareCascade(node);
+      });
+    });
+  });
+  contentObserver.observe(document.body, { childList: true, subtree: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeCascadeAnimations, { once: true });
+} else {
+  initializeCascadeAnimations();
+}
+
 // Easter egg: tapping the hero portrait circle gives a short digital beep and
 // breaks the "screen" with progressive LCD damage lines.
 //
