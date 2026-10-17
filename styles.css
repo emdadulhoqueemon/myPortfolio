@@ -6320,7 +6320,8 @@ html {
     scrollbar-color: rgba(255, 255, 255, 0.32) rgba(255, 255, 255, 0.06);
 }
 
-/* Easter Egg: Earthquake & Glitch */
+/* Easter Egg: legacy trigger styles (the earthquake effect is retired —
+   the portrait circle now drives the broken-LCD effect instead). */
 .easter-btn-home {
     position: absolute;
     top: 65%;
@@ -6334,25 +6335,6 @@ html {
     font-weight: bold;
     cursor: pointer;
     z-index: 10;
-}
-
-.earthquake-mode {
-    animation: violent-earthquake 0.2s infinite, glitch-colors 0.4s infinite !important;
-    pointer-events: none; /* Prevents clicks during the quake */
-}
-
-@keyframes violent-earthquake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-10px, 15px) rotate(-1deg); }
-    40% { transform: translate(15px, -10px) rotate(1deg); }
-    60% { transform: translate(-15px, 5px) rotate(-2deg); }
-    80% { transform: translate(10px, -15px) rotate(2deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
-}
-@keyframes glitch-colors {
-    0%, 100% { filter: hue-rotate(0deg) invert(0); }
-    33% { filter: hue-rotate(90deg) invert(0.2) blur(1px); }
-    66% { filter: hue-rotate(-90deg) invert(0.4) blur(2px); }
 }
 
 .easter-btn-home {
@@ -6373,22 +6355,45 @@ html {
 .portrait-wrapper::before {
     background: linear-gradient(135deg, #ffcc00, #ff6600) !important;
 }
-.earthquake-mode {
-    animation: violent-earthquake 0.2s infinite, glitch-colors 0.4s infinite !important;
-    pointer-events: none !important;
-    overflow: hidden !important;
+
+/* ===================================================================
+   EASTER EGG — tactile press + broken LCD display
+   -------------------------------------------------------------------
+   The click target is the gradient circle, which is the ::before pseudo
+   element of .portrait-wrapper. Only that pseudo element is animated, so
+   the portrait <img> (z-index: 2, positioned) never moves: the circle
+   depresses under the pointer while the photo stays perfectly still.
+   =================================================================== */
+
+/* Tactile press effect for the background circle only */
+.portrait-wrapper {
+    cursor: pointer !important;
 }
-@keyframes violent-earthquake {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    20% { transform: translate(-20px, 20px) rotate(-2deg); }
-    40% { transform: translate(20px, -20px) rotate(2deg); }
-    60% { transform: translate(-20px, 5px) rotate(-1deg); }
-    80% { transform: translate(20px, -5px) rotate(1deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+.portrait-wrapper::before {
+    transition: transform 0.15s ease-out, opacity 0.15s ease-out !important;
 }
-@keyframes glitch-colors {
-    0%, 100% { filter: hue-rotate(0deg) invert(0); }
-    50% { filter: hue-rotate(90deg) invert(0.2) blur(3px); }
+.portrait-wrapper:active::before {
+    /* translateX(-50%) is the circle's centring transform from the hero
+       layout above — it has to stay in the stack or the circle would jump
+       sideways the moment it is pressed. */
+    transform: translateX(-50%) scale(0.93) translateY(8px) !important; /* Depresses the circle slightly */
+    opacity: 0.8 !important;
+}
+
+/* Broken LCD Display CSS */
+.broken-screen-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 999999;
+    transition: opacity 1s ease-out; /* For the smooth fade out */
+}
+.lcd-line {
+    position: absolute;
+    top: 0; height: 100%;
+    opacity: 0.85;
+    box-shadow: 0 0 4px currentColor;
 }
 
 .easter-svg-btn {
