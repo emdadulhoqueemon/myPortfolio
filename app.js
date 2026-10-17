@@ -480,7 +480,16 @@
               <div class="hero-photo">
                 <div class="portrait-wrapper">
                   <img class="hero-photo__img" src="assets/hero-portrait.png" alt="Emdadul Hoque Emon" loading="eager" decoding="async" fetchpriority="high" />
-                  <img id="easter-egg-home" class="easter-svg-btn" src="./assets/Donot-Click.svg" alt="Do Not Click" style="position: absolute !important; top: 65% !important; right: -10px !important; width: 40px !important; height: auto !important; cursor: pointer !important; z-index: 9999 !important; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)) !important; display: block !important;">
+                  <svg id="easter-egg-home" viewBox="0 0 100 100" style="position: absolute; top: 25%; right: -30px; width: 100px; height: 100px; z-index: 9999; cursor: pointer; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.8)); display: block !important;">
+                    <!-- An invisible curved path for the text to follow -->
+                    <path id="curvePath" d="M 20,5 A 45,45 0 0,1 20,95" fill="transparent" />
+                    <!-- The curved text -->
+                    <text font-size="12" font-family="sans-serif" font-weight="bold" fill="#ffffff" letter-spacing="1">
+                        <textPath href="#curvePath" startOffset="50%" text-anchor="middle">
+                            Donot Click
+                        </textPath>
+                    </text>
+                </svg>
                 </div>
               </div>
             </div>
