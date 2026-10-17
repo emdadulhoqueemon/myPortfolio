@@ -6405,7 +6405,7 @@ html {
     transform: scale(1.1) rotate(-5deg) !important; /* Slight tilt on hover */
 }
 
-/* Cinematic blur reveal paired with subtle, content-based parallax. */
+/* Cinematic blur-to-focus reveal for portfolio content. */
 .cinematic-blur {
   opacity: 0 !important;
   filter: blur(15px) !important;
@@ -6418,20 +6418,12 @@ html {
   filter: blur(0) !important;
 }
 
-.parallax-wrapper {
-  will-change: transform, translate;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .cinematic-blur,
   .cinematic-blur.in-focus {
     opacity: 1 !important;
     filter: none !important;
     transition: none !important;
-    will-change: auto;
-  }
-
-  .parallax-wrapper {
     will-change: auto;
   }
 }

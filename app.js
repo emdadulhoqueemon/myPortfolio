@@ -1134,9 +1134,9 @@
   }, { passive: true });
 })();
 
-// Cinematic blur reveal and subtle content parallax for portfolio elements.
-// Observe added nodes as well so SPA route changes receive the same treatment.
-function initializeScrollAnimations() {
+// Cinematic blur-to-focus reveal for portfolio content. The mutation observer
+// keeps newly rendered SPA routes in sync without any scroll-driven transforms.
+function initializeBlurAnimations() {
   const targetSelector = [
     '.gallery-item',
     '.project-card',
@@ -1157,10 +1157,6 @@ function initializeScrollAnimations() {
   ].join(', ');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const registeredItems = new WeakSet();
-  const parallaxItems = new Set();
-  let itemIndex = 0;
-  let framePending = false;
-
   const blurObserver = !reducedMotion && 'IntersectionObserver' in window
     ? new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
@@ -1170,28 +1166,6 @@ function initializeScrollAnimations() {
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' })
     : null;
-
-  function updateParallax() {
-    const scrolled = window.pageYOffset || window.scrollY || 0;
-    parallaxItems.forEach((item) => {
-      if (!item.isConnected) {
-        parallaxItems.delete(item);
-        blurObserver?.unobserve(item);
-        return;
-      }
-      const speed = Number.parseFloat(item.dataset.speed) || 0;
-      // Use the individual translate property so hover transforms and existing
-      // reveal animations on cards remain intact.
-      item.style.translate = `0px ${scrolled * speed}px`;
-    });
-    framePending = false;
-  }
-
-  function requestParallaxUpdate() {
-    if (reducedMotion || framePending) return;
-    framePending = true;
-    window.requestAnimationFrame(updateParallax);
-  }
 
   function prepareItems(root) {
     if (!root || typeof root.querySelectorAll !== 'function') return;
@@ -1203,14 +1177,13 @@ function initializeScrollAnimations() {
       if (item.closest('nav, .site-header, .site-footer, .portrait-wrapper') || item.querySelector('.portrait-wrapper')) return;
       if (registeredItems.has(item)) return;
       registeredItems.add(item);
-      item.classList.add('cinematic-blur', 'parallax-wrapper');
-      item.dataset.speed = String(0.03 + (itemIndex % 3) * 0.025);
-      itemIndex += 1;
+      item.classList.add('cinematic-blur');
+      // Clear any inline positional transforms left by the former parallax effect.
+      item.style.transform = '';
+      item.style.translate = '';
       if (blurObserver) blurObserver.observe(item);
       else item.classList.add('in-focus');
-      if (!reducedMotion) parallaxItems.add(item);
     });
-    requestParallaxUpdate();
   }
 
   prepareItems(document);
@@ -1222,13 +1195,12 @@ function initializeScrollAnimations() {
     });
   });
   contentObserver.observe(document.body, { childList: true, subtree: true });
-  window.addEventListener('scroll', requestParallaxUpdate, { passive: true });
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeScrollAnimations, { once: true });
+  document.addEventListener('DOMContentLoaded', initializeBlurAnimations, { once: true });
 } else {
-  initializeScrollAnimations();
+  initializeBlurAnimations();
 }
 
 // Easter egg: tapping the hero portrait circle gives a short digital beep and
