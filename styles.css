@@ -4872,14 +4872,8 @@ span.arabic-text,
   height: 80px;
   object-fit: cover;
   border-radius: 8px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
   flex: 0 0 80px;
   -webkit-user-drag: none;
-}
-
-.accordion-header:hover .accordion-thumb {
-  filter: grayscale(0%);
 }
 
 /* Title / category text block sitting to the right of the thumbnail. */
@@ -6409,4 +6403,27 @@ html {
 }
 .easter-svg-btn:hover {
     transform: scale(1.1) rotate(-5deg) !important; /* Slight tilt on hover */
+}
+
+/* Cinematic blur-to-focus reveal for portfolio content. */
+.cinematic-blur {
+  opacity: 0 !important;
+  filter: blur(15px) !important;
+  transition: opacity 0.8s ease-out, filter 0.8s ease-out !important;
+  will-change: opacity, filter;
+}
+
+.cinematic-blur.in-focus {
+  opacity: 1 !important;
+  filter: blur(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-blur,
+  .cinematic-blur.in-focus {
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
 }

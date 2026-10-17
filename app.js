@@ -1134,6 +1134,96 @@
   }, { passive: true });
 })();
 
+// Cinematic blur-to-focus reveal for portfolio content. The mutation observer
+// keeps newly rendered SPA routes in sync without any scroll-driven transforms.
+function initializeBlurAnimations() {
+  const targetSelector = [
+    '.gallery-item',
+    '.project-card',
+    '.portfolio-thumbnail',
+    '.portfolio-item',
+    'section',
+    '.box',
+    '.prompt-box',
+    '.accordion-item',
+    '.practice-item',
+    '.archive-entry',
+    '.guideline-item',
+    '.prompt-group',
+    '.verse-card',
+    '.promo-card',
+    '.note-box',
+    '.media-asset',
+    '.accordion-thumb'
+  ].join(', ');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const registeredItems = new WeakSet();
+  const fallbackTimers = new WeakMap();
+  const blurObserver = !reducedMotion && 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          revealItem(entry.target);
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.02, rootMargin: '50px 0px' })
+    : null;
+
+  function revealItem(item) {
+    item.classList.add('in-focus');
+    blurObserver?.unobserve(item);
+    const timer = fallbackTimers.get(item);
+    if (timer !== undefined) {
+      window.clearTimeout(timer);
+      fallbackTimers.delete(item);
+    }
+  }
+
+  function prepareItems(root) {
+    if (!root || typeof root.querySelectorAll !== 'function') return;
+    const candidates = [];
+    if (root.nodeType === 1 && root.matches(targetSelector)) candidates.push(root);
+    candidates.push(...root.querySelectorAll(targetSelector));
+
+    candidates.forEach((item) => {
+      if (item.closest('nav, .site-header, .site-footer, .portrait-wrapper') || item.querySelector('.portrait-wrapper')) return;
+      if (registeredItems.has(item)) return;
+      registeredItems.add(item);
+      item.classList.add('cinematic-blur');
+      // Clear any inline positional transforms left by the former parallax effect.
+      item.style.transform = '';
+      item.style.translate = '';
+      if (blurObserver) {
+        blurObserver.observe(item);
+        // Reveal individually as a safety net, including route content added later.
+        fallbackTimers.set(item, window.setTimeout(() => revealItem(item), 1500));
+      } else {
+        item.classList.add('in-focus');
+      }
+    });
+  }
+
+  prepareItems(document);
+  window.setTimeout(() => {
+    document.querySelectorAll('.cinematic-blur:not(.in-focus)').forEach(revealItem);
+  }, 1500);
+
+  const contentObserver = new MutationObserver((records) => {
+    records.forEach((record) => {
+      record.addedNodes.forEach((node) => {
+        if (node.nodeType === 1) prepareItems(node);
+      });
+    });
+  });
+  contentObserver.observe(document.body, { childList: true, subtree: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeBlurAnimations, { once: true });
+} else {
+  initializeBlurAnimations();
+}
+
 // Easter egg: tapping the hero portrait circle gives a short digital beep and
 // breaks the "screen" with progressive LCD damage lines.
 //
