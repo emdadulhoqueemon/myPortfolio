@@ -4872,14 +4872,8 @@ span.arabic-text,
   height: 80px;
   object-fit: cover;
   border-radius: 8px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
   flex: 0 0 80px;
   -webkit-user-drag: none;
-}
-
-.accordion-header:hover .accordion-thumb {
-  filter: grayscale(0%);
 }
 
 /* Title / category text block sitting to the right of the thumbnail. */
